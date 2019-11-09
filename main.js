@@ -24,7 +24,7 @@ async function getNumberOfPages(productId) {
         maxConcurrency: 50,
         maxRequestRetries: 1,
         handlePageTimeoutSecs: 60,
-        handlePageFunction: async ({ request, html, $ }) => {
+        handlePageFunction: async ({ request, body, $ }) => {
             numberOfReviews = $(".reviews a")
                 .attr("title")
                 .replace(/\D/g, "");
@@ -57,7 +57,7 @@ async function getReviews(numberOfPages) {
         maxConcurrency: 50,
         maxRequestRetries: 1,
         handlePageTimeoutSecs: 60,
-        handlePageFunction: async ({ request, html, $ }) => {
+        handlePageFunction: async ({ request, body, $ }) => {
             const reviewData = $("li.review-box");
             reviewData.each((index, el) => {
                 const elObj = $(el);
@@ -76,18 +76,43 @@ async function getReviews(numberOfPages) {
                 const isRecommended =
                     elObj.find(".product-review-summary em").html() ===
                     "Polecam";
+                const wasPurchased = !!dateOfPurchase;
                 const message = elObj
                     .find(".product-review-body")
                     .text()
                     .trim();
+                const advantages = [];
+                elObj.find(".pros-cell li").each((index, element) => {
+                    advantages.push(
+                        $(element)
+                            .text()
+                            .trim()
+                    );
+                });
+
+                const disadvantages = [];
+                elObj.find(".cons-cell li").each((index, element) => {
+                    disadvantages.push(
+                        $(element)
+                            .text()
+                            .trim()
+                    );
+                });
+                const numberOfUpVotes = elObj.find(".vote-yes span").text();
+                const numberOfDownVotes = elObj.find(".vote-no span").text();
                 reviews.push({
                     id,
                     author,
-                    dateOfReview,
+                    wasPurchased,
                     dateOfPurchase,
+                    dateOfReview,
                     score,
                     isRecommended,
-                    message
+                    message,
+                    advantages,
+                    disadvantages,
+                    numberOfUpVotes,
+                    numberOfDownVotes
                 });
             });
         },
