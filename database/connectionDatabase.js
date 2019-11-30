@@ -25,6 +25,26 @@ const table_product_information = "CREATE TABLE product_information (id INT PRIM
 })();
 
 
+// ALTER TABLE `product_shop` ADD FOREIGN KEY (`product_id_fk`) REFERENCES `product` (`id`);
+//
+// ALTER TABLE `product_shop` ADD FOREIGN KEY (`shops_id_fk`) REFERENCES `shop` (`id`);
+//
+// ALTER TABLE `review` ADD FOREIGN KEY (`product_id_fk`) REFERENCES `product` (`id`);
+//
+// ALTER TABLE `review` ADD FOREIGN KEY (`created_by_user_id`) REFERENCES `user` (`id`);
+//
+// ALTER TABLE `review_comment` ADD FOREIGN KEY (`review_id`) REFERENCES `review` (`id`);
+//
+// ALTER TABLE `review_comment` ADD FOREIGN KEY (`created_by_user_id`) REFERENCES `user` (`id`);
+//
+// ALTER TABLE `question` ADD FOREIGN KEY (`created_by_user_id`) REFERENCES `user` (`id`);
+//
+// ALTER TABLE `question_answer` ADD FOREIGN KEY (`created_by_user_id`) REFERENCES `user` (`id`);
+//
+// ALTER TABLE `question_answer` ADD FOREIGN KEY (`question_id`) REFERENCES `question` (`id`);
+//
+// ALTER TABLE `product_information` ADD FOREIGN KEY (`product_id_fk`) REFERENCES `product` (`id`);
+
 // mybase.exec(table_product,table_product_shop,table_shop,table_review,table_review_comment,table_user,table_questions,table_questions_answers,table_product_information);
 
 // function createTables() {
