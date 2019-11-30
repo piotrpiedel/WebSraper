@@ -1,7 +1,8 @@
 const Apify = require("apify");
+const url = require("url");
 const fs = require("fs");
 
-const { log } = Apify.utils;
+const {log} = Apify.utils;
 log.setLevel(log.LEVELS.WARNING);
 
 const productId = 41546872;
@@ -13,7 +14,7 @@ const productId = 41546872;
 
 async function getNumberOfPages(productId) {
     const requestList = new Apify.RequestList({
-        sources: [{ url: `https://www.ceneo.pl/${productId}` }]
+        sources: [{url: `https://www.ceneo.pl/${productId}`}]
     });
     await requestList.initialize();
 
@@ -24,12 +25,12 @@ async function getNumberOfPages(productId) {
         maxConcurrency: 50,
         maxRequestRetries: 1,
         handlePageTimeoutSecs: 60,
-        handlePageFunction: async ({ request, body, $ }) => {
+        handlePageFunction: async ({request, body, $}) => {
             numberOfReviews = $(".reviews a")
                 .attr("title")
                 .replace(/\D/g, "");
         },
-        handleFailedRequestFunction: async ({ request }) => {
+        handleFailedRequestFunction: async ({request}) => {
             console.log(`Request ${request.url} failed twice.`);
         }
     });
@@ -42,7 +43,7 @@ async function getNumberOfPages(productId) {
 async function getReviews(numberOfPages) {
     const urls = [];
     for (let i = 1; i <= numberOfPages; i++) {
-        urls.push({ url: `https://www.ceneo.pl/${productId}/opinie-${i}` });
+        urls.push({url: `https://www.ceneo.pl/${productId}/opinie-${i}`});
     }
     const requestList = new Apify.RequestList({
         sources: urls
@@ -57,7 +58,7 @@ async function getReviews(numberOfPages) {
         maxConcurrency: 50,
         maxRequestRetries: 1,
         handlePageTimeoutSecs: 60,
-        handlePageFunction: async ({ request, body, $ }) => {
+        handlePageFunction: async ({request, body, $}) => {
             const reviewData = $("li.review-box");
             reviewData.each((index, el) => {
                 const elObj = $(el);
@@ -116,7 +117,7 @@ async function getReviews(numberOfPages) {
                 });
             });
         },
-        handleFailedRequestFunction: async ({ request }) => {
+        handleFailedRequestFunction: async ({request}) => {
             console.log(`Request ${request.url} failed twice.`);
         }
     });
@@ -126,7 +127,8 @@ async function getReviews(numberOfPages) {
 }
 
 function saveDataToJsonFile(data) {
-    fs.writeFile("data.json", JSON.stringify(data, null, 4), error => {
+    console.log(__dirname);
+    fs.writeFile(url.resolve(__dirname, 'data\\data.json'), JSON.stringify(data, null, 4), error => {
         if (error) return;
         console.log("Data has been succesfully saved!");
     });
