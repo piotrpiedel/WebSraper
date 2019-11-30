@@ -5,9 +5,12 @@
 	"dependencies": {
 		"apify": "^0.16.0"
 	},
-	"devDependencies": {},
+	"devDependencies": {
+		"alasql": "latest"
+	},
 	"scripts": {
 		"start": "node webscrapper/webscrapper.js",
+		"startDatabase": "node database/connectionDatabase.js",
 		"test": "echo \"Error: oops, the actor has no tests yet, sad!\" && exit 1"
 	},
 	"author": "It's not you it's me",
