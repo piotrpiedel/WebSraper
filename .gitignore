@@ -10,3 +10,4 @@ misc.xml
 modules.xml
 vcs.xml
 .idea/jsLibraryMappings.xml
+.idea/sqldialects.xml
