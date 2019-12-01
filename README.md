@@ -5,4 +5,4 @@ App will scrap data about product from ceneo.pl and save it to json file(data.js
 npm i - install all necessary modules
 npm start - run app
 
-https://dev.mysql.com/doc/mysql-getting-started/en/
+https://dev.mysql.com/downloads/installer/
