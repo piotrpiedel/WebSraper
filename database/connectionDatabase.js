@@ -1,6 +1,8 @@
 const alaSQL = require('alasql');
 const database = new alaSQL.Database();
 
+//NOT USED NOW  DELETE IT LATER
+
 // important alaSql does not handle alter table with foreign key so it must be created at table creation
 // order is important in this case
 // tables creation - it is really painful to create tables so try to cheer up;
@@ -76,13 +78,13 @@ async function createTables() {
 }
 
 (async () => {
-    await createTables().catch(console.error);
+    // await createTables().catch(console.error);
 
-    database.exec("INSERT INTO product VALUES (1, 'Product1')");
-    console.log("Database created");
-    database.exec('SELECT * FROM product', [], function (res) {
-        console.log(res);
-    });
+    // database.exec("INSERT INTO product VALUES (1, 'Product1')");
+    // console.log("Database created");
+    // database.exec('SELECT * FROM product', [], function (res) {
+    //     console.log(res);
+    // });
 
     // database.exec("INSERT INTO product_shop VALUES (1, 'Product1',20,25)");
     // console.log("Database created");

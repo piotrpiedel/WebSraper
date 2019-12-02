@@ -3,14 +3,17 @@
 	"version": "0.0.1",
 	"description": "This is a boilerplate of an Apify actor.",
 	"dependencies": {
-		"apify": "^0.16.0"
+		"apify": "^0.16.0",
+		"mysql": "latest"
 	},
 	"devDependencies": {
-		"alasql": "latest"
+		"alasql": "latest",
+		"mysql2": "^2.0.1"
 	},
 	"scripts": {
 		"start": "node webscrapper/webscrapper.js",
 		"startDatabase": "node database/connectionDatabase.js",
+		"connectDatabaseMySQL": "node database/mysqlconnection.js",
 		"test": "echo \"Error: oops, the actor has no tests yet, sad!\" && exit 1"
 	},
 	"author": "It's not you it's me",
