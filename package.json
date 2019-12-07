@@ -17,6 +17,7 @@
 		"nodemon": "^2.0.1"
 	},
 	"scripts": {
+		"start": "nodemon webscrapper/webscrapper.js"
 	},
 	"author": "It's not you it's me",
 	"license": "ISC"
