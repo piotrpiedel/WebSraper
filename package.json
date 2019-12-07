@@ -18,7 +18,8 @@
 	},
 	"scripts": {
 		"startWebScrapper": "node webscrapper/webscrapper.js",
-		"startServer": "nodemon server/server.js"
+		"startServer": "nodemon server/server.js",
+		"startParser": "nodemon jsonparser/reviewparser.js"
 	},
 	"author": "It's not you it's me",
 	"license": "ISC"
