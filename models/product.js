@@ -7,96 +7,98 @@ const Product = function (id, name) {
     this.name = name;
 };
 
-function onError(cb, error) {
-    if (cb)
-        cb(error, null);
-}
-
-function onSuccess(cb, results) {
-    if (cb)
-        cb(null, results);
-}
-
 Product.createOrUpdateProduct = async function (productModelInstance) {
     if (productModelInstance instanceof Product) {
         let isProductExisting = await Product.checkIfExistsInDatabase(productModelInstance.id);
+        console.log("isProductExisting", isProductExisting);
         if (isProductExisting) {
-            Product.updateById(productModelInstance);
+            var productUpdated = await Product.updateById(productModelInstance);
+            console.log("createOrUpdateProduct productUpdated");
+            return productUpdated;
         } else {
-            Product.insert(productModelInstance);
+            var productInserted = await Product.insert(productModelInstance);
+            console.log("createOrUpdateProduct productInserted");
+            return productInserted;
         }
     }
 };
-Product.insert = function (productModelInstance, cb) {
-    databaseConnection.query("INSERT INTO product set ?", productModelInstance, function (error, results) {
-        if (error) {
-            console.log("Product.insert onError: ", error);
-            onError(cb, error);
-        } else {
-            console.log("Product.insert onResult: ", results);
-            onSuccess(cb, results);
-            return results;
-        }
-    });
+Product.insert = async function (productModelInstance) {
+    return databaseConnection.promise().query("INSERT INTO product set ?", productModelInstance)
+        .then(
+            ([rows, fields, error]) => {
+                if (error) {
+                    console.error(error);
+                } else {
+                    console.log("Product.inserted - rows: ", rows);
+                    return rows;
+                }
+            }
+        );
 };
+
 Product.checkIfExistsInDatabase = async function (productId) {
-    const finalValue = await databaseConnection.promise().query("Select * from product where id = ? ", productId)
+    return databaseConnection.promise().query("Select * from product where id = ? ", productId)
         .then(([rows, fields, error]) => {
-            console.log("Product.checkIfExistsInDatabase: rows", rows);
-            return rows;
+            if (error) {
+                console.error(error);
+            } else {
+                console.log("Product.checkIfExistsInDatabase - rows: ", rows);
+                return !!(rows && rows.length);
+            }
         });
-    return !!finalValue;
 };
 
 
 Product.getProductById = async function (productId, cb) {
-    await databaseConnection.query("Select * from product where id = ? ", productId, function (error, results, fields) {
-        if (error) {
-            console.log("Product.getProductById onError: ", error);
-            onError(cb, error);
-        } else {
-            console.log("Product.getProductById onResult: ", results);
-            onSuccess(cb, results);
-        }
-    });
+    return databaseConnection.promise().query("Select * from product where id = ? ", productId,)
+        .then(([rows, fields, error]) => {
+            if (error) {
+                console.error(error);
+            } else {
+                console.log("Product.getProductById - rows: ", rows);
+                return rows;
+            }
+        });
 };
 
 Product.getAllProducts = function (cb) {
-    databaseConnection.query("Select * from product", function (error, results, fields) {
-        if (error) {
-            console.log("Product.getAllProducts onError: ", error);
-            onError(cb, error);
-        } else {
-            console.log('Product.getAllProducts onResult: : ', results);
-            onSuccess(cb, results);
-        }
-    });
+    return databaseConnection.promise().query("Select * from product")
+        .then(([rows, fields, error]) => {
+            if (error) {
+                console.error(error);
+            } else {
+                console.log("Product.getAllProducts - rows: ", rows);
+                return rows;
+            }
+        });
 };
 
-Product.updateById = function (product, cb) {
-    databaseConnection.query("UPDATE product SET ? WHERE id = ?", [product, product.id], function (error, results) {
-        if (error) {
-            console.log("Product.updateById onError: ", error);
-            onError(cb, error);
-        } else {
-            console.log("Product.updateById results: ", results);
-            onSuccess(cb, results);
-        }
-    });
+Product.updateById = async function (product) {
+    return databaseConnection.promise().query("UPDATE product SET ? WHERE id = ?", [product, product.id])
+        .then(
+            ([rows, fields, error]) => {
+                if (error) {
+                    console.error(error);
+                } else {
+                    console.log("Product.updateById: rows", rows);
+                    return rows;
+                }
+            }
+        );
 };
 
-Product.delete = function (id, cb) {
-    databaseConnection.query("DELETE FROM product WHERE id = ?", [id], function (error, results, fields) {
-        if (error) {
-            console.log("Product.delete onError: ", error);
-            if (cb)
-                cb(null, error);
-        } else {
-            console.log("Product.delete onSuccess: ", results);
-            if (cb)
-                cb(null, results);
-        }
-    });
+Product.delete = async function (id) {
+    return databaseConnection.promise().query("DELETE FROM product WHERE id = ?", [id])
+        .then(
+            ([rows, fields, error]) => {
+                if (error) {
+                    console.error(error);
+                } else {
+                    console.log("Product.delete: rows", rows);
+                    return rows;
+                }
+            }
+        );
 };
 
 module.exports = Product;
