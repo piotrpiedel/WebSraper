@@ -13,3 +13,10 @@ const fs = require("fs");
         console.log(parsedReviews);
     });
 })();
+
+
+// var jsonData = JSON.parse();
+// for (var i = 0; i < jsonData.counters.length; i++) {
+//     var counter = jsonData.counters[i];
+//     console.log(counter.counter_name);
+// }
