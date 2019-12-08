@@ -2,9 +2,23 @@
 const databaseConnection = require("../database/mysqlconnection");
 
 //review object constructor
-const Review = function (id, name) {
+const Review = function (id, reviewStars, reviewContent,
+                         upvotes, downvotes, creationDate,
+                         authorName, wasPurchased, dateOfPurchase,
+                         isRecommended, advantages, disadvantages, productId) {
     this.id = id;
-    this.name = name;
+    this.reviewStars = reviewStars;
+    this.reviewContent = reviewContent;
+    this.upvotes = upvotes;
+    this.downvotes = downvotes;
+    this.creationDate = creationDate;
+    this.authorName = authorName;
+    this.wasPurchased = wasPurchased;
+    this.dateOfPurchase = dateOfPurchase;
+    this.isRecommended = isRecommended;
+    this.advantages = advantages;
+    this.disadvantages = disadvantages;
+    this.productId = productId;
 };
 
 Review.createOrUpdateReview = async function (reviewModelInstance) {
