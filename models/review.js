@@ -2,23 +2,32 @@
 const databaseConnection = require("../database/mysqlconnection");
 
 //review object constructor
-const Review = function (id, reviewStars, reviewContent,
-                         upvotes, downvotes, creationDate,
-                         authorName, wasPurchased, dateOfPurchase,
-                         isRecommended, advantages, disadvantages, productId) {
+const Review = function (id,
+                         authorName,
+                         wasPurchased,
+                         dateOfPurchase,
+                         reviewDate,
+                         reviewStars,
+                         isRecommended,
+                         reviewContent,
+                         advantages,
+                         disadvantages,
+                         upvotes,
+                         downvotes,
+                         productId) {
     this.id = id;
-    this.reviewStars = reviewStars;
-    this.reviewContent = reviewContent;
+    this.author_name = authorName;
+    this.was_purchased = wasPurchased;
+    this.date_of_purchase = dateOfPurchase;
+    this.date_creation = reviewDate;
+    this.review_stars = reviewStars.charAt(0);
+    this.is_recommended = isRecommended;
+    this.review_content = reviewContent;
+    this.advantages = advantages.join();
+    this.disadvantages = disadvantages.join();
     this.upvotes = upvotes;
     this.downvotes = downvotes;
-    this.creationDate = creationDate;
-    this.authorName = authorName;
-    this.wasPurchased = wasPurchased;
-    this.dateOfPurchase = dateOfPurchase;
-    this.isRecommended = isRecommended;
-    this.advantages = advantages;
-    this.disadvantages = disadvantages;
-    this.productId = productId;
+    this.product_id_fk = productId;
 };
 
 Review.createOrUpdateReview = async function (reviewModelInstance) {
@@ -109,6 +118,20 @@ Review.delete = async function (id) {
                     console.error(error);
                 } else {
                     console.log("Review.delete: rows", rows);
+                    return rows;
+                }
+            }
+        );
+};
+
+Review.clearTable = async function (id) {
+    return databaseConnection.promise().query("DELETE FROM review")
+        .then(
+            ([rows, fields, error]) => {
+                if (error) {
+                    console.error(error);
+                } else {
+                    console.log("Review.clearTable: rows", rows);
                     return rows;
                 }
             }
