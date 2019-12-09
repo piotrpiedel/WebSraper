@@ -15,7 +15,7 @@ const Review = require("../models/review");
 (async () => {
     var productfkid = 144;
     var parsedJson = readDataFile();
-    for (var i = 0; i < 1; i++) {
+    for (var i = 0; i < parsedJson.length; i++) {
         var reviewModel = new Review(parsedJson[i].id,
             parsedJson[i].author,
             parsedJson[i].wasPurchased,
@@ -29,7 +29,7 @@ const Review = require("../models/review");
             parsedJson[i].numberOfUpVotes,
             parsedJson[i].numberOfDownVotes,
             productfkid);
-        console.log("review model object:1 ", reviewModel);
+        console.log("review model object:2 ", reviewModel);
         await Review.createOrUpdateReview(reviewModel);
     }
 
