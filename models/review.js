@@ -124,7 +124,7 @@ Review.delete = async function (id) {
         );
 };
 
-Review.clearTable = async function (id) {
+Review.clearTable = async function () {
     return databaseConnection.promise().query("DELETE FROM review")
         .then(
             ([rows, fields, error]) => {
