@@ -20,13 +20,13 @@ ReviewComment.createOrUpdateReviewComment = async function (reviewCommentModelIn
         let isReviewCommentExisting = await ReviewComment.checkIfExistsInDatabase(reviewCommentModelInstance.id);
         console.log("isReviewCommentExisting", isReviewCommentExisting);
         if (isReviewCommentExisting) {
-            let reviewUpdated = await ReviewComment.updateById(reviewCommentModelInstance);
-            console.log("createOrUpdateReview reviewUpdated");
-            return reviewUpdated;
+            let reviewCommentUpdated = await ReviewComment.updateById(reviewCommentModelInstance);
+            console.log("createOrUpdateReview reviewCommentUpdated");
+            return reviewCommentUpdated;
         } else {
-            let reviewInserted = await ReviewComment.insert(reviewCommentModelInstance);
-            console.log("createOrUpdateReview reviewInserted");
-            return reviewInserted;
+            let reviewCommentInserted = await ReviewComment.insert(reviewCommentModelInstance);
+            console.log("createOrUpdateReview reviewCommentInserted");
+            return reviewCommentInserted;
         }
     }
 };

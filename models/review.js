@@ -45,6 +45,7 @@ Review.createOrUpdateReview = async function (reviewModelInstance) {
         }
     }
 };
+
 Review.insert = async function (reviewModelInstance) {
     return databaseConnection.promise().query("INSERT INTO review set ?", reviewModelInstance)
         .then(
