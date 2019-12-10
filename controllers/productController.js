@@ -2,7 +2,7 @@
 
 var Product = require('../models/product.js');
 
-exports.list_all_tasks = function (req, res) {
+exports.getAllProducts = function (req, res) {
     Product.getAllProducts(function (err, task) {
         console.log('controller');
         if (err)
@@ -12,7 +12,7 @@ exports.list_all_tasks = function (req, res) {
     });
 };
 
-exports.create_a_task = function (req, res) {
+exports.createProduct = function (req, res) {
     var new_task = new Product(req.body);
 
     //handles null error
@@ -29,7 +29,7 @@ exports.create_a_task = function (req, res) {
 };
 
 
-exports.read_a_task = function (req, res) {
+exports.readProduct = function (req, res) {
     Product.getProductById(req.params.taskId, function (err, task) {
         if (err)
             res.send(err);
@@ -37,7 +37,7 @@ exports.read_a_task = function (req, res) {
     });
 };
 
-// exports.update_a_task = function(req, res) {
+// exports.updateProduct = function(req, res) {
 //     Product.updateById(req.params.taskId, new Product(req.body), function(err, task) {
 //         if (err)
 //             res.send(err);
@@ -45,7 +45,7 @@ exports.read_a_task = function (req, res) {
 //     });
 // };
 
-exports.delete_a_task = function (req, res) {
+exports.deleteProduct = function (req, res) {
     Product.remove(req.params.id, function (err, task) {
         if (err)
             res.send(err);
