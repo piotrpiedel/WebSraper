@@ -66,6 +66,7 @@ Product.getAllProducts = function () {
         .then(([rows, fields, error]) => {
             if (error) {
                 console.error(error);
+                return error;
             } else {
                 console.log("Product.getAllProducts - rows: ", rows);
                 return rows;

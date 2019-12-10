@@ -2,14 +2,26 @@
 
 var Product = require('../models/product.js');
 
-exports.getAllProducts = function (req, res) {
-    Product.getAllProducts(function (err, task) {
-        console.log('controller');
-        if (err)
-            res.send(err);
-        console.log('res', task);
-        res.send(task);
-    });
+exports.getProductById = async function (request, response) {
+    var productArrays = await Product.getProductById(request.params.productID);
+    if (productArrays) {
+        console.log("productController res.send", productArrays);
+        response.send(productArrays);
+    } else {
+        console.log("productController res.send  cause error null");
+        response.send(null);
+    }
+};
+
+exports.getAllProducts = async function (response) {
+    var productArrays = await Product.getAllProducts();
+    if (productArrays) {
+        console.log("productController res.send", productArrays);
+        response.send(productArrays);
+    } else {
+        console.log("productController res.send  cause error null");
+        response.send(null);
+    }
 };
 
 exports.createProduct = function (req, res) {
