@@ -25,18 +25,13 @@ exports.getAllProducts = async function (response) {
 };
 
 exports.createProduct = function (req, res) {
-    var new_task = new Product(req.body);
+    var newProduct = new Product(req.body);
 
     //handles null error
-    if (!new_task.id || !new_task.name) {
-        res.status(400).send({error: true, message: 'Please provide task/status'});
+    if (!newProduct.id || !newProduct.name) {
+        res.status(400).send({error: true, message: 'Please provide product/name'});
     } else {
-        Product.createProduct(new_task, function (err, task) {
-
-            if (err)
-                res.send(err);
-            res.json(task);
-        });
+        res.send(Product.createOrUpdateProduct(newProduct));
     }
 };
 
