@@ -61,7 +61,7 @@ Product.getProductById = async function (productId, cb) {
         });
 };
 
-Product.getAllProducts = function (cb) {
+Product.getAllProducts = function () {
     return databaseConnection.promise().query("Select * from product")
         .then(([rows, fields, error]) => {
             if (error) {
