@@ -13,6 +13,19 @@ exports.getProductById = async function (request, response) {
     }
 };
 
+exports.getProductByIdPost = async function (request, response) {
+    console.log("request.params.productID", request.body.productID);
+    // var productArrays = await Product.getProductById(request.params.productID)
+    //     .catch(error => response.send(error));
+    // if (productArrays) {
+    //     console.log("productController res.send", productArrays);
+    //     response.send(productArrays);
+    // } else {
+    //     console.log("productController res.send  cause error null");
+    //     response.send(null);
+    // }
+};
+
 exports.getAllProducts = async function (response) {
     var productArrays = await Product.getAllProducts();
     if (productArrays) {
@@ -24,14 +37,14 @@ exports.getAllProducts = async function (response) {
     }
 };
 
-exports.createProduct = function (req, res) {
+exports.createProduct = async function (req, res) {
     var newProduct = new Product(req.body);
 
     //handles null error
     if (!newProduct.id || !newProduct.name) {
         res.status(400).send({error: true, message: 'Please provide product/name'});
     } else {
-        res.send(Product.createOrUpdateProduct(newProduct));
+        res.send(await Product.createOrUpdateProduct(newProduct));
     }
 };
 
