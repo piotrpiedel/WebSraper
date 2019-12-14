@@ -12,13 +12,14 @@ async function scrapData(productId) {
     const numberOfReviewPages = await getNumberOfReviewPages(productId);
     const numberOfQuestionPages = await getNumberOfQuestionPages(productId);
     const reviews = await extractReviewData(productId, numberOfReviewPages);
-    transformReviewData(reviews);
     const questions = await extractQuestionData(
         productId,
         numberOfQuestionPages
     );
+    transformReviewData(reviews);
     transformQuestionData(questions);
-    saveDataToJsonFile(reviews);
+    saveDataToJsonFile(reviews, "reviews");
+    saveDataToJsonFile(questions, "questions");
 }
 
 async function getNumberOfReviewPages(productId) {
@@ -320,10 +321,10 @@ async function transformQuestionData(questions) {
     });
 }
 
-function saveDataToJsonFile(data) {
+function saveDataToJsonFile(data, fileName) {
     console.log(__dirname);
     fs.writeFile(
-        url.resolve(__dirname, "data\\data.json"),
+        url.resolve(__dirname, `data\\${fileName}.json`),
         JSON.stringify(data, null, 4),
         error => {
             if (error) return;
