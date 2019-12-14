@@ -6,22 +6,17 @@ const { log } = Apify.utils;
 log.setLevel(log.LEVELS.WARNING);
 
 const productId = 10201710;
-(async () => {
-    const numberOfReviewsAndQuestions = await getNumberOfReviewsAndQuestions(
-        productId
-    );
-    const numberOfReviewPages = Math.ceil(
-        numberOfReviewsAndQuestions.numberOfReviews / 10
-    );
-    // const numberOfQuestionPages = Math.ceil(
-    //     numberOfReviewsAndQuestions.numberOfQuestions / 10
-    // );
-    const reviews = await getReviews(numberOfReviewPages);
-    // const questions = await getQuestions(numberOfQuestionPages);
-    saveDataToJsonFile(reviews);
-})();
+scrapData(productId);
 
-async function getNumberOfReviewsAndQuestions(productId) {
+async function scrapData(productId) {
+    const numberOfReviewPages = await getNumberOfReviewPages(productId);
+    const numberOfQuestionPages = await getNumberOfQuestionPages(productId);
+    const reviews = await getReviews(productId, numberOfReviewPages);
+    const questions = await getQuestions(productId, numberOfQuestionPages);
+    saveDataToJsonFile(questions);
+}
+
+async function getNumberOfReviewPages(productId) {
     const requestList = new Apify.RequestList({
         sources: [{ url: `https://www.ceneo.pl/${productId}` }]
     });
@@ -39,6 +34,32 @@ async function getNumberOfReviewsAndQuestions(productId) {
             numberOfReviews = $(".reviews a")
                 .attr("title")
                 .replace(/\D/g, "");
+        },
+        handleFailedRequestFunction: async ({ request }) => {
+            console.log(`Request ${request.url} failed twice.`);
+        }
+    });
+
+    await crawler.run();
+
+    return Math.ceil(numberOfReviews / 10);
+}
+
+async function getNumberOfQuestionPages(productId) {
+    const requestList = new Apify.RequestList({
+        sources: [{ url: `https://www.ceneo.pl/${productId}` }]
+    });
+    await requestList.initialize();
+
+    let numberOfReviews = 0;
+    let numberOfQuestions = 0;
+    const crawler = new Apify.CheerioCrawler({
+        requestList,
+        minConcurrency: 10,
+        maxConcurrency: 50,
+        maxRequestRetries: 1,
+        handlePageTimeoutSecs: 60,
+        handlePageFunction: async ({ request, body, $ }) => {
             numberOfQuestions = $(".questions a")
                 .attr("title")
                 .replace(/\D/g, "");
@@ -50,10 +71,10 @@ async function getNumberOfReviewsAndQuestions(productId) {
 
     await crawler.run();
 
-    return { numberOfReviews, numberOfQuestions };
+    return Math.ceil(numberOfQuestions / 10);
 }
 
-async function getReviews(numberOfPages) {
+async function getReviews(productId, numberOfPages) {
     const urls = [];
     for (let i = 1; i <= numberOfPages; i++) {
         urls.push({ url: `https://www.ceneo.pl/${productId}/opinie-${i}` });
@@ -163,6 +184,104 @@ async function getReviews(numberOfPages) {
     return reviews;
 }
 
+async function getQuestions(productId, numberOfPages) {
+    const urls = [];
+    urls.push({ url: `https://www.ceneo.pl/${productId}#tab=questions` });
+    for (let i = 2; i <= numberOfPages; i++) {
+        urls.push({ url: `https://www.ceneo.pl/${productId}/pytania-${i}` });
+    }
+    const requestList = new Apify.RequestList({
+        sources: urls
+    });
+    await requestList.initialize();
+
+    const questions = [];
+
+    const crawler = new Apify.CheerioCrawler({
+        requestList,
+        minConcurrency: 10,
+        maxConcurrency: 50,
+        maxRequestRetries: 1,
+        handlePageTimeoutSecs: 300,
+        handlePageFunction: async ({ request, body, $ }) => {
+            const questionData = $("li.review-box.js_product-question");
+            questionData.each((index, el) => {
+                const elObj = $(el);
+                const id = elObj.attr("data-question-id");
+                const author = elObj
+                    .find(".reviewer-name-line")
+                    .text()
+                    .split(" ")[0]
+                    .replace(/\r|\n|\t/g, "");
+                const dateOfQuestion = $(
+                    elObj.find(".review-time").children()[0]
+                ).attr("datetime");
+                const title = elObj
+                    .find(".product-question-title")
+                    .text()
+                    .trim();
+                const message = elObj
+                    .find(".product-question-body")
+                    .text()
+                    .trim();
+                const numberOfUpVotes = elObj.find(".vote-yes").html();
+                const numberOfDownVotes = elObj.find(".vote-no").html();
+
+                const answers = [];
+                elObj.find("li.product-answer").each((index, element) => {
+                    const answer = {};
+                    const header = $(element)
+                        .first()
+                        .first()
+                        .text()
+                        .split("\n")
+                        .filter(element => element.trim().length > 0);
+
+                    answer.id = $(element).attr("data-answer-id");
+                    answer.author = $(element)
+                        .find(".reviewer-name-line")
+                        .text()
+                        .trim();
+                    answer.message = $(element)
+                        .find(".product-review-body")
+                        .text()
+                        .trim()
+                        .replace(/\r|\n|\t/g, "");
+
+                    answer.dateOfAnswer = $(element)
+                        .find(".review-time")
+                        .children()[0].attribs.datetime;
+
+                    answer.numberOfUpVotes = $(element)
+                        .find(".vote-yes")
+                        .html();
+                    answer.numberOfDownVotes = $(element)
+                        .find(".vote-yes")
+                        .html();
+                    answers.push(answer);
+                });
+
+                questions.push({
+                    id,
+                    author,
+                    dateOfQuestion,
+                    title,
+                    message,
+                    numberOfUpVotes,
+                    numberOfDownVotes,
+                    answers
+                });
+            });
+        },
+        handleFailedRequestFunction: async ({ request }) => {
+            console.log(`Request ${request.url} failed twice.`);
+        }
+    });
+
+    await crawler.run();
+    return questions;
+}
+
 function saveDataToJsonFile(data) {
     console.log(__dirname);
     fs.writeFile(
@@ -170,7 +289,7 @@ function saveDataToJsonFile(data) {
         JSON.stringify(data, null, 4),
         error => {
             if (error) return;
-            console.log("Data has been succesfully saved!");
+            console.log("Data has been successfully saved!");
         }
     );
 }
