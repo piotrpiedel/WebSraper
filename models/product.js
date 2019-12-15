@@ -2,10 +2,12 @@
 const databaseConnection = require("../database/mysqlconnection");
 
 //Product object constructor
-const Product = function (id, name) {
-    this.id = id;
-    this.name = name;
-};
+class Product {
+    constructor(id, name) {
+        this.id = id;
+        this.name = name;
+    }
+}
 
 Product.createOrUpdateProduct = async function (productModelInstance) {
     if (productModelInstance instanceof Product) {
@@ -49,7 +51,7 @@ Product.checkIfExistsInDatabase = async function (productId) {
 };
 
 
-Product.getProductById = async function (productId, cb) {
+Product.getProductById = async function (productId) {
     return databaseConnection.promise().query("Select * from product where id = ? ", productId,)
         .then(([rows, fields, error]) => {
             if (error) {

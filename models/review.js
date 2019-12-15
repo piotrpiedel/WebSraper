@@ -2,33 +2,35 @@
 const databaseConnection = require("../database/mysqlconnection");
 
 //review object constructor
-const Review = function (id,
-                         authorName,
-                         wasPurchased,
-                         dateOfPurchase,
-                         reviewDate,
-                         reviewStars,
-                         isRecommended,
-                         reviewContent,
-                         advantages,
-                         disadvantages,
-                         upvotes,
-                         downvotes,
-                         productId) {
-    this.id = id;
-    this.author_name = authorName;
-    this.was_purchased = wasPurchased;
-    this.date_of_purchase = dateOfPurchase;
-    this.date_creation = reviewDate;
-    this.review_stars = reviewStars.charAt(0);
-    this.is_recommended = isRecommended;
-    this.review_content = reviewContent;
-    this.advantages = advantages.join();
-    this.disadvantages = disadvantages.join();
-    this.upvotes = upvotes;
-    this.downvotes = downvotes;
-    this.product_id_fk = productId;
-};
+class Review {
+    constructor(id,
+                authorName,
+                wasPurchased,
+                dateOfPurchase,
+                reviewDate,
+                reviewStars,
+                isRecommended,
+                reviewContent,
+                advantages,
+                disadvantages,
+                upvotes,
+                downvotes,
+                productId) {
+        this.id = id;
+        this.author_name = authorName;
+        this.was_purchased = wasPurchased;
+        this.date_of_purchase = dateOfPurchase;
+        this.date_creation = reviewDate;
+        this.review_stars = reviewStars.charAt(0);
+        this.is_recommended = isRecommended;
+        this.review_content = reviewContent;
+        this.advantages = advantages.join();
+        this.disadvantages = disadvantages.join();
+        this.upvotes = upvotes;
+        this.downvotes = downvotes;
+        this.product_id_fk = productId;
+    }
+}
 
 Review.createOrUpdateReview = async function (reviewModelInstance) {
     if (reviewModelInstance instanceof Review) {
@@ -73,7 +75,7 @@ Review.checkIfExistsInDatabase = async function (reviewId) {
 };
 
 
-Review.getReviewById = async function (reviewId, cb) {
+Review.getReviewById = async function (reviewId) {
     return databaseConnection.promise().query("Select * from review where id = ? ", reviewId,)
         .then(([rows, fields, error]) => {
             if (error) {
@@ -85,7 +87,7 @@ Review.getReviewById = async function (reviewId, cb) {
         });
 };
 
-Review.getAllReviews = function (cb) {
+Review.getAllReviews = function () {
     return databaseConnection.promise().query("Select * from review")
         .then(([rows, fields, error]) => {
             if (error) {
