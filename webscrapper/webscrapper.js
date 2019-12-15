@@ -9,6 +9,7 @@ const productId = 10201710;
 scrapData(productId);
 
 async function scrapData(productId) {
+    const productData = await extractProductData(productId);
     const numberOfReviewPages = await getNumberOfReviewPages(productId);
     const numberOfQuestionPages = await getNumberOfQuestionPages(productId);
     const reviews = await extractReviewData(productId, numberOfReviewPages);
@@ -18,6 +19,7 @@ async function scrapData(productId) {
     );
     transformReviewData(reviews);
     transformQuestionData(questions);
+    saveDataToJsonFile(productData, "productData");
     saveDataToJsonFile(reviews, "reviews");
     saveDataToJsonFile(questions, "questions");
 }
@@ -78,6 +80,50 @@ async function getNumberOfQuestionPages(productId) {
     await crawler.run();
 
     return Math.ceil(numberOfQuestions / 10);
+}
+
+async function extractProductData(productId) {
+    const urls = [{ url: `https://www.ceneo.pl/${productId}` }];
+    const requestList = new Apify.RequestList({
+        sources: urls
+    });
+    await requestList.initialize();
+
+    const productData = {};
+
+    const crawler = new Apify.CheerioCrawler({
+        requestList,
+        minConcurrency: 10,
+        maxConcurrency: 50,
+        maxRequestRetries: 1,
+        handlePageTimeoutSecs: 60,
+        handlePageFunction: async ({ request, body, $ }) => {
+            handleProductInformationPage($, productData);
+        },
+        handleFailedRequestFunction: async ({ request }) => {
+            console.log(`Request ${request.url} failed twice.`);
+        }
+    });
+
+    await crawler.run();
+    return productData;
+}
+
+async function handleProductInformationPage($, resultObject) {
+    const productName = $("h1.product-name")
+        .text()
+        .trim();
+    let producer = $($("div.specs-group").children()[1])
+        .first()
+        .first()
+        .find(".attr-value")
+        .html();
+    // .substring(0, )
+    // .replace(/\r|\n|\t/g, "");
+    const n = producer.indexOf("&gt");
+    producer = producer.substring(0, n ? n : producer.length).trim();
+    resultObject.productName = productName;
+    resultObject.producer = producer;
 }
 
 async function extractReviewData(productId, numberOfPages) {
