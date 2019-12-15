@@ -2,18 +2,20 @@
 const databaseConnection = require("../database/mysqlconnection");
 
 //review object constructor
-const ReviewComment = function (id,
-                                commentContent,
-                                dateCreation,
-                                userName,
-                                reviewIdExternalKey) {
+class ReviewComment {
+    constructor(id,
+                commentContent,
+                dateCreation,
+                userName,
+                reviewIdExternalKey) {
 
-    this.id = id;
-    this.comment_content = commentContent;
-    this.date_creation = dateCreation;
-    this.user_name = userName;
-    this.review_id = reviewIdExternalKey;
-};
+        this.id = id;
+        this.comment_content = commentContent;
+        this.date_creation = dateCreation;
+        this.user_name = userName;
+        this.review_id = reviewIdExternalKey;
+    }
+}
 
 ReviewComment.createOrUpdateReviewComment = async function (reviewCommentModelInstance) {
     if (reviewCommentModelInstance instanceof ReviewComment) {

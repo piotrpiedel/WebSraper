@@ -2,21 +2,23 @@
 const databaseConnection = require("../database/mysqlconnection");
 
 //QuestionAnswer object constructor
-const QuestionAnswer = function (id,
-                                 QuestionAnswerMessage,
-                                 QuestionAnswerDate,
-                                 userName,
-                                 upvotes,
-                                 downvotes,
-                                 productId) {
-    this.id = id;
-    this.question_content = QuestionAnswerMessage;
-    this.date_creation = QuestionAnswerDate;
-    this.user_name = userName;
-    this.upvotes = upvotes;
-    this.downvotes = downvotes;
-    this.product_id_fk = productId;
-};
+class QuestionAnswer {
+    constructor(id,
+                QuestionAnswerMessage,
+                QuestionAnswerDate,
+                userName,
+                upvotes,
+                downvotes,
+                questionId) {
+        this.id = id;
+        this.question_content = QuestionAnswerMessage;
+        this.date_creation = QuestionAnswerDate;
+        this.user_name = userName;
+        this.upvotes = upvotes;
+        this.downvotes = downvotes;
+        this.question_id = questionId;
+    }
+}
 
 QuestionAnswer.createOrUpdateQuestionAnswer = async function (questionAnswerModelInstance) {
     if (questionAnswerModelInstance instanceof QuestionAnswer) {

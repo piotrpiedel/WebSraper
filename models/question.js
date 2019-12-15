@@ -2,21 +2,23 @@
 const databaseConnection = require("../database/mysqlconnection");
 
 //Question object constructor
-const Question = function (id,
-                           questionMessage,
-                           questionDate,
-                           userName,
-                           upvotes,
-                           downvotes,
-                           productId) {
-    this.id = id;
-    this.question_content = questionMessage;
-    this.date_creation = questionDate;
-    this.user_name = userName;
-    this.upvotes = upvotes;
-    this.downvotes = downvotes;
-    this.product_id_fk = productId;
-};
+class Question {
+    constructor(id,
+                questionMessage,
+                questionDate,
+                userName,
+                upvotes,
+                downvotes,
+                productId) {
+        this.id = id;
+        this.question_content = questionMessage;
+        this.date_creation = questionDate;
+        this.user_name = userName;
+        this.upvotes = upvotes;
+        this.downvotes = downvotes;
+        this.product_id_fk = productId;
+    }
+}
 
 Question.createOrUpdateQuestion = async function (questionModelInstance) {
     if (questionModelInstance instanceof Question) {
@@ -61,7 +63,7 @@ Question.checkIfExistsInDatabase = async function (QuestionId) {
 };
 
 
-Question.getQuestionById = async function (QuestionId, cb) {
+Question.getQuestionById = async function (QuestionId) {
     return databaseConnection.promise().query("Select * from question where id = ? ", QuestionId,)
         .then(([rows, fields, error]) => {
             if (error) {
@@ -73,7 +75,7 @@ Question.getQuestionById = async function (QuestionId, cb) {
         });
 };
 
-Question.getAllQuestions = function (cb) {
+Question.getAllQuestions = function () {
     return databaseConnection.promise().query("Select * from question")
         .then(([rows, fields, error]) => {
             if (error) {
