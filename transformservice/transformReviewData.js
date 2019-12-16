@@ -3,11 +3,6 @@ const Review = require("../models/review");
 const ReviewComment = require("../models/reviewComment");
 const FileUtil = require("../utils/fileUtil");
 
-const productId = 10201710;
-(async () => {
-    await transformReviewData(productId, FileUtil.readDataFile("dataextracted", "reviews"));
-})();
-
 async function transformReviewData(productId, reviews) {
     const arrayOfParsedReviewModels = [];
     const arrayOfParsedReviewCommentModels = [];
@@ -43,5 +38,10 @@ async function transformReviewData(productId, reviews) {
     FileUtil.saveDataToJsonFile("datatransfromed", "reviewCommentsTransformed", arrayOfParsedReviewCommentModels);
 }
 
+function transformReviewDataFromDataExtracted(productId) {
+    let reviewsData = FileUtil.readDataFile("dataextracted", "reviews");
+    transformReviewData(productId, reviewsData)
+}
 
 exports.transformReviewData = transformReviewData;
+exports.transformReviewDataFromDataExtracted = transformReviewDataFromDataExtracted;

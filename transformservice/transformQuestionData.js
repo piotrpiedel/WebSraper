@@ -3,11 +3,6 @@ const Question = require("../models/question");
 const QuestionAnswer = require("../models/questionAnswer");
 const FileUtil = require("../utils/fileUtil");
 
-const productId = 10201710;
-(async () => {
-    await transformQuestionData(productId, FileUtil.readDataFile("dataextracted", "questions"));
-})();
-
 async function transformQuestionData(productId, questions) {
     const arrayOfParsedQuestionModels = [];
     const arrayOfParsedQuestionAnswerModels = [];
@@ -41,3 +36,10 @@ async function transformQuestionData(productId, questions) {
     FileUtil.saveDataToJsonFile("datatransfromed", "questionAnswersTransformed", arrayOfParsedQuestionAnswerModels);
 }
 
+async function transformQuestionDataFromDataExtracted(productId) {
+    let questionsData = FileUtil.readDataFile("dataextracted", "questions");
+    await transformQuestionData(productId, questionsData)
+}
+
+exports.transformQuestionData = transformQuestionData;
+exports.transformQuestionDataFromDataExtracted = transformQuestionDataFromDataExtracted;

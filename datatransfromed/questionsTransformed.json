@@ -7,7 +7,7 @@
         "user_name": "Michaś76",
         "upvotes": 0,
         "downvotes": 0,
-        "product_id_fk": 10201710
+        "product_id_fk": "10201710"
     },
     {
         "id": "6ba04ccdeba2",
@@ -17,7 +17,7 @@
         "user_name": "Filwo",
         "upvotes": 0,
         "downvotes": 0,
-        "product_id_fk": 10201710
+        "product_id_fk": "10201710"
     },
     {
         "id": "ffb3e4237701",
@@ -27,7 +27,7 @@
         "user_name": "Mateo",
         "upvotes": 1,
         "downvotes": 0,
-        "product_id_fk": 10201710
+        "product_id_fk": "10201710"
     },
     {
         "id": "e83d76d69119",
@@ -37,7 +37,7 @@
         "user_name": "Użytkownik",
         "upvotes": 0,
         "downvotes": 0,
-        "product_id_fk": 10201710
+        "product_id_fk": "10201710"
     },
     {
         "id": "68899ac2ce01",
@@ -47,7 +47,7 @@
         "user_name": "Michał",
         "upvotes": 0,
         "downvotes": 0,
-        "product_id_fk": 10201710
+        "product_id_fk": "10201710"
     },
     {
         "id": "275c5224c8e2",
@@ -57,7 +57,7 @@
         "user_name": "Hubert",
         "upvotes": 0,
         "downvotes": 0,
-        "product_id_fk": 10201710
+        "product_id_fk": "10201710"
     },
     {
         "id": "ad2122bd5170",
@@ -67,7 +67,7 @@
         "user_name": "Milosz",
         "upvotes": 0,
         "downvotes": 0,
-        "product_id_fk": 10201710
+        "product_id_fk": "10201710"
     },
     {
         "id": "5d84787fef6c",
@@ -77,7 +77,7 @@
         "user_name": "Użytkownik",
         "upvotes": 0,
         "downvotes": 0,
-        "product_id_fk": 10201710
+        "product_id_fk": "10201710"
     },
     {
         "id": "20b07b7fc041",
@@ -87,7 +87,7 @@
         "user_name": "marizet",
         "upvotes": 0,
         "downvotes": 0,
-        "product_id_fk": 10201710
+        "product_id_fk": "10201710"
     },
     {
         "id": "a0209a046b30",
@@ -97,7 +97,7 @@
         "user_name": "Artur",
         "upvotes": 0,
         "downvotes": 0,
-        "product_id_fk": 10201710
+        "product_id_fk": "10201710"
     },
     {
         "id": "2df736dcea49",
@@ -107,6 +107,6 @@
         "user_name": "sebastian",
         "upvotes": 0,
         "downvotes": 0,
-        "product_id_fk": 10201710
+        "product_id_fk": "10201710"
     }
 ]

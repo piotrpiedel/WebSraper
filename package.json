@@ -19,9 +19,12 @@
 	},
 	"scripts": {
 		"startWebScrapper": "node webscrapper/webscrapper.js",
-		"startServer": "nodemon server/server.js",
+		"startServerNode": "node server/server.js",
+		"startServerNodemon": "nodemon server/server.js",
 		"startParserReview": "node transformservice/transformReviewData.js",
-		"startParserQuestion": "node transformservice/transformQuestionData.js"
+		"startParserQuestion": "node transformservice/transformQuestionData.js",
+		"startParserproduct": "node transformservice/transformProductData.js",
+		"startFileUtil": "node utils/fileUtil.js"
 	},
 	"author": "It's not you it's me",
 	"license": "ISC"

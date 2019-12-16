@@ -5,13 +5,13 @@ const FileUtil = require("../utils/fileUtil");
 const {log} = Apify.utils;
 log.setLevel(log.LEVELS.WARNING);
 
-const productId = 10201710;
-scrapData(productId);
+// const productId = 10201710;
+// scrapData(productId);
 
 function saveDataToJsonFile(productData, reviews, questions) {
-    FileUtil.saveDataToJsonFile("dataextracted","productData",productData );
-    FileUtil.saveDataToJsonFile("dataextracted","reviews",reviews );
-    FileUtil.saveDataToJsonFile("dataextracted","questions",questions );
+    FileUtil.saveDataToJsonFile("dataextracted", "productData", productData);
+    FileUtil.saveDataToJsonFile("dataextracted", "reviews", reviews);
+    FileUtil.saveDataToJsonFile("dataextracted", "questions", questions);
 }
 
 async function scrapData(productId) {
@@ -326,4 +326,4 @@ async function handleQuestionPage($, resultArray) {
     });
 }
 
-
+exports.scrapData = scrapData;

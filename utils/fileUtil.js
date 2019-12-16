@@ -2,16 +2,15 @@
 const url = require("url");
 const fs = require("fs");
 
-
 function readDataFile(folderName, fileName) {
     const file = fs.readFileSync(url.resolve(__dirname, `${folderName}\\${fileName}.json`));
-    console.log("file is read ok");
+    console.log(`file: ${fileName} in folder ${folderName} is read ok`);
     return JSON.parse(file);
 }
 
 function saveDataToJsonFile(folderName, fileName, data) {
     console.log(__dirname);
-    fs.writeFile(
+    fs.writeFileSync(
         url.resolve(__dirname, `${folderName}\\${fileName}.json`),
         JSON.stringify(data, null, 4),
         error => {
