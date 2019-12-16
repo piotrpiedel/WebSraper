@@ -20,7 +20,8 @@
 	"scripts": {
 		"startWebScrapper": "node webscrapper/webscrapper.js",
 		"startServer": "nodemon server/server.js",
-		"startParser": "node transformservice/transformReviewData.js"
+		"startParserReview": "node transformservice/transformReviewData.js",
+		"startParserQuestion": "node transformservice/transformQuestionData.js"
 	},
 	"author": "It's not you it's me",
 	"license": "ISC"
