@@ -1,12 +1,18 @@
 const Apify = require("apify");
 const url = require("url");
-const fs = require("fs");
+const FileUtil = require("../utils/fileUtil");
 
-const { log } = Apify.utils;
+const {log} = Apify.utils;
 log.setLevel(log.LEVELS.WARNING);
 
 const productId = 10201710;
 scrapData(productId);
+
+function saveDataToJsonFile(productData, reviews, questions) {
+    FileUtil.saveDataToJsonFile("dataextracted","productData",productData );
+    FileUtil.saveDataToJsonFile("dataextracted","reviews",reviews );
+    FileUtil.saveDataToJsonFile("dataextracted","questions",questions );
+}
 
 async function scrapData(productId) {
     const productData = await extractProductData(productId);
@@ -17,16 +23,12 @@ async function scrapData(productId) {
         productId,
         numberOfQuestionPages
     );
-    transformReviewData(reviews);
-    transformQuestionData(questions);
-    saveDataToJsonFile(productData, "productData");
-    saveDataToJsonFile(reviews, "reviews");
-    saveDataToJsonFile(questions, "questions");
+    saveDataToJsonFile(productData, reviews, questions);
 }
 
 async function getNumberOfReviewPages(productId) {
     const requestList = new Apify.RequestList({
-        sources: [{ url: `https://www.ceneo.pl/${productId}` }]
+        sources: [{url: `https://www.ceneo.pl/${productId}`}]
     });
     await requestList.initialize();
 
@@ -38,12 +40,12 @@ async function getNumberOfReviewPages(productId) {
         maxConcurrency: 50,
         maxRequestRetries: 1,
         handlePageTimeoutSecs: 60,
-        handlePageFunction: async ({ request, body, $ }) => {
+        handlePageFunction: async ({request, body, $}) => {
             numberOfReviews = $(".reviews a")
                 .attr("title")
                 .replace(/\D/g, "");
         },
-        handleFailedRequestFunction: async ({ request }) => {
+        handleFailedRequestFunction: async ({request}) => {
             console.log(`Request ${request.url} failed twice.`);
         }
     });
@@ -55,7 +57,7 @@ async function getNumberOfReviewPages(productId) {
 
 async function getNumberOfQuestionPages(productId) {
     const requestList = new Apify.RequestList({
-        sources: [{ url: `https://www.ceneo.pl/${productId}` }]
+        sources: [{url: `https://www.ceneo.pl/${productId}`}]
     });
     await requestList.initialize();
 
@@ -67,12 +69,12 @@ async function getNumberOfQuestionPages(productId) {
         maxConcurrency: 50,
         maxRequestRetries: 1,
         handlePageTimeoutSecs: 60,
-        handlePageFunction: async ({ request, body, $ }) => {
+        handlePageFunction: async ({request, body, $}) => {
             numberOfQuestions = $(".questions a")
                 .attr("title")
                 .replace(/\D/g, "");
         },
-        handleFailedRequestFunction: async ({ request }) => {
+        handleFailedRequestFunction: async ({request}) => {
             console.log(`Request ${request.url} failed twice.`);
         }
     });
@@ -83,7 +85,7 @@ async function getNumberOfQuestionPages(productId) {
 }
 
 async function extractProductData(productId) {
-    const urls = [{ url: `https://www.ceneo.pl/${productId}` }];
+    const urls = [{url: `https://www.ceneo.pl/${productId}`}];
     const requestList = new Apify.RequestList({
         sources: urls
     });
@@ -97,10 +99,10 @@ async function extractProductData(productId) {
         maxConcurrency: 50,
         maxRequestRetries: 1,
         handlePageTimeoutSecs: 60,
-        handlePageFunction: async ({ request, body, $ }) => {
+        handlePageFunction: async ({request, body, $}) => {
             handleProductInformationPage($, productData);
         },
-        handleFailedRequestFunction: async ({ request }) => {
+        handleFailedRequestFunction: async ({request}) => {
             console.log(`Request ${request.url} failed twice.`);
         }
     });
@@ -129,7 +131,7 @@ async function handleProductInformationPage($, resultObject) {
 async function extractReviewData(productId, numberOfPages) {
     const urls = [];
     for (let i = 1; i <= numberOfPages; i++) {
-        urls.push({ url: `https://www.ceneo.pl/${productId}/opinie-${i}` });
+        urls.push({url: `https://www.ceneo.pl/${productId}/opinie-${i}`});
     }
     const requestList = new Apify.RequestList({
         sources: urls
@@ -144,10 +146,10 @@ async function extractReviewData(productId, numberOfPages) {
         maxConcurrency: 50,
         maxRequestRetries: 1,
         handlePageTimeoutSecs: 60,
-        handlePageFunction: async ({ request, body, $ }) => {
+        handlePageFunction: async ({request, body, $}) => {
             handleReviewPage($, reviews);
         },
-        handleFailedRequestFunction: async ({ request }) => {
+        handleFailedRequestFunction: async ({request}) => {
             console.log(`Request ${request.url} failed twice.`);
         }
     });
@@ -221,33 +223,11 @@ async function handleReviewPage($, resultArray) {
     });
 }
 
-async function transformReviewData(reviews) {
-    reviews.forEach(review => {
-        review.author = review.author.trim();
-        review.dateOfReview = new Date(review.dateOfReview).getTime();
-        review.dateOfPurchase = new Date(review.dateOfPurchase).getTime();
-        review.score = Number(review.score.split("/")[0]);
-        review.isRecommended = review.isRecommended === "Polecam";
-        review.wasPurchased = !!review.dateOfPurchase;
-        review.message = review.message.trim();
-        review.advantages = review.advantages;
-        review.disadvantages = review.disadvantages;
-        review.numberOfUpVotes = Number(review.numberOfUpVotes);
-        review.numberOfDownVotes = Number(review.numberOfDownVotes);
-
-        review.comments.forEach(comment => {
-            comment.author = comment.author.trim();
-            comment.message = comment.message.trim();
-            comment.dateOfComment = new Date(comment.dateOfComment).getTime();
-        });
-    });
-}
-
 async function extractQuestionData(productId, numberOfPages) {
     const urls = [];
-    urls.push({ url: `https://www.ceneo.pl/${productId}#tab=questions` });
+    urls.push({url: `https://www.ceneo.pl/${productId}#tab=questions`});
     for (let i = 2; i <= numberOfPages; i++) {
-        urls.push({ url: `https://www.ceneo.pl/${productId}/pytania-${i}` });
+        urls.push({url: `https://www.ceneo.pl/${productId}/pytania-${i}`});
     }
     const requestList = new Apify.RequestList({
         sources: urls
@@ -262,10 +242,10 @@ async function extractQuestionData(productId, numberOfPages) {
         maxConcurrency: 50,
         maxRequestRetries: 1,
         handlePageTimeoutSecs: 300,
-        handlePageFunction: async ({ request, body, $ }) => {
+        handlePageFunction: async ({request, body, $}) => {
             handleQuestionPage($, questions);
         },
-        handleFailedRequestFunction: async ({ request }) => {
+        handleFailedRequestFunction: async ({request}) => {
             console.log(`Request ${request.url} failed twice.`);
         }
     });
@@ -346,35 +326,4 @@ async function handleQuestionPage($, resultArray) {
     });
 }
 
-async function transformQuestionData(questions) {
-    questions.forEach(question => {
-        question.author = question.author
-            .split(" ")[0]
-            .replace(/\r|\n|\t/g, "");
-        question.dateOfQuestion = new Date(question.dateOfQuestion).getTime();
-        question.title = question.title.trim();
-        question.message = question.message.trim();
-        question.numberOfUpVotes = Number(question.numberOfUpVotes);
-        question.numberOfDownVotes = Number(question.numberOfDownVotes);
 
-        question.answers.forEach(answer => {
-            answer.author = answer.author.trim();
-            answer.message = answer.message.trim().replace(/\r|\n|\t/g, "");
-            answer.dateOfAnswer = new Date(answer.dateOfAnswer).getTime();
-            answer.numberOfUpVotes = Number(answer.numberOfUpVotes);
-            answer.numberOfDownVotes = Number(answer.numberOfDownVotes);
-        });
-    });
-}
-
-function saveDataToJsonFile(data, fileName) {
-    console.log(__dirname);
-    fs.writeFile(
-        url.resolve(__dirname, `data\\${fileName}.json`),
-        JSON.stringify(data, null, 4),
-        error => {
-            if (error) return;
-            console.log("Data has been successfully saved!");
-        }
-    );
-}

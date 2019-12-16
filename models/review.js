@@ -21,11 +21,11 @@ class Review {
         this.was_purchased = wasPurchased;
         this.date_of_purchase = dateOfPurchase;
         this.date_creation = reviewDate;
-        this.review_stars = reviewStars.charAt(0);
+        this.review_stars = reviewStars;
         this.is_recommended = isRecommended;
         this.review_content = reviewContent;
-        this.advantages = advantages.join();
-        this.disadvantages = disadvantages.join();
+        this.advantages = advantages;
+        this.disadvantages = disadvantages;
         this.upvotes = upvotes;
         this.downvotes = downvotes;
         this.product_id_fk = productId;
