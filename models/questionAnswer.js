@@ -4,15 +4,15 @@ const databaseConnection = require("../database/mysqlconnection");
 //QuestionAnswer object constructor
 class QuestionAnswer {
     constructor(id,
-                QuestionAnswerMessage,
-                QuestionAnswerDate,
+                questionAnswerMessage,
+                questionAnswerDate,
                 userName,
                 upvotes,
                 downvotes,
                 questionId) {
         this.id = id;
-        this.question_content = QuestionAnswerMessage;
-        this.date_creation = QuestionAnswerDate;
+        this.question_answer_content = questionAnswerMessage;
+        this.date_creation = questionAnswerDate;
         this.user_name = userName;
         this.upvotes = upvotes;
         this.downvotes = downvotes;

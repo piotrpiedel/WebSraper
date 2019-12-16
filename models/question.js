@@ -4,6 +4,7 @@ const databaseConnection = require("../database/mysqlconnection");
 //Question object constructor
 class Question {
     constructor(id,
+                questionTitle,
                 questionMessage,
                 questionDate,
                 userName,
@@ -12,6 +13,7 @@ class Question {
                 productId) {
         this.id = id;
         this.question_content = questionMessage;
+        this.question_title = questionTitle;
         this.date_creation = questionDate;
         this.user_name = userName;
         this.upvotes = upvotes;
