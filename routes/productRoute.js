@@ -1,7 +1,5 @@
 const express = require("express");
 const Router = express.Router();
-const databaseConnection = require("../database/mysqlconnection");
-const ProductRoute = require("../models/product");
 const ProductController = require("../controllers/productController");
 
 Router.get("/:productID", async function (request, response) {

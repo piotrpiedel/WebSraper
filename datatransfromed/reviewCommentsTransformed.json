@@ -1,26 +1,5 @@
 [
     {
-        "id": "322667",
-        "comment_content": "Taaaa kurvva, 192GB RAM...",
-        "date_creation": 1516221157000,
-        "user_name": "Bezsens",
-        "review_id": "1973609"
-    },
-    {
-        "id": "166361",
-        "comment_content": "Powyższy komentarz to chyba jakiś marketingowy bełkot nieudacznika PR. Ja nie zostałem zauroczony, więc nie każdy ulega \"magii\" Win7 ;) Owszem, Win7 to krok we właściwym kierunku pod wieloma względami. Są jednak bezsensowne wodotryski, typu skrolowanie okien 3d, sprzeczne z ergonomią. Zdecydowanie brakuje funkcjonalności Expose z systemu OS X. Irytujące są też występujące czasem błędy podczas instalowania aktualizacji. To jest wręcz niedopuszczalne. Żeby nie było - nie jestem fanatykiem żadnego systemu - każdy ma swoje zalety i wady ;)",
-        "date_creation": 1304958003000,
-        "user_name": "YaBol",
-        "review_id": "1776501"
-    },
-    {
-        "id": "169640",
-        "comment_content": "Masz rację YaBolu - takie opinie sklepy same sobie wypisują żeby złapać na lep mało zorientowanych klientów. \"Wszystko cacy, żadnych problemów\" - tylko brać i płacić.",
-        "date_creation": 1308748748000,
-        "user_name": "Kingu",
-        "review_id": "1776501"
-    },
-    {
         "id": "161793",
         "comment_content": "Wndows 7 posiada  wiele nowych funkcji, są to między innymi Problem Steps Recorder, dzięki, któremu użytkownik mający problem przy wykonaniu jakiejś czynności, może nagrać kroki, które wykonuje i wysłać zapisany plik do pomocy technicznej, DirectAccess, za pomocą której można uzyskać dostęp do sieci lokalnej z zewnątrz bez uruchamiania połączenia VPN, czy na przykład wbudowana tekstowa powłoka PowerShell.     / tyle reklama marketingowa  Macrosoftu /",
         "date_creation": 1300046044000,
@@ -68,6 +47,27 @@
         "date_creation": 1560445876000,
         "user_name": "raph3r",
         "review_id": "2887449"
+    },
+    {
+        "id": "322667",
+        "comment_content": "Taaaa kurvva, 192GB RAM...",
+        "date_creation": 1516221157000,
+        "user_name": "Bezsens",
+        "review_id": "1973609"
+    },
+    {
+        "id": "166361",
+        "comment_content": "Powyższy komentarz to chyba jakiś marketingowy bełkot nieudacznika PR. Ja nie zostałem zauroczony, więc nie każdy ulega \"magii\" Win7 ;) Owszem, Win7 to krok we właściwym kierunku pod wieloma względami. Są jednak bezsensowne wodotryski, typu skrolowanie okien 3d, sprzeczne z ergonomią. Zdecydowanie brakuje funkcjonalności Expose z systemu OS X. Irytujące są też występujące czasem błędy podczas instalowania aktualizacji. To jest wręcz niedopuszczalne. Żeby nie było - nie jestem fanatykiem żadnego systemu - każdy ma swoje zalety i wady ;)",
+        "date_creation": 1304958003000,
+        "user_name": "YaBol",
+        "review_id": "1776501"
+    },
+    {
+        "id": "169640",
+        "comment_content": "Masz rację YaBolu - takie opinie sklepy same sobie wypisują żeby złapać na lep mało zorientowanych klientów. \"Wszystko cacy, żadnych problemów\" - tylko brać i płacić.",
+        "date_creation": 1308748748000,
+        "user_name": "Kingu",
+        "review_id": "1776501"
     },
     {
         "id": "298038",
