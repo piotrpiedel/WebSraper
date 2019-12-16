@@ -3,9 +3,10 @@ const databaseConnection = require("../database/mysqlconnection");
 
 //Product object constructor
 class Product {
-    constructor(id, name) {
+    constructor(id, name, producer) {
         this.id = id;
         this.name = name;
+        this.producer = producer;
     }
 }
 
