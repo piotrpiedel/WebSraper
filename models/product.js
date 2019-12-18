@@ -4,35 +4,40 @@ const databaseConnection = require("../database/mysqlconnection");
 //Product object constructor
 class Product {
     constructor(product) {
-        if(product.id){
-            if (arguments.length === 1 && this.validateProduct(product)) {
-                this.id = product.id;
-                this.name = product.name;
-                this.producer = product.producer;
-            }
-        } else throw "Product id must not be empty"
+        if (arguments.length === 1 && this.validateProduct(product)) {
+            this.id = product.id;
+            this.name = product.name;
+            this.producer = product.producer;
+        }
     }
 
     validateProduct(product) {
         return (String(product.constructor) === String(Product.Builder));
     }
+
     static get Builder() {
         class Builder {
             constructor(id) {
                 this.id = id;
             }
+
             withName(name) {
                 this.name = name;
                 return this;
             }
+
             withProducer(producer) {
                 this.producer = producer;
                 return this;
             }
+
             build() {
-                return new Product(this);
+                if (this.id) {
+                    return new Product(this)
+                } else throw "Product id must not be empty";
             }
         }
+
         return Builder;
     }
 }
