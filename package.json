@@ -23,6 +23,7 @@
 		"startServerNodemon": "nodemon server/server.js",
 		"startParserReview": "node transformservice/transformReviewData.js",
 		"startParserQuestion": "node transformservice/transformQuestionData.js",
+		"startSaveProductService": "node services/productService.js",
 		"startParserproduct": "node transformservice/transformProductData.js",
 		"startFileUtil": "node utils/fileUtil.js"
 	},
