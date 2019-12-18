@@ -55,7 +55,8 @@ Product.createOrUpdateProduct = async function (productModelInstance) {
             console.log("createOrUpdateProduct productInserted");
             return productInserted;
         }
-    }
+    } else throw "Model must be instance of Product"
+
 };
 Product.insert = async function (productModelInstance) {
     return databaseConnection.promise().query("INSERT INTO product set ?", productModelInstance)
@@ -71,8 +72,8 @@ Product.insert = async function (productModelInstance) {
         );
 };
 
-Product.checkIfExistsInDatabase = async function (productId) {
-    return databaseConnection.promise().query("Select * from product where id = ? ", productId)
+Product.checkIfExistsInDatabase = async function (id) {
+    return databaseConnection.promise().query("Select * from product where id = ? ", id)
         .then(([rows, fields, error]) => {
             if (error) {
                 console.error(error);
@@ -84,8 +85,8 @@ Product.checkIfExistsInDatabase = async function (productId) {
 };
 
 
-Product.getProductById = async function (productId) {
-    return databaseConnection.promise().query("Select * from product where id = ? ", productId,)
+Product.getProductById = async function (id) {
+    return databaseConnection.promise().query("Select * from product where id = ? ", id)
         .then(([rows, fields, error]) => {
             if (error) {
                 console.error(error);
