@@ -23,13 +23,6 @@ exports.createETLProcessAtOnce = async function (request, response) {
     await TransformQuestionsDataService.transformQuestionDataFromDataExtracted(productId);
     console.log("TransformQuestionsDataService.transformQuestionDataFromDataExtracted : ", productId);
 
-    // var productArrays = await Product.getProductById(request.params.productID);
-    // if (productArrays) {
-    //     console.log("productController res.send", productArrays);
-    //     response.send(productArrays);
-    // } else {
-    //     console.log("productController res.send  cause error null");
-    //     response.send(null);
-    // }
+
 
 };

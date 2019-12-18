@@ -37,16 +37,16 @@ exports.getAllProducts = async function (response) {
     }
 };
 
-exports.createProduct = async function (req, res) {
-    var newProduct = new Product(req.body);
-
-    //handles null error
-    if (!newProduct.id || !newProduct.name) {
-        res.status(400).send({error: true, message: 'Please provide product/name'});
-    } else {
-        res.send(await Product.createOrUpdateProduct(newProduct));
-    }
-};
+// exports.createProduct = async function (req, res) {
+//     var newProduct = new Product(req.body);
+//
+//     //handles null error
+//     if (!newProduct.id || !newProduct.name) {
+//         res.status(400).send({error: true, message: 'Please provide product/name'});
+//     } else {
+//         res.send(await Product.createOrUpdateProduct(newProduct));
+//     }
+// };
 
 
 exports.readProduct = function (req, res) {
