@@ -4,15 +4,15 @@ const databaseConnection = require("../database/mysqlconnection");
 //Product object constructor
 class Product {
     constructor(product) {
-        if (arguments.length === 1 && this.validateProduct(product)) {
+        if (arguments.length === 1 && this.validate(product)) {
             this.id = product.id;
             this.name = product.name;
             this.producer = product.producer;
         }
     }
 
-    validateProduct(product) {
-        return (String(product.constructor) === String(Product.Builder));
+    validate(product) {
+        return !!product.id;
     }
 
     static get Builder() {

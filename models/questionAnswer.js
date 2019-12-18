@@ -3,20 +3,66 @@ const databaseConnection = require("../database/mysqlconnection");
 
 //QuestionAnswer object constructor
 class QuestionAnswer {
-    constructor(id,
-                questionAnswerMessage,
-                questionAnswerDate,
-                userName,
-                upvotes,
-                downvotes,
-                questionId) {
-        this.id = id;
-        this.question_answer_content = questionAnswerMessage;
-        this.date_creation = questionAnswerDate;
-        this.user_name = userName;
-        this.upvotes = upvotes;
-        this.downvotes = downvotes;
-        this.question_id = questionId;
+    constructor(questionAnswer) {
+        if (arguments.length === 1 && this.validate(questionAnswer)) {
+            this.id = questionAnswer.id;
+            this.question_answer_content = questionAnswer.question_answer_content;
+            this.date_creation = questionAnswer.date_creation;
+            this.user_name = questionAnswer.user_name;
+            this.upvotes = questionAnswer.upvotes;
+            this.downvotes = questionAnswer.downvotes;
+            this.question_id = questionAnswer.question_id;
+        }
+    }
+
+    validate(question) {
+        return !!question.id && !!question.question_id;
+    }
+
+    static get Builder() {
+        class Builder {
+            constructor(id) {
+                this.id = id;
+            }
+
+            withMessage(questionMessage) {
+                this.question_answer_content = questionMessage;
+                return this;
+            }
+
+            withDate(questionDate) {
+                this.date_creation = questionDate;
+                return this;
+            }
+
+            withUserName(userName) {
+                this.user_name = userName;
+                return this;
+            }
+
+            withUpVotes(upVotes) {
+                this.upvotes = upVotes;
+                return this;
+            }
+
+            withDownVotes(downVotes) {
+                this.downvotes = downVotes;
+                return this;
+            }
+
+            withQuestionID(questionId) {
+                this.question_id = questionId;
+                return this;
+            }
+
+            build() {
+                if (this.id && this.question_id) {
+                    return new QuestionAnswer(this)
+                } else throw "QuestionAnswer id && questionFK must not be empty";
+            }
+        }
+
+        return Builder;
     }
 }
 

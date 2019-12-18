@@ -8,26 +8,26 @@ async function transformQuestionData(productId, questions) {
     const arrayOfParsedQuestionAnswerModels = [];
     questions.forEach(question => {
         let questionModel = new Question.Builder(question.id)
-            .withQuestionTitle(question.title.trim())
-            .withQuestionMessage(question.message.trim())
-            .withQuestionDate(new Date(question.dateOfQuestion).getTime())
-            .withQuestionUserName(question.author
+            .withTitle(question.title.trim())
+            .withMessage(question.message.trim())
+            .withDate(new Date(question.dateOfQuestion).getTime())
+            .withUserName(question.author
                 .split(" ")[0]
                 .replace(/\r|\n|\t/g, ""))
-            .withQuestionUpVotes(Number(question.numberOfUpVotes))
-            .withQuestionDownVotes(Number(question.numberOfDownVotes))
-            .withQuestionProductId(productId);
+            .withUpVotes(Number(question.numberOfUpVotes))
+            .withDownVotes(Number(question.numberOfDownVotes))
+            .withProductId(productId)
+            .build();
         arrayOfParsedQuestionModels.push(questionModel);
         question.answers.forEach(answer => {
-            let questionAnswerModel = new QuestionAnswer(
-                answer.id,
-                answer.message.trim().replace(/\r|\n|\t/g, ""),
-                new Date(answer.dateOfAnswer).getTime(),
-                answer.author.trim(),
-                Number(answer.numberOfUpVotes),
-                Number(answer.numberOfDownVotes),
-                question.id
-            );
+            let questionAnswerModel = new QuestionAnswer.Builder(answer.id)
+                .withMessage(answer.message.trim().replace(/\r|\n|\t/g, ""))
+                .withDate(new Date(answer.dateOfAnswer).getTime())
+                .withUserName(answer.author.trim())
+                .withUpVotes(Number(answer.numberOfUpVotes))
+                .withDownVotes(Number(answer.numberOfDownVotes))
+                .withQuestionID(question.id)
+                .build();
             arrayOfParsedQuestionAnswerModels.push(questionAnswerModel);
         });
     });

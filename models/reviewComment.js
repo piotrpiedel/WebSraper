@@ -3,17 +3,54 @@ const databaseConnection = require("../database/mysqlconnection");
 
 //review object constructor
 class ReviewComment {
-    constructor(id,
-                commentContent,
-                dateCreation,
-                userName,
-                reviewIdExternalKey) {
+    constructor(reviewComment) {
+        if (arguments.length === 1 && this.validate(reviewComment)) {
+            this.id = reviewComment.id;
+            this.comment_content = reviewComment.comment_content;
+            this.date_creation = reviewComment.date_creation;
+            this.user_name = reviewComment.user_name;
+            this.review_id = reviewComment.review_id;
+        }
+    }
 
-        this.id = id;
-        this.comment_content = commentContent;
-        this.date_creation = dateCreation;
-        this.user_name = userName;
-        this.review_id = reviewIdExternalKey;
+    validate(reviewComment) {
+        return !!reviewComment.id && !!reviewComment.review_id;
+    }
+
+    static get Builder() {
+        class Builder {
+            constructor(id) {
+                this.id = id;
+            }
+
+            withMessage(commentContent) {
+                this.comment_content = commentContent;
+                return this;
+            }
+
+            withDate(commentDate) {
+                this.date_creation = commentDate;
+                return this;
+            }
+
+            withUserName(userName) {
+                this.user_name = userName;
+                return this;
+            }
+
+            withReviewId(reviewId) {
+                this.review_id = reviewId;
+                return this;
+            }
+
+            build() {
+                if (this.id && this.review_id) {
+                    return new ReviewComment(this)
+                } else throw "ReviewComment id && reviewFK must not be empty";
+            }
+        }
+
+        return Builder;
     }
 }
 
@@ -46,8 +83,8 @@ ReviewComment.insert = async function (reviewCommentModelInstance) {
         );
 };
 
-ReviewComment.checkIfExistsInDatabase = async function (reviewCommentId) {
-    return databaseConnection.promise().query("Select * from review_comment where id = ? ", reviewCommentId)
+ReviewComment.checkIfExistsInDatabase = async function (id) {
+    return databaseConnection.promise().query("Select * from review_comment where id = ? ", id)
         .then(([rows, fields, error]) => {
             if (error) {
                 console.error(error);
@@ -59,8 +96,8 @@ ReviewComment.checkIfExistsInDatabase = async function (reviewCommentId) {
 };
 
 
-ReviewComment.getReviewById = async function (reviewCommentId) {
-    return databaseConnection.promise().query("Select * from review_comment where id = ? ", reviewCommentId,)
+ReviewComment.getReviewById = async function (id) {
+    return databaseConnection.promise().query("Select * from review_comment where id = ? ", id)
         .then(([rows, fields, error]) => {
             if (error) {
                 console.error(error);
@@ -97,8 +134,8 @@ ReviewComment.updateById = async function (reviewComment) {
         );
 };
 
-ReviewComment.delete = async function (reviewCommentId) {
-    return databaseConnection.promise().query("DELETE FROM review_comment WHERE reviewCommentId = ?", [reviewCommentId])
+ReviewComment.delete = async function (id) {
+    return databaseConnection.promise().query("DELETE FROM review_comment WHERE reviewCommentId = ?", [id])
         .then(
             ([rows, fields, error]) => {
                 if (error) {

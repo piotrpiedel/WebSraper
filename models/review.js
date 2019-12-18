@@ -3,33 +3,104 @@ const databaseConnection = require("../database/mysqlconnection");
 
 //review object constructor
 class Review {
-    constructor(id,
-                authorName,
-                wasPurchased,
-                dateOfPurchase,
-                reviewDate,
-                reviewStars,
-                isRecommended,
-                reviewContent,
-                advantages,
-                disadvantages,
-                upvotes,
-                downvotes,
-                productId) {
-        this.id = id;
-        this.author_name = authorName;
-        this.was_purchased = wasPurchased;
-        this.date_of_purchase = dateOfPurchase;
-        this.date_creation = reviewDate;
-        this.review_stars = reviewStars;
-        this.is_recommended = isRecommended;
-        this.review_content = reviewContent;
-        this.advantages = advantages;
-        this.disadvantages = disadvantages;
-        this.upvotes = upvotes;
-        this.downvotes = downvotes;
-        this.product_id_fk = productId;
+    constructor(review) {
+        if (arguments.length === 1 && this.validate(review)) {
+            this.id = id;
+            this.user_name = review.user_name;
+            this.was_purchased = review.was_purchased;
+            this.date_of_purchase = review.date_of_purchase;
+            this.date_creation = review.date_creation;
+            this.review_stars = review.review_stars;
+            this.is_recommended = review.is_recommended;
+            this.review_content = review.review_content;
+            this.advantages = review.advantages;
+            this.disadvantages = review.disadvantages;
+            this.upvotes = review.upvotes;
+            this.downvotes = review.downvotes;
+            this.product_id_fk = review.product_id_fk;
+        }
     }
+
+    validate(review) {
+        return !!review.id && !!review.product_id_fk;
+    }
+
+    static get Builder() {
+        class Builder {
+            constructor(id) {
+                this.id = id;
+            }
+
+            withWasPurchased(wasPurchased) {
+                this.was_purchased = wasPurchased;
+                return this;
+            }
+
+            withDateOfPurchase(dateOfPurchase) {
+                this.date_creation = dateOfPurchase;
+                return this;
+            }
+
+            withDateOfReview(reviewDate) {
+                this.date_creation = reviewDate;
+                return this;
+            }
+
+            withReviewStars(reviewStars) {
+                this.review_stars = reviewStars;
+                return this;
+            }
+
+            withIsRecommended(isRecommended) {
+                this.is_recommended = isRecommended;
+                return this;
+            }
+
+            withContent(reviewContent) {
+                this.review_content = reviewContent;
+                return this;
+            }
+
+            withAdvantages(advantages) {
+                this.advantages = advantages;
+                return this;
+            }
+
+            withDisadvantages(disadvantages) {
+                this.disadvantages = disadvantages;
+                return this;
+            }
+
+            withUserName(userName) {
+                this.user_name = userName;
+                return this;
+            }
+
+            withUpVotes(upVotes) {
+                this.upvotes = upVotes;
+                return this;
+            }
+
+            withDownVotes(downVotes) {
+                this.downvotes = downVotes;
+                return this;
+            }
+
+            withProductId(productId) {
+                this.product_id_fk = productId;
+                return this;
+            }
+
+            build() {
+                if (this.id && this.product_id_fk) {
+                    return new Review(this)
+                } else throw "Review id && productFK must not be empty";
+            }
+        }
+
+        return Builder;
+    }
+
 }
 
 Review.createOrUpdateReview = async function (reviewModelInstance) {
@@ -62,8 +133,8 @@ Review.insert = async function (reviewModelInstance) {
         );
 };
 
-Review.checkIfExistsInDatabase = async function (reviewId) {
-    return databaseConnection.promise().query("Select * from review where id = ? ", reviewId)
+Review.checkIfExistsInDatabase = async function (id) {
+    return databaseConnection.promise().query("Select * from review where id = ? ", id)
         .then(([rows, fields, error]) => {
             if (error) {
                 console.error(error);
@@ -75,8 +146,8 @@ Review.checkIfExistsInDatabase = async function (reviewId) {
 };
 
 
-Review.getReviewById = async function (reviewId) {
-    return databaseConnection.promise().query("Select * from review where id = ? ", reviewId,)
+Review.getReviewById = async function (id) {
+    return databaseConnection.promise().query("Select * from review where id = ? ", id,)
         .then(([rows, fields, error]) => {
             if (error) {
                 console.error(error);

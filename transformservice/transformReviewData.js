@@ -7,28 +7,28 @@ async function transformReviewData(productId, reviews) {
     const arrayOfParsedReviewModels = [];
     const arrayOfParsedReviewCommentModels = [];
     reviews.forEach(review => {
-        let reviewModel = new Review(review.id.trim(),
-            review.author.trim(),
-            !!review.dateOfPurchase,
-            new Date(review.dateOfPurchase).getTime(),
-            new Date(review.dateOfReview).getTime(),
-            Number(review.score.split("/")[0]),
-            review.isRecommended === "Polecam",
-            review.message.trim(),
-            review.advantages.join(),
-            review.disadvantages.join(),
-            Number(review.numberOfUpVotes),
-            Number(review.numberOfDownVotes),
-            productId);
+        let reviewModel = new Review.Builder(review.id.trim())
+            .withUserName(review.author.trim())
+            .withWasPurchased(!!review.dateOfPurchase)
+            .withDateOfPurchase(new Date(review.dateOfPurchase).getTime())
+            .withDateOfReview(new Date(review.dateOfReview).getTime())
+            .withReviewStars(Number(review.score.split("/")[0]))
+            .withIsRecommended(eview.isRecommended === "Polecam")
+            .withContent(review.message.trim())
+            .withAdvantages(review.advantages.join())
+            .withDisadvantages(review.disadvantages.join())
+            .withUpVotes(Number(review.numberOfUpVotes))
+            .withDownVotes(Number(review.numberOfDownVotes))
+            .withProductId(productId)
+            .build();
         arrayOfParsedReviewModels.push(reviewModel);
         review.comments.forEach(comment => {
-                let reviewCommentModel = new ReviewComment(
-                    comment.id.trim(),
-                    comment.message.trim(),
-                    new Date(comment.dateOfComment).getTime(),
-                    comment.author.trim(),
-                    review.id.trim()
-                );
+                let reviewCommentModel = new ReviewComment.Builder(comment.id.trim())
+                    .withMessage(comment.message.trim())
+                    .withDate(new Date(comment.dateOfComment).getTime())
+                    .withUserName(comment.author.trim())
+                    .withReviewId(review.id.trim())
+                    .build();
                 arrayOfParsedReviewCommentModels.push(reviewCommentModel);
             }
         );

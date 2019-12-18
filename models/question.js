@@ -4,7 +4,7 @@ const databaseConnection = require("../database/mysqlconnection");
 //Question object constructor
 class Question {
     constructor(question) {
-        if (arguments.length === 1 && this.validateProduct(question)) {
+        if (arguments.length === 1 && this.validate(question)) {
             this.id = question.id;
             this.question_content = question.question_content;
             this.question_title = question.question_title;
@@ -16,8 +16,8 @@ class Question {
         }
     }
 
-    validateProduct(product) {
-        return (String(product.constructor) === String(Question.Builder));
+    validate(question) {
+        return !!question.id && !!question.product_id_fk;
     }
 
     static get Builder() {
@@ -25,40 +25,49 @@ class Question {
             constructor(id) {
                 this.id = id;
             }
-            withQuestionTitle(questionTitle){
+
+            withTitle(questionTitle) {
                 this.question_title = questionTitle;
                 return this;
             }
-            withQuestionMessage(questionMessage){
+
+            withMessage(questionMessage) {
                 this.question_content = questionMessage;
                 return this;
             }
-            withQuestionDate(questionDate){
+
+            withDate(questionDate) {
                 this.date_creation = questionDate;
                 return this;
             }
-            withQuestionUserName(userName){
+
+            withUserName(userName) {
                 this.user_name = userName;
                 return this;
             }
-            withQuestionUpVotes(upVotes){
+
+            withUpVotes(upVotes) {
                 this.upvotes = upVotes;
                 return this;
             }
-            withQuestionDownVotes(downVotes){
+
+            withDownVotes(downVotes) {
                 this.downvotes = downVotes;
                 return this;
             }
-            withQuestionProductId(productId){
+
+            withProductId(productId) {
                 this.product_id_fk = productId;
                 return this;
             }
+
             build() {
                 if (this.id && this.product_id_fk) {
                     return new Question(this)
                 } else throw "Question id && productFK must not be empty";
             }
         }
+
         return Builder;
     }
 }
@@ -93,8 +102,8 @@ Question.insert = async function (QuestionModelInstance) {
         );
 };
 
-Question.checkIfExistsInDatabase = async function (QuestionId) {
-    return databaseConnection.promise().query("Select * from question where id = ? ", QuestionId)
+Question.checkIfExistsInDatabase = async function (id) {
+    return databaseConnection.promise().query("Select * from question where id = ? ", id)
         .then(([rows, fields, error]) => {
             if (error) {
                 console.error(error);
@@ -106,8 +115,8 @@ Question.checkIfExistsInDatabase = async function (QuestionId) {
 };
 
 
-Question.getQuestionById = async function (QuestionId) {
-    return databaseConnection.promise().query("Select * from question where id = ? ", QuestionId,)
+Question.getQuestionById = async function (id) {
+    return databaseConnection.promise().query("Select * from question where id = ? ", id)
         .then(([rows, fields, error]) => {
             if (error) {
                 console.error(error);
@@ -130,8 +139,8 @@ Question.getAllQuestions = function () {
         });
 };
 
-Question.updateById = async function (Question) {
-    return databaseConnection.promise().query("UPDATE question SET ? WHERE id = ?", [Question, Question.id])
+Question.updateById = async function (question) {
+    return databaseConnection.promise().query("UPDATE question SET ? WHERE id = ?", [question, question.id])
         .then(
             ([rows, fields, error]) => {
                 if (error) {
