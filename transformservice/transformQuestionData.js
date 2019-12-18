@@ -7,17 +7,16 @@ async function transformQuestionData(productId, questions) {
     const arrayOfParsedQuestionModels = [];
     const arrayOfParsedQuestionAnswerModels = [];
     questions.forEach(question => {
-        let questionModel = new Question(question.id,
-            question.title.trim(),
-            question.message.trim(),
-            new Date(question.dateOfQuestion).getTime(),
-            question.author
+        let questionModel = new Question.Builder(question.id)
+            .withQuestionTitle(question.title.trim())
+            .withQuestionMessage(question.message.trim())
+            .withQuestionDate(new Date(question.dateOfQuestion).getTime())
+            .withQuestionUserName(question.author
                 .split(" ")[0]
-                .replace(/\r|\n|\t/g, ""),
-            Number(question.numberOfUpVotes),
-            Number(question.numberOfDownVotes),
-            productId
-        );
+                .replace(/\r|\n|\t/g, ""))
+            .withQuestionUpVotes(Number(question.numberOfUpVotes))
+            .withQuestionDownVotes(Number(question.numberOfDownVotes))
+            .withQuestionProductId(productId);
         arrayOfParsedQuestionModels.push(questionModel);
         question.answers.forEach(answer => {
             let questionAnswerModel = new QuestionAnswer(
