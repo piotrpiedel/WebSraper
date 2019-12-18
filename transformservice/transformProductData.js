@@ -2,9 +2,14 @@
 const Product = require("../models/product");
 const FileUtil = require("../utils/fileUtil");
 
+const productId = 222;
+(async () => {
+    await transformProductData(productId, FileUtil.readDataFile("dataextracted", "productData"));
+})();
+
 async function transformProductData(productId, productData) {
-    let productModel = new Product.Builder()
-        .withName(productData.productName.trim())
+    let productModel = new Product.Builder(productId)
+        // .withName(productData.productName.trim())
         .withProducer(productData.producer.trim())
         .build();
 

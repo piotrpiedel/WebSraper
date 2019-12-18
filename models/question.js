@@ -3,22 +3,63 @@ const databaseConnection = require("../database/mysqlconnection");
 
 //Question object constructor
 class Question {
-    constructor(id,
-                questionTitle,
-                questionMessage,
-                questionDate,
-                userName,
-                upvotes,
-                downvotes,
-                productId) {
-        this.id = id;
-        this.question_content = questionMessage;
-        this.question_title = questionTitle;
-        this.date_creation = questionDate;
-        this.user_name = userName;
-        this.upvotes = upvotes;
-        this.downvotes = downvotes;
-        this.product_id_fk = productId;
+    constructor(question) {
+        if (arguments.length === 1 && this.validateProduct(question)) {
+            this.id = question.id;
+            this.question_content = question.question_content;
+            this.question_title = question.question_title;
+            this.date_creation = question.date_creation;
+            this.user_name = question.user_name;
+            this.upvotes = question.upvotes;
+            this.downvotes = question.downvotes;
+            this.product_id_fk = question.product_id_fk;
+        }
+    }
+
+    validateProduct(product) {
+        return (String(product.constructor) === String(Question.Builder));
+    }
+
+    static get Builder() {
+        class Builder {
+            constructor(id) {
+                this.id = id;
+            }
+            withQuestionTitle(questionTitle){
+                this.question_title = questionTitle;
+                return this;
+            }
+            withQuestionMessage(questionMessage){
+                this.question_content = questionMessage;
+                return this;
+            }
+            withQuestionDate(questionDate){
+                this.date_creation = questionDate;
+                return this;
+            }
+            withQuestionUserName(userName){
+                this.user_name = userName;
+                return this;
+            }
+            withQuestionUpVotes(upVotes){
+                this.upvotes = upVotes;
+                return this;
+            }
+            withQuestionDownVotes(downVotes){
+                this.downvotes = downVotes;
+                return this;
+            }
+            withQuestionProductId(productId){
+                this.product_id_fk = productId;
+                return this;
+            }
+            build() {
+                if (this.id && this.product_id_fk) {
+                    return new Question(this)
+                } else throw "Question id && productFK must not be empty";
+            }
+        }
+        return Builder;
     }
 }
 
