@@ -9,7 +9,7 @@ const productId = 222;
 
 async function transformProductData(productId, productData) {
     let productModel = new Product.Builder(productId)
-        // .withName(productData.productName.trim())
+        .withName(productData.productName.trim())
         .withProducer(productData.producer.trim())
         .build();
 
