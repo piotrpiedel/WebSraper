@@ -25,7 +25,7 @@ DROP TABLE IF EXISTS `product`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `product` (
-  `id` int(11) NOT NULL,
+  `id` int(10) NOT NULL,
   `name` varchar(150) DEFAULT NULL,
   `producer` varchar(150) DEFAULT NULL,
   PRIMARY KEY (`id`),
@@ -79,7 +79,7 @@ DROP TABLE IF EXISTS `question`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `question` (
-  `id` int(11) NOT NULL,
+  `id` varchar(15) NOT NULL,
   `question_content` varchar(500) DEFAULT NULL,
   `date_creation` date DEFAULT NULL,
   `upvotes` int(11) DEFAULT NULL,
@@ -101,15 +101,14 @@ DROP TABLE IF EXISTS `question_answer`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `question_answer` (
-  `id` int(11) NOT NULL,
+  `id` varchar(15) NOT NULL,
   `date_creation` date DEFAULT NULL,
   `upvotes` int(11) DEFAULT NULL,
   `downvotes` int(11) DEFAULT NULL,
   `user_name` varchar(60) DEFAULT NULL,
-  `question_id` int(11) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `question_id` (`question_id`),
-  CONSTRAINT `question_answer_ibfk_1` FOREIGN KEY (`question_id`) REFERENCES `question` (`id`)
+  `question_id` varchar(15) NOT NULL,
+  KEY `question_id_fk_idx` (`question_id`),
+  CONSTRAINT `question_id_fk` FOREIGN KEY (`question_id`) REFERENCES `question` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -127,7 +126,7 @@ CREATE TABLE `review` (
   `upvotes` int(11) DEFAULT NULL,
   `downvotes` int(11) DEFAULT NULL,
   `date_creation` datetime DEFAULT NULL,
-  `author_name` varchar(60) DEFAULT NULL,
+  `user_name` varchar(60) DEFAULT NULL,
   `product_id_fk` int(11) NOT NULL,
   `was_purchased` tinyint(4) DEFAULT NULL,
   `date_of_purchase` datetime DEFAULT NULL,
@@ -190,4 +189,4 @@ CREATE TABLE `shop` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-12-16 22:37:57
+-- Dump completed on 2019-12-19 11:59:53
