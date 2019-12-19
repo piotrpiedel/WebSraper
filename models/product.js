@@ -1,5 +1,6 @@
 'user strict';
 const databaseConnection = require("../database/mysqlconnection");
+const databaseEnum = require("../config/database_enum");
 
 //Product object constructor
 class Product {
@@ -47,13 +48,13 @@ Product.createOrUpdateProduct = async function (productModelInstance) {
         let isProductExisting = await Product.checkIfExistsInDatabase(productModelInstance.id);
         console.log("isProductExisting", isProductExisting);
         if (isProductExisting) {
-            var productUpdated = await Product.updateById(productModelInstance);
+            let productUpdated = await Product.updateById(productModelInstance);
             console.log("createOrUpdateProduct productUpdated");
-            return productUpdated;
+            return databaseEnum.UPDATE;
         } else {
-            var productInserted = await Product.insert(productModelInstance);
+            let productInserted = await Product.insert(productModelInstance);
             console.log("createOrUpdateProduct productInserted");
-            return productInserted;
+            return databaseEnum.INSERT;
         }
     } else throw "Model must be instance of Product"
 
@@ -65,8 +66,8 @@ Product.insert = async function (productModelInstance) {
                 if (error) {
                     console.error(error);
                 } else {
-                    console.log("Product.inserted - rows: ", rows);
-                    return rows;
+                    console.log("Product.inserted - rows: ", rows.affectedRows);
+                    return rows.affectedRows;
                 }
             }
         );
@@ -117,8 +118,8 @@ Product.updateById = async function (product) {
                 if (error) {
                     console.error(error);
                 } else {
-                    console.log("Product.updateById: rows", rows);
-                    return rows;
+                    console.log("Product.updateById: rows", rows.affectedRows);
+                    return rows.affectedRows;
                 }
             }
         );
