@@ -46,14 +46,11 @@ class Product {
 Product.createOrUpdateProduct = async function (productModelInstance) {
     if (productModelInstance instanceof Product) {
         let isProductExisting = await Product.checkIfExistsInDatabase(productModelInstance.id);
-        console.log("isProductExisting", isProductExisting);
         if (isProductExisting) {
             let productUpdated = await Product.updateById(productModelInstance);
-            console.log("createOrUpdateProduct productUpdated");
             return databaseEnum.UPDATE;
         } else {
             let productInserted = await Product.insert(productModelInstance);
-            console.log("createOrUpdateProduct productInserted");
             return databaseEnum.INSERT;
         }
     } else throw "Model must be instance of Product"
@@ -66,7 +63,6 @@ Product.insert = async function (productModelInstance) {
                 if (error) {
                     console.error(error);
                 } else {
-                    console.log("Product.inserted - rows: ", rows.affectedRows);
                     return rows.affectedRows;
                 }
             }
@@ -79,7 +75,6 @@ Product.checkIfExistsInDatabase = async function (id) {
             if (error) {
                 console.error(error);
             } else {
-                console.log("Product.checkIfExistsInDatabase - rows: ", rows);
                 return !!(rows && rows.length);
             }
         });
@@ -118,7 +113,6 @@ Product.updateById = async function (product) {
                 if (error) {
                     console.error(error);
                 } else {
-                    console.log("Product.updateById: rows", rows.affectedRows);
                     return rows.affectedRows;
                 }
             }

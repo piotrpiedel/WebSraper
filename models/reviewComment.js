@@ -1,5 +1,6 @@
 'user strict';
 const databaseConnection = require("../database/mysqlconnection");
+const databaseEnum = require("../config/database_enum");
 
 //review object constructor
 class ReviewComment {
@@ -57,15 +58,12 @@ class ReviewComment {
 ReviewComment.createOrUpdateReviewComment = async function (reviewCommentModelInstance) {
     if (reviewCommentModelInstance instanceof ReviewComment) {
         let isReviewCommentExisting = await ReviewComment.checkIfExistsInDatabase(reviewCommentModelInstance.id);
-        console.log("isReviewCommentExisting", isReviewCommentExisting);
         if (isReviewCommentExisting) {
             let reviewCommentUpdated = await ReviewComment.updateById(reviewCommentModelInstance);
-            console.log("createOrUpdateReview reviewCommentUpdated");
-            return reviewCommentUpdated;
+            return databaseEnum.UPDATE;
         } else {
             let reviewCommentInserted = await ReviewComment.insert(reviewCommentModelInstance);
-            console.log("createOrUpdateReview reviewCommentInserted");
-            return reviewCommentInserted;
+            return databaseEnum.INSERT;
         }
     }
 };
@@ -76,7 +74,6 @@ ReviewComment.insert = async function (reviewCommentModelInstance) {
                 if (error) {
                     console.error(error);
                 } else {
-                    console.log("ReviewComment.inserted - rows: ", rows);
                     return rows;
                 }
             }
@@ -89,7 +86,6 @@ ReviewComment.checkIfExistsInDatabase = async function (id) {
             if (error) {
                 console.error(error);
             } else {
-                console.log("ReviewComment.checkIfExistsInDatabase - rows: ", rows);
                 return !!(rows && rows.length);
             }
         });
@@ -102,7 +98,6 @@ ReviewComment.getReviewById = async function (id) {
             if (error) {
                 console.error(error);
             } else {
-                console.log("ReviewComment.getReviewById - rows: ", rows);
                 return rows;
             }
         });
@@ -114,7 +109,6 @@ ReviewComment.getAllReviews = function () {
             if (error) {
                 console.error(error);
             } else {
-                console.log("ReviewComment.getAllReviews - rows: ", rows);
                 return rows;
             }
         });
@@ -127,7 +121,6 @@ ReviewComment.updateById = async function (reviewComment) {
                 if (error) {
                     console.error(error);
                 } else {
-                    console.log("ReviewComment.updateById: rows", rows);
                     return rows;
                 }
             }

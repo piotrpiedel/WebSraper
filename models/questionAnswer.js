@@ -1,5 +1,6 @@
 'user strict';
 const databaseConnection = require("../database/mysqlconnection");
+const databaseEnum = require("../config/database_enum");
 
 //QuestionAnswer object constructor
 class QuestionAnswer {
@@ -69,15 +70,12 @@ class QuestionAnswer {
 QuestionAnswer.createOrUpdateQuestionAnswer = async function (questionAnswerModelInstance) {
     if (questionAnswerModelInstance instanceof QuestionAnswer) {
         let isQuestionAnswerExisting = await QuestionAnswer.checkIfExistsInDatabase(questionAnswerModelInstance.id);
-        console.log("isQuestionAnswerExisting", isQuestionAnswerExisting);
         if (isQuestionAnswerExisting) {
             let QuestionAnswerUpdated = await QuestionAnswer.updateById(questionAnswerModelInstance);
-            console.log("createOrUpdateQuestionAnswer QuestionAnswerUpdated");
-            return QuestionAnswerUpdated;
+            return databaseEnum.UPDATE;
         } else {
             let QuestionAnswerInserted = await QuestionAnswer.insert(questionAnswerModelInstance);
-            console.log("createOrUpdateQuestionAnswer QuestionAnswerInserted");
-            return QuestionAnswerInserted;
+            return databaseEnum.INSERT;
         }
     }
 };
@@ -89,7 +87,6 @@ QuestionAnswer.insert = async function (questionAnswerModelInstance) {
                 if (error) {
                     console.error(error);
                 } else {
-                    console.log("QuestionAnswer.inserted - rows: ", rows);
                     return rows;
                 }
             }
@@ -102,7 +99,6 @@ QuestionAnswer.checkIfExistsInDatabase = async function (questionAnswerId) {
             if (error) {
                 console.error(error);
             } else {
-                console.log("QuestionAnswer.checkIfExistsInDatabase - rows: ", rows);
                 return !!(rows && rows.length);
             }
         });
@@ -115,7 +111,6 @@ QuestionAnswer.getQuestionAnswerById = async function (questionAnswerId) {
             if (error) {
                 console.error(error);
             } else {
-                console.log("QuestionAnswer.getQuestionAnswerById - rows: ", rows);
                 return rows;
             }
         });
@@ -127,7 +122,6 @@ QuestionAnswer.getAllQuestionAnswers = function () {
             if (error) {
                 console.error(error);
             } else {
-                console.log("QuestionAnswer.getAllQuestionAnswers - rows: ", rows);
                 return rows;
             }
         });
@@ -140,7 +134,6 @@ QuestionAnswer.updateById = async function (QuestionAnswer) {
                 if (error) {
                     console.error(error);
                 } else {
-                    console.log("QuestionAnswer.updateById: rows", rows);
                     return rows;
                 }
             }
@@ -154,7 +147,6 @@ QuestionAnswer.delete = async function (id) {
                 if (error) {
                     console.error(error);
                 } else {
-                    console.log("QuestionAnswer.delete: rows", rows);
                     return rows;
                 }
             }
@@ -168,7 +160,6 @@ QuestionAnswer.clearTable = async function () {
                 if (error) {
                     console.error(error);
                 } else {
-                    console.log("QuestionAnswer.clearTable: rows", rows);
                     return rows;
                 }
             }

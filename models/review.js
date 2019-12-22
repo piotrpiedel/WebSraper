@@ -1,11 +1,12 @@
 'user strict';
 const databaseConnection = require("../database/mysqlconnection");
+const databaseEnum = require("../config/database_enum");
 
 //review object constructor
 class Review {
     constructor(review) {
         if (arguments.length === 1 && this.validate(review)) {
-            this.id = id;
+            this.id = review.id;
             this.user_name = review.user_name;
             this.was_purchased = review.was_purchased;
             this.date_of_purchase = review.date_of_purchase;
@@ -106,15 +107,12 @@ class Review {
 Review.createOrUpdateReview = async function (reviewModelInstance) {
     if (reviewModelInstance instanceof Review) {
         let isReviewExisting = await Review.checkIfExistsInDatabase(reviewModelInstance.id);
-        console.log("isReviewExisting", isReviewExisting);
         if (isReviewExisting) {
             let reviewUpdated = await Review.updateById(reviewModelInstance);
-            console.log("createOrUpdateReview reviewUpdated");
-            return reviewUpdated;
+            return databaseEnum.UPDATE;
         } else {
             let reviewInserted = await Review.insert(reviewModelInstance);
-            console.log("createOrUpdateReview reviewInserted");
-            return reviewInserted;
+            return databaseEnum.INSERT;
         }
     }
 };
@@ -126,7 +124,6 @@ Review.insert = async function (reviewModelInstance) {
                 if (error) {
                     console.error(error);
                 } else {
-                    console.log("Review.inserted - rows: ", rows);
                     return rows;
                 }
             }
@@ -139,7 +136,6 @@ Review.checkIfExistsInDatabase = async function (id) {
             if (error) {
                 console.error(error);
             } else {
-                console.log("Review.checkIfExistsInDatabase - rows: ", rows);
                 return !!(rows && rows.length);
             }
         });
@@ -177,7 +173,6 @@ Review.updateById = async function (review) {
                 if (error) {
                     console.error(error);
                 } else {
-                    console.log("Review.updateById: rows", rows);
                     return rows;
                 }
             }

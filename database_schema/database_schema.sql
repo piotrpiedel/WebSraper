@@ -81,7 +81,7 @@ DROP TABLE IF EXISTS `question`;
 CREATE TABLE `question` (
   `id` varchar(15) NOT NULL,
   `question_content` varchar(500) DEFAULT NULL,
-  `date_creation` date DEFAULT NULL,
+  `date_creation` timestamp(6) NULL DEFAULT NULL,
   `upvotes` int(11) DEFAULT NULL,
   `downvotes` int(11) DEFAULT NULL,
   `user_name` varchar(60) DEFAULT NULL,
@@ -102,7 +102,7 @@ DROP TABLE IF EXISTS `question_answer`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `question_answer` (
   `id` varchar(15) NOT NULL,
-  `date_creation` date DEFAULT NULL,
+  `date_creation` timestamp(6) NULL DEFAULT NULL,
   `upvotes` int(11) DEFAULT NULL,
   `downvotes` int(11) DEFAULT NULL,
   `user_name` varchar(60) DEFAULT NULL,
@@ -125,11 +125,11 @@ CREATE TABLE `review` (
   `review_content` longtext,
   `upvotes` int(11) DEFAULT NULL,
   `downvotes` int(11) DEFAULT NULL,
-  `date_creation` datetime DEFAULT NULL,
+  `date_creation` timestamp(6) NULL DEFAULT NULL,
   `user_name` varchar(60) DEFAULT NULL,
   `product_id_fk` int(11) NOT NULL,
   `was_purchased` tinyint(4) DEFAULT NULL,
-  `date_of_purchase` datetime DEFAULT NULL,
+  `date_of_purchase` timestamp(6) NULL DEFAULT NULL,
   `is_recommended` tinyint(4) DEFAULT NULL,
   `advantages` longtext,
   `disadvantages` longtext,
@@ -149,7 +149,7 @@ DROP TABLE IF EXISTS `review_comment`;
 CREATE TABLE `review_comment` (
   `id` int(20) NOT NULL,
   `comment_content` longtext,
-  `date_creation` date DEFAULT NULL,
+  `date_creation` timestamp(6) NULL DEFAULT NULL,
   `user_name` varchar(60) DEFAULT NULL,
   `review_id` int(20) NOT NULL,
   PRIMARY KEY (`id`),
@@ -189,4 +189,4 @@ CREATE TABLE `shop` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-12-19 11:59:53
+-- Dump completed on 2019-12-22 11:16:47

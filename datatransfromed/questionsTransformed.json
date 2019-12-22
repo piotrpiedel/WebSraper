@@ -1,112 +1,42 @@
 [
     {
-        "id": "0dbf5dbc1650",
-        "question_content": "Właśnie kupiłem laptopa, czy mam po prostu włożyć płytkę i windows zacznie się instalować?",
-        "question_title": "Czy zainstaluje sie po włożeniu do CD-ROMu?",
-        "date_creation": 1465250400000,
-        "user_name": "Michaś76",
+        "id": "25aad001ad5f",
+        "question_content": "Jest może tutaj regulacja tonów?",
+        "question_title": "Regulacja tonów",
+        "date_creation": "2018-02-07 13:24:59",
+        "user_name": "Patrycja",
         "upvotes": 0,
         "downvotes": 0,
-        "product_id_fk": "10201710"
+        "product_id_fk": "3082984"
     },
     {
-        "id": "6ba04ccdeba2",
-        "question_content": "Dzień dobry mam mały problem bo chcę to kupić ale nie wiem czy tam jest płytą  instalacyjna",
-        "question_title": "Czy w tym zestawie jest plyta",
-        "date_creation": 1572433225000,
-        "user_name": "Filwo",
+        "id": "790942f3c106",
+        "question_content": "Witam czy do komputera można zastosować te głośniki?",
+        "question_title": "Głośniki do komputera",
+        "date_creation": "2018-02-07 13:24:35",
+        "user_name": "Wanda",
         "upvotes": 0,
         "downvotes": 0,
-        "product_id_fk": "10201710"
+        "product_id_fk": "3082984"
     },
     {
-        "id": "ffb3e4237701",
-        "question_content": "Czy kod aktywacyjny będzie działał, nawet jeśli Microsoft nie będzie już obsługiwał siódemki?",
-        "question_title": "Czy bdzie działał kod aktywizacyjny?",
-        "date_creation": 1465250400000,
-        "user_name": "Mateo",
-        "upvotes": 1,
-        "downvotes": 0,
-        "product_id_fk": "10201710"
-    },
-    {
-        "id": "e83d76d69119",
-        "question_content": "Czy ten produkt posiada klucz aktywacyjny systemu czy jest bez klucza?",
-        "question_title": "Płyta instalacyjna windows 7",
-        "date_creation": 1557426262000,
-        "user_name": "Użytkownik",
+        "id": "bab5c53b1862",
+        "question_content": "Waszym zdaniem warto kupić te głośniki?",
+        "question_title": "Czy warto kupić",
+        "date_creation": "2018-02-07 13:24:06",
+        "user_name": "Milena",
         "upvotes": 0,
         "downvotes": 0,
-        "product_id_fk": "10201710"
+        "product_id_fk": "3082984"
     },
     {
-        "id": "68899ac2ce01",
-        "question_content": "",
-        "question_title": "Witan jest moze wersja 32 bitowa z sp 1 ?",
-        "date_creation": 1548002925000,
-        "user_name": "Michał",
+        "id": "848f7957c04a",
+        "question_content": "Jak oceniacie jakość obudowy tych głośników?",
+        "question_title": "Jakość obudowy",
+        "date_creation": "2018-02-07 13:22:47",
+        "user_name": "Oskar",
         "upvotes": 0,
         "downvotes": 0,
-        "product_id_fk": "10201710"
-    },
-    {
-        "id": "275c5224c8e2",
-        "question_content": "Czy jeśli kupię ten system to dostanę go na płycie którą się instaluje czy dostanę e-mail z linkiem do instalacji?",
-        "question_title": "Wersja systemu",
-        "date_creation": 1544479582000,
-        "user_name": "Hubert",
-        "upvotes": 0,
-        "downvotes": 0,
-        "product_id_fk": "10201710"
-    },
-    {
-        "id": "ad2122bd5170",
-        "question_content": "am Windowsa 10 home trial który mi się kończy więc jeżeli kupię i włoże płytkę do cd room* to mi się zainstaluje? I czy wy mi to wyślecie w płytce do mojego domu?",
-        "question_title": "Mam Windowsa 10 home trial który mi się kończy",
-        "date_creation": 1533917156000,
-        "user_name": "Milosz",
-        "upvotes": 0,
-        "downvotes": 0,
-        "product_id_fk": "10201710"
-    },
-    {
-        "id": "5d84787fef6c",
-        "question_content": "czy ten system operacyjny jest w wersji 64 bitowej czy 32 bitowej?",
-        "question_title": "ile to wersja bitowa?",
-        "date_creation": 1501676666000,
-        "user_name": "Użytkownik",
-        "upvotes": 0,
-        "downvotes": 0,
-        "product_id_fk": "10201710"
-    },
-    {
-        "id": "20b07b7fc041",
-        "question_content": "Czy moznaj jeszcze rejestrowac windos 7? Slyszalam, ze mozna bylo to robic tylko do konca pazdziernika tego roku.",
-        "question_title": "rejestracja systemu",
-        "date_creation": 1480336750000,
-        "user_name": "marizet",
-        "upvotes": 0,
-        "downvotes": 0,
-        "product_id_fk": "10201710"
-    },
-    {
-        "id": "a0209a046b30",
-        "question_content": "Czy płytka jest tłoczona czy wypalana na zwykłej nagrywarce?TO jest dla mnie wazne.",
-        "question_title": "Czy to Oryginał?",
-        "date_creation": 1477609155000,
-        "user_name": "Artur",
-        "upvotes": 0,
-        "downvotes": 0,
-        "product_id_fk": "10201710"
-    },
-    {
-        "id": "2df736dcea49",
-        "question_content": "czy mozna windowsa 7 wgrac zamiast windowsa xp",
-        "question_title": "o windowsie xp na 7",
-        "date_creation": 1474998297000,
-        "user_name": "sebastian",
-        "upvotes": 0,
-        "downvotes": 0,
-        "product_id_fk": "10201710"
+        "product_id_fk": "3082984"
     }
 ]

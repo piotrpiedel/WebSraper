@@ -10,7 +10,7 @@ async function transformQuestionData(productId, questions) {
         let questionModel = new Question.Builder(question.id)
             .withTitle(question.title.trim())
             .withMessage(question.message.trim())
-            .withDate(new Date(question.dateOfQuestion).getTime())
+            .withDate(question.dateOfQuestion.trim())
             .withUserName(question.author
                 .split(" ")[0]
                 .replace(/\r|\n|\t/g, ""))
@@ -22,7 +22,7 @@ async function transformQuestionData(productId, questions) {
         question.answers.forEach(answer => {
             let questionAnswerModel = new QuestionAnswer.Builder(answer.id)
                 .withMessage(answer.message.trim().replace(/\r|\n|\t/g, ""))
-                .withDate(new Date(answer.dateOfAnswer).getTime())
+                .withDate(answer.dateOfAnswer.trim())
                 .withUserName(answer.author.trim())
                 .withUpVotes(Number(answer.numberOfUpVotes))
                 .withDownVotes(Number(answer.numberOfDownVotes))
