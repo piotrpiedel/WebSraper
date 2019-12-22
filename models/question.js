@@ -1,5 +1,6 @@
 'user strict';
 const databaseConnection = require("../database/mysqlconnection");
+const databaseEnum = require("../config/database_enum");
 
 //Question object constructor
 class Question {
@@ -75,15 +76,12 @@ class Question {
 Question.createOrUpdateQuestion = async function (questionModelInstance) {
     if (questionModelInstance instanceof Question) {
         let isQuestionExisting = await Question.checkIfExistsInDatabase(questionModelInstance.id);
-        console.log("isQuestionExisting", isQuestionExisting);
         if (isQuestionExisting) {
             let QuestionUpdated = await Question.updateById(questionModelInstance);
-            console.log("createOrUpdateQuestion QuestionUpdated");
-            return QuestionUpdated;
+            return databaseEnum.UPDATE;
         } else {
             let QuestionInserted = await Question.insert(questionModelInstance);
-            console.log("createOrUpdateQuestion QuestionInserted");
-            return QuestionInserted;
+            return databaseEnum.INSERT;
         }
     }
 };
@@ -95,7 +93,6 @@ Question.insert = async function (QuestionModelInstance) {
                 if (error) {
                     console.error(error);
                 } else {
-                    console.log("Question.inserted - rows: ", rows);
                     return rows;
                 }
             }
@@ -108,7 +105,6 @@ Question.checkIfExistsInDatabase = async function (id) {
             if (error) {
                 console.error(error);
             } else {
-                console.log("Question.checkIfExistsInDatabase - rows: ", rows);
                 return !!(rows && rows.length);
             }
         });
@@ -121,7 +117,6 @@ Question.getQuestionById = async function (id) {
             if (error) {
                 console.error(error);
             } else {
-                console.log("Question.getQuestionById - rows: ", rows);
                 return rows;
             }
         });
@@ -146,7 +141,6 @@ Question.updateById = async function (question) {
                 if (error) {
                     console.error(error);
                 } else {
-                    console.log("Question.updateById: rows", rows);
                     return rows;
                 }
             }

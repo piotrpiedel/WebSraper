@@ -1,239 +1,75 @@
 [
     {
-        "id": "0dbf5dbc1650",
-        "author": "Michaś76",
-        "dateOfQuestion": "2016-06-07 00:00:00",
-        "title": "Czy zainstaluje sie po włożeniu do CD-ROMu?",
-        "message": "Właśnie kupiłem laptopa, czy mam po prostu włożyć płytkę i windows zacznie się instalować?",
+        "id": "25aad001ad5f",
+        "author": "Patrycja",
+        "dateOfQuestion": "2018-02-07 13:24:59",
+        "title": "Regulacja tonów",
+        "message": "Jest może tutaj regulacja tonów?",
         "numberOfUpVotes": "0",
         "numberOfDownVotes": "0",
         "answers": [
             {
-                "id": "908b76acf2fe",
-                "author": "Bosman33",
-                "message": "Hm w świeżym lapku, który nie ma w ogóle systemu operacyjnego, instalacja i start systemu mogą nie nastąpić automatycznie. To zależy od wymagań jakie stawia przed startem twój system BIOS. Dlatego możesz najpierw spróbować odpalić maszynę, włożyć płytkę nacisnąć: CTRL-ALT-DEL a potem F12 wtedy ukaże Ci się lista z której wybierzesz CD/DVD wtedy powinno być ok.",
-                "dateOfAnswer": "2016-06-07 00:00:00",
-                "numberOfUpVotes": "1",
-                "numberOfDownVotes": "1"
-            },
-            {
-                "id": "b09bd8d291c8",
-                "author": "Antoni00",
-                "message": "Ta instalka jest na dysku, także spokojnie, zainstaluje się bez problemu. Potem jedynie będziesz musiał ściągnąć aktualizację.",
-                "dateOfAnswer": "2016-06-07 00:00:00",
+                "id": "e01fd7ffee17",
+                "author": "Jacek",
+                "message": "Tak tony możesz w wygodny sposób regulować",
+                "dateOfAnswer": "2018-02-11 13:46:00",
                 "numberOfUpVotes": "0",
                 "numberOfDownVotes": "0"
             }
         ]
     },
     {
-        "id": "6ba04ccdeba2",
-        "author": "Filwo",
-        "dateOfQuestion": "2019-10-30 12:00:25",
-        "title": "Czy w tym zestawie jest plyta",
-        "message": "Dzień dobry mam mały problem bo chcę to kupić ale nie wiem czy tam jest płytą  instalacyjna",
+        "id": "790942f3c106",
+        "author": "Wanda",
+        "dateOfQuestion": "2018-02-07 13:24:35",
+        "title": "Głośniki do komputera",
+        "message": "Witam czy do komputera można zastosować te głośniki?",
         "numberOfUpVotes": "0",
-        "numberOfDownVotes": "0",
-        "answers": []
-    },
-    {
-        "id": "ffb3e4237701",
-        "author": "Mateo",
-        "dateOfQuestion": "2016-06-07 00:00:00",
-        "title": "Czy bdzie działał kod aktywizacyjny?",
-        "message": "Czy kod aktywacyjny będzie działał, nawet jeśli Microsoft nie będzie już obsługiwał siódemki?",
-        "numberOfUpVotes": "1",
         "numberOfDownVotes": "0",
         "answers": [
             {
-                "id": "cf9e6c9f426b",
-                "author": "andrzej23",
-                "message": "Tak, kod aktywacyjny to coś takiego jak potwierdzenie zakupu, obsługa to cos na zasadzie wdrażania nowych aktualizacji.",
-                "dateOfAnswer": "2016-06-07 00:00:00",
-                "numberOfUpVotes": "0",
-                "numberOfDownVotes": "0"
-            },
-            {
-                "id": "12bb00ef6610",
-                "author": "Radzio",
-                "message": "Kod autoryzacyjny będzie nadal działał. To jest właśnie to, co kupujesz. Myślę, że dzięki niemu możesz nawet pobrać system online bez konieczności używania płyty. Musisz ciągle pozwalać systemowi instalować aktualizacje, aż nie będzie ich wyszukiwał. To znak, że Microsoft nie obsługuje już tej wersji programu.",
-                "dateOfAnswer": "2016-06-07 00:00:00",
+                "id": "43d1a1fb2b78",
+                "author": "Janek",
+                "message": "Tak jak najbardziej, myślę że będziesz z nich zadowolony",
+                "dateOfAnswer": "2018-02-11 13:46:26",
                 "numberOfUpVotes": "0",
                 "numberOfDownVotes": "0"
             }
         ]
     },
     {
-        "id": "e83d76d69119",
-        "author": "Użytkownik",
-        "dateOfQuestion": "2019-05-09 20:24:22",
-        "title": "Płyta instalacyjna windows 7",
-        "message": "Czy ten produkt posiada klucz aktywacyjny systemu czy jest bez klucza?",
+        "id": "bab5c53b1862",
+        "author": "Milena",
+        "dateOfQuestion": "2018-02-07 13:24:06",
+        "title": "Czy warto kupić",
+        "message": "Waszym zdaniem warto kupić te głośniki?",
         "numberOfUpVotes": "0",
         "numberOfDownVotes": "0",
         "answers": [
             {
-                "id": "6201527c5768",
-                "author": "oplacalny-software.pl",
-                "message": "Dzień dobry. System Windows 7 Professional dostępny jest w 3 wersjach:1) licencja elektroniczna2) naklejka CoA3) naklejka CoA z płytą DVDW każdym przypadku wysyłany jest klucz aktywacyjny systemu.",
-                "dateOfAnswer": "2019-05-10 10:49:29",
-                "numberOfUpVotes": "0",
-                "numberOfDownVotes": "0"
-            },
-            {
-                "id": "dc6b49d314f1",
-                "author": "cybersklep.vip",
-                "message": "Witam serdecznie.Licencja nie może być bez klucza ponieważ klucz sam w sobie jest licencją.",
-                "dateOfAnswer": "2019-05-10 12:25:29",
+                "id": "f42d3b6c9245",
+                "author": "Radek",
+                "message": "Oczywiście głośniki zapewniają doskonałe brzmienia",
+                "dateOfAnswer": "2018-02-11 13:46:36",
                 "numberOfUpVotes": "0",
                 "numberOfDownVotes": "0"
             }
         ]
     },
     {
-        "id": "68899ac2ce01",
-        "author": "Michał",
-        "dateOfQuestion": "2019-01-20 17:48:45",
-        "title": "Witan jest moze wersja 32 bitowa z sp 1 ?",
-        "message": "",
+        "id": "848f7957c04a",
+        "author": "Oskar",
+        "dateOfQuestion": "2018-02-07 13:22:47",
+        "title": "Jakość obudowy",
+        "message": "Jak oceniacie jakość obudowy tych głośników?",
         "numberOfUpVotes": "0",
         "numberOfDownVotes": "0",
         "answers": [
             {
-                "id": "05482513f03d",
-                "author": "cybersklep.vip",
-                "message": "Witam. Nasze klucze pasują do obu wersji 32 i 64 bit",
-                "dateOfAnswer": "2019-01-21 19:18:04",
-                "numberOfUpVotes": "0",
-                "numberOfDownVotes": "0"
-            },
-            {
-                "id": "829f2a78c1e7",
-                "author": "cyber-sklep.pl",
-                "message": "Witam. Nasze klucze pasują do obu wersji 32 i 64 bit",
-                "dateOfAnswer": "2019-01-21 19:18:19",
-                "numberOfUpVotes": "0",
-                "numberOfDownVotes": "0"
-            }
-        ]
-    },
-    {
-        "id": "275c5224c8e2",
-        "author": "Hubert",
-        "dateOfQuestion": "2018-12-10 23:06:22",
-        "title": "Wersja systemu",
-        "message": "Czy jeśli kupię ten system to dostanę go na płycie którą się instaluje czy dostanę e-mail z linkiem do instalacji?",
-        "numberOfUpVotes": "0",
-        "numberOfDownVotes": "0",
-        "answers": [
-            {
-                "id": "837afd6918eb",
-                "author": "pcdirect.pl",
-                "message": "Witam, Wysyłamy jedynie klucz elektroniczny. Nie zajmujemy się wysyłką naklejek.Wraz z kluczem wysyłamy link do pobrania obrazu płyty Iso.Pozdrawiam.",
-                "dateOfAnswer": "2018-12-12 11:39:10",
-                "numberOfUpVotes": "0",
-                "numberOfDownVotes": "0"
-            },
-            {
-                "id": "662e17ecbb9e",
-                "author": "oplacalny-software.pl",
-                "message": "Można u nas wybrać Win 7 z nową nieoryginalną płytą, albo z samym linkiem bez płyty",
-                "dateOfAnswer": "2018-12-12 13:53:13",
-                "numberOfUpVotes": "0",
-                "numberOfDownVotes": "0"
-            }
-        ]
-    },
-    {
-        "id": "ad2122bd5170",
-        "author": "Milosz",
-        "dateOfQuestion": "2018-08-10 18:05:56",
-        "title": "Mam Windowsa 10 home trial który mi się kończy",
-        "message": "am Windowsa 10 home trial który mi się kończy więc jeżeli kupię i włoże płytkę do cd room* to mi się zainstaluje? I czy wy mi to wyślecie w płytce do mojego domu?",
-        "numberOfUpVotes": "0",
-        "numberOfDownVotes": "0",
-        "answers": [
-            {
-                "id": "a066808d9686",
-                "author": "oplacalny-software.pl",
-                "message": "Zainstalowane już jest. Wystarczy wpisać kod do aktywacji. Wysyłamy go na email. U nas Win 10 jest zawsze bez płyty",
-                "dateOfAnswer": "2018-08-13 10:46:31",
-                "numberOfUpVotes": "0",
-                "numberOfDownVotes": "0"
-            }
-        ]
-    },
-    {
-        "id": "5d84787fef6c",
-        "author": "Użytkownik",
-        "dateOfQuestion": "2017-08-02 14:24:26",
-        "title": "ile to wersja bitowa?",
-        "message": "czy ten system operacyjny jest w wersji 64 bitowej czy 32 bitowej?",
-        "numberOfUpVotes": "0",
-        "numberOfDownVotes": "0",
-        "answers": [
-            {
-                "id": "3cca466cc105",
-                "author": "Damian",
-                "message": "W nazwie masz - 64 BIT",
-                "dateOfAnswer": "2017-08-29 10:45:53",
-                "numberOfUpVotes": "0",
-                "numberOfDownVotes": "0"
-            }
-        ]
-    },
-    {
-        "id": "20b07b7fc041",
-        "author": "marizet",
-        "dateOfQuestion": "2016-11-28 13:39:10",
-        "title": "rejestracja systemu",
-        "message": "Czy moznaj jeszcze rejestrowac windos 7? Slyszalam, ze mozna bylo to robic tylko do konca pazdziernika tego roku.",
-        "numberOfUpVotes": "0",
-        "numberOfDownVotes": "0",
-        "answers": [
-            {
-                "id": "6fff0dc91e2f",
-                "author": "marcin",
-                "message": "Ja rejestrowałem niedawno, ale chyba można skoro jest w sprzedaży być może będzie darmowy upgrade.",
-                "dateOfAnswer": "2016-11-30 13:29:12",
-                "numberOfUpVotes": "0",
-                "numberOfDownVotes": "0"
-            }
-        ]
-    },
-    {
-        "id": "a0209a046b30",
-        "author": "Artur",
-        "dateOfQuestion": "2016-10-28 00:59:15",
-        "title": "Czy to Oryginał?",
-        "message": "Czy płytka jest tłoczona czy wypalana na zwykłej nagrywarce?TO jest dla mnie wazne.",
-        "numberOfUpVotes": "0",
-        "numberOfDownVotes": "0",
-        "answers": [
-            {
-                "id": "03c2e29a15ca",
-                "author": "Piotrek",
-                "message": "Płyta dołączona jest oryginalna - ma nadruk na zewnętrznej części z informacjami DELLa.Klucz jest na naklejce, dołączonej do opakowania.",
-                "dateOfAnswer": "2016-12-09 08:38:36",
-                "numberOfUpVotes": "0",
-                "numberOfDownVotes": "0"
-            }
-        ]
-    },
-    {
-        "id": "2df736dcea49",
-        "author": "sebastian",
-        "dateOfQuestion": "2016-09-27 19:44:57",
-        "title": "o windowsie xp na 7",
-        "message": "czy mozna windowsa 7 wgrac zamiast windowsa xp",
-        "numberOfUpVotes": "0",
-        "numberOfDownVotes": "0",
-        "answers": [
-            {
-                "id": "e50448af413b",
-                "author": "nie",
-                "message": "nie pozwalam",
-                "dateOfAnswer": "2017-01-03 21:37:47",
+                "id": "6ca4d22fee9e",
+                "author": "Miłosz",
+                "message": "Jakość wykonania stoi tutaj na naprawdę bardzo wysokim poziomie",
+                "dateOfAnswer": "2018-02-11 13:46:52",
                 "numberOfUpVotes": "0",
                 "numberOfDownVotes": "0"
             }

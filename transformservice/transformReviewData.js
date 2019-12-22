@@ -3,6 +3,10 @@ const Review = require("../models/review");
 const ReviewComment = require("../models/reviewComment");
 const FileUtil = require("../utils/fileUtil");
 
+// (async () => {
+//     await transformReviewData(149441211, FileUtil.readDataFile("dataextracted", "reviews"));
+// })();
+
 async function transformReviewData(productId, reviews) {
     const arrayOfParsedReviewModels = [];
     const arrayOfParsedReviewCommentModels = [];
@@ -10,10 +14,10 @@ async function transformReviewData(productId, reviews) {
         let reviewModel = new Review.Builder(review.id.trim())
             .withUserName(review.author.trim())
             .withWasPurchased(!!review.dateOfPurchase)
-            .withDateOfPurchase(new Date(review.dateOfPurchase).getTime())
-            .withDateOfReview(new Date(review.dateOfReview).getTime())
+            .withDateOfPurchase(review.dateOfPurchase ? review.dateOfPurchase.trim() : "")
+            .withDateOfReview(review.dateOfReview.trim())
             .withReviewStars(Number(review.score.split("/")[0]))
-            .withIsRecommended(eview.isRecommended === "Polecam")
+            .withIsRecommended(review.isRecommended === "Polecam")
             .withContent(review.message.trim())
             .withAdvantages(review.advantages.join())
             .withDisadvantages(review.disadvantages.join())
@@ -25,7 +29,7 @@ async function transformReviewData(productId, reviews) {
         review.comments.forEach(comment => {
                 let reviewCommentModel = new ReviewComment.Builder(comment.id.trim())
                     .withMessage(comment.message.trim())
-                    .withDate(new Date(comment.dateOfComment).getTime())
+                    .withDate(comment.dateOfComment.trim())
                     .withUserName(comment.author.trim())
                     .withReviewId(review.id.trim())
                     .build();

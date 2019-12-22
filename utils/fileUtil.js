@@ -4,7 +4,9 @@ const fs = require("fs");
 
 function readDataFile(folderName, fileName) {
     const file = fs.readFileSync(url.resolve(__dirname, `${folderName}\\${fileName}.json`));
-    console.log(`file: ${fileName} in folder ${folderName} is read ok`);
+    if(file){
+        console.log(`file: ${fileName} in folder ${folderName} is read ok`);
+    }
     return JSON.parse(file);
 }
 

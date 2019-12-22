@@ -1,137 +1,38 @@
 [
     {
-        "id": "908b76acf2fe",
-        "question_answer_content": "Hm w świeżym lapku, który nie ma w ogóle systemu operacyjnego, instalacja i start systemu mogą nie nastąpić automatycznie. To zależy od wymagań jakie stawia przed startem twój system BIOS. Dlatego możesz najpierw spróbować odpalić maszynę, włożyć płytkę nacisnąć: CTRL-ALT-DEL a potem F12 wtedy ukaże Ci się lista z której wybierzesz CD/DVD wtedy powinno być ok.",
-        "date_creation": 1465250400000,
-        "user_name": "Bosman33",
-        "upvotes": 1,
-        "downvotes": 1,
-        "question_id": "0dbf5dbc1650"
-    },
-    {
-        "id": "b09bd8d291c8",
-        "question_answer_content": "Ta instalka jest na dysku, także spokojnie, zainstaluje się bez problemu. Potem jedynie będziesz musiał ściągnąć aktualizację.",
-        "date_creation": 1465250400000,
-        "user_name": "Antoni00",
+        "id": "e01fd7ffee17",
+        "question_answer_content": "Tak tony możesz w wygodny sposób regulować",
+        "date_creation": "2018-02-11 13:46:00",
+        "user_name": "Jacek",
         "upvotes": 0,
         "downvotes": 0,
-        "question_id": "0dbf5dbc1650"
+        "question_id": "25aad001ad5f"
     },
     {
-        "id": "cf9e6c9f426b",
-        "question_answer_content": "Tak, kod aktywacyjny to coś takiego jak potwierdzenie zakupu, obsługa to cos na zasadzie wdrażania nowych aktualizacji.",
-        "date_creation": 1465250400000,
-        "user_name": "andrzej23",
+        "id": "43d1a1fb2b78",
+        "question_answer_content": "Tak jak najbardziej, myślę że będziesz z nich zadowolony",
+        "date_creation": "2018-02-11 13:46:26",
+        "user_name": "Janek",
         "upvotes": 0,
         "downvotes": 0,
-        "question_id": "ffb3e4237701"
+        "question_id": "790942f3c106"
     },
     {
-        "id": "12bb00ef6610",
-        "question_answer_content": "Kod autoryzacyjny będzie nadal działał. To jest właśnie to, co kupujesz. Myślę, że dzięki niemu możesz nawet pobrać system online bez konieczności używania płyty. Musisz ciągle pozwalać systemowi instalować aktualizacje, aż nie będzie ich wyszukiwał. To znak, że Microsoft nie obsługuje już tej wersji programu.",
-        "date_creation": 1465250400000,
-        "user_name": "Radzio",
+        "id": "f42d3b6c9245",
+        "question_answer_content": "Oczywiście głośniki zapewniają doskonałe brzmienia",
+        "date_creation": "2018-02-11 13:46:36",
+        "user_name": "Radek",
         "upvotes": 0,
         "downvotes": 0,
-        "question_id": "ffb3e4237701"
+        "question_id": "bab5c53b1862"
     },
     {
-        "id": "6201527c5768",
-        "question_answer_content": "Dzień dobry. System Windows 7 Professional dostępny jest w 3 wersjach:1) licencja elektroniczna2) naklejka CoA3) naklejka CoA z płytą DVDW każdym przypadku wysyłany jest klucz aktywacyjny systemu.",
-        "date_creation": 1557478169000,
-        "user_name": "oplacalny-software.pl",
+        "id": "6ca4d22fee9e",
+        "question_answer_content": "Jakość wykonania stoi tutaj na naprawdę bardzo wysokim poziomie",
+        "date_creation": "2018-02-11 13:46:52",
+        "user_name": "Miłosz",
         "upvotes": 0,
         "downvotes": 0,
-        "question_id": "e83d76d69119"
-    },
-    {
-        "id": "dc6b49d314f1",
-        "question_answer_content": "Witam serdecznie.Licencja nie może być bez klucza ponieważ klucz sam w sobie jest licencją.",
-        "date_creation": 1557483929000,
-        "user_name": "cybersklep.vip",
-        "upvotes": 0,
-        "downvotes": 0,
-        "question_id": "e83d76d69119"
-    },
-    {
-        "id": "05482513f03d",
-        "question_answer_content": "Witam. Nasze klucze pasują do obu wersji 32 i 64 bit",
-        "date_creation": 1548094684000,
-        "user_name": "cybersklep.vip",
-        "upvotes": 0,
-        "downvotes": 0,
-        "question_id": "68899ac2ce01"
-    },
-    {
-        "id": "829f2a78c1e7",
-        "question_answer_content": "Witam. Nasze klucze pasują do obu wersji 32 i 64 bit",
-        "date_creation": 1548094699000,
-        "user_name": "cyber-sklep.pl",
-        "upvotes": 0,
-        "downvotes": 0,
-        "question_id": "68899ac2ce01"
-    },
-    {
-        "id": "837afd6918eb",
-        "question_answer_content": "Witam, Wysyłamy jedynie klucz elektroniczny. Nie zajmujemy się wysyłką naklejek.Wraz z kluczem wysyłamy link do pobrania obrazu płyty Iso.Pozdrawiam.",
-        "date_creation": 1544611150000,
-        "user_name": "pcdirect.pl",
-        "upvotes": 0,
-        "downvotes": 0,
-        "question_id": "275c5224c8e2"
-    },
-    {
-        "id": "662e17ecbb9e",
-        "question_answer_content": "Można u nas wybrać Win 7 z nową nieoryginalną płytą, albo z samym linkiem bez płyty",
-        "date_creation": 1544619193000,
-        "user_name": "oplacalny-software.pl",
-        "upvotes": 0,
-        "downvotes": 0,
-        "question_id": "275c5224c8e2"
-    },
-    {
-        "id": "a066808d9686",
-        "question_answer_content": "Zainstalowane już jest. Wystarczy wpisać kod do aktywacji. Wysyłamy go na email. U nas Win 10 jest zawsze bez płyty",
-        "date_creation": 1534149991000,
-        "user_name": "oplacalny-software.pl",
-        "upvotes": 0,
-        "downvotes": 0,
-        "question_id": "ad2122bd5170"
-    },
-    {
-        "id": "3cca466cc105",
-        "question_answer_content": "W nazwie masz - 64 BIT",
-        "date_creation": 1503996353000,
-        "user_name": "Damian",
-        "upvotes": 0,
-        "downvotes": 0,
-        "question_id": "5d84787fef6c"
-    },
-    {
-        "id": "6fff0dc91e2f",
-        "question_answer_content": "Ja rejestrowałem niedawno, ale chyba można skoro jest w sprzedaży być może będzie darmowy upgrade.",
-        "date_creation": 1480508952000,
-        "user_name": "marcin",
-        "upvotes": 0,
-        "downvotes": 0,
-        "question_id": "20b07b7fc041"
-    },
-    {
-        "id": "03c2e29a15ca",
-        "question_answer_content": "Płyta dołączona jest oryginalna - ma nadruk na zewnętrznej części z informacjami DELLa.Klucz jest na naklejce, dołączonej do opakowania.",
-        "date_creation": 1481269116000,
-        "user_name": "Piotrek",
-        "upvotes": 0,
-        "downvotes": 0,
-        "question_id": "a0209a046b30"
-    },
-    {
-        "id": "e50448af413b",
-        "question_answer_content": "nie pozwalam",
-        "date_creation": 1483475867000,
-        "user_name": "nie",
-        "upvotes": 0,
-        "downvotes": 0,
-        "question_id": "2df736dcea49"
+        "question_id": "848f7957c04a"
     }
 ]
