@@ -8,6 +8,11 @@ Router.post("/", async function (request, response) {
 
 });
 
+Router.post("/onlyextract", async function (request, response) {
+    console.log("request.params.productID", request.body.productID);
+    await ETLController.onlyExtractStep(request, response);
+
+});
 // Router.get("/", async function (request, response) {
 //     await ProductController.getAllProducts(response);
 // });
