@@ -19,6 +19,7 @@ async function createOrUpdate(ModelClass, daoFunctionToCall, data) {
             }
         }
         console.debug(`${daoFunctionToCall.name} multiple data update/insert stats: `, insertedStats, updatedStats);
+        // return {[`${ModelClass.name}insertedStats`]: insertedStats, [`${ModelClass.name}updatedStats`]: updatedStats};
         return {insertedStats, updatedStats};
     } else {
         const value = await saveToDatabase(new ModelClass(data), daoFunctionToCall);
@@ -28,6 +29,7 @@ async function createOrUpdate(ModelClass, daoFunctionToCall, data) {
             updatedStats++
         }
         console.debug(`${daoFunctionToCall.name} single data update/insert stats: `, insertedStats, updatedStats);
+        // return {[`${ModelClass.name}insertedStats`]: insertedStats, [`${ModelClass.name}updatedStats`]: updatedStats};
         return {insertedStats, updatedStats};
     }
 }

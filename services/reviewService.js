@@ -5,8 +5,8 @@ const FileUtil = require("../utils/fileUtil");
 const baseService = require("../services/baseService");
 
 // (async () => {
-//     await createOrUpdateReviews(FileUtil.readDataFile("datatransfromed", "reviewsTransformed"));
-// })();
+// //     await createOrUpdateReviews(FileUtil.readDataFile("datatransfromed", "reviewsTransformed"));
+// // })();
 
 async function createOrUpdateReviews() {
     return await baseService.createOrUpdate(Review,
