@@ -80,8 +80,8 @@ DROP TABLE IF EXISTS `question`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `question` (
   `id` varchar(15) NOT NULL,
-  `question_content` varchar(500) DEFAULT NULL,
-  `date_creation` timestamp(6) NULL DEFAULT NULL,
+  `question_content` longtext,
+  `date_creation` datetime DEFAULT NULL,
   `upvotes` int(11) DEFAULT NULL,
   `downvotes` int(11) DEFAULT NULL,
   `user_name` varchar(60) DEFAULT NULL,
@@ -102,11 +102,12 @@ DROP TABLE IF EXISTS `question_answer`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `question_answer` (
   `id` varchar(15) NOT NULL,
-  `date_creation` timestamp(6) NULL DEFAULT NULL,
+  `date_creation` datetime DEFAULT NULL,
   `upvotes` int(11) DEFAULT NULL,
   `downvotes` int(11) DEFAULT NULL,
   `user_name` varchar(60) DEFAULT NULL,
   `question_id` varchar(15) NOT NULL,
+  `question_answer_content` longtext,
   KEY `question_id_fk_idx` (`question_id`),
   CONSTRAINT `question_id_fk` FOREIGN KEY (`question_id`) REFERENCES `question` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -125,11 +126,11 @@ CREATE TABLE `review` (
   `review_content` longtext,
   `upvotes` int(11) DEFAULT NULL,
   `downvotes` int(11) DEFAULT NULL,
-  `date_creation` timestamp(6) NULL DEFAULT NULL,
+  `date_creation` datetime DEFAULT NULL,
   `user_name` varchar(60) DEFAULT NULL,
   `product_id_fk` int(11) NOT NULL,
   `was_purchased` tinyint(4) DEFAULT NULL,
-  `date_of_purchase` timestamp(6) NULL DEFAULT NULL,
+  `date_of_purchase` datetime DEFAULT NULL,
   `is_recommended` tinyint(4) DEFAULT NULL,
   `advantages` longtext,
   `disadvantages` longtext,
@@ -149,7 +150,7 @@ DROP TABLE IF EXISTS `review_comment`;
 CREATE TABLE `review_comment` (
   `id` int(20) NOT NULL,
   `comment_content` longtext,
-  `date_creation` timestamp(6) NULL DEFAULT NULL,
+  `date_creation` datetime DEFAULT NULL,
   `user_name` varchar(60) DEFAULT NULL,
   `review_id` int(20) NOT NULL,
   PRIMARY KEY (`id`),
@@ -189,4 +190,4 @@ CREATE TABLE `shop` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-12-22 11:16:47
+-- Dump completed on 2019-12-23 17:36:24

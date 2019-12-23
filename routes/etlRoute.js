@@ -13,6 +13,11 @@ Router.post("/onlyextract", async function (request, response) {
     await ETLController.onlyExtractStep(request, response);
 
 });
+
+Router.post("/onlyTransformStep", async function (request, response) {
+    console.log("request.params.productID", request.body.productID);
+    await ETLController.onlyTransformStep(request, response);
+});
 // Router.get("/", async function (request, response) {
 //     await ProductController.getAllProducts(response);
 // });

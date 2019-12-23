@@ -33,11 +33,15 @@ async function transformQuestionData(productId, questions) {
     });
     FileUtil.saveDataToJsonFile("datatransfromed", "questionsTransformed", arrayOfParsedQuestionModels);
     FileUtil.saveDataToJsonFile("datatransfromed", "questionAnswersTransformed", arrayOfParsedQuestionAnswerModels);
+    return {
+        transformedQuestions: arrayOfParsedQuestionModels.length,
+        transformedQuestionsAnswers: arrayOfParsedQuestionAnswerModels.length
+    }
 }
 
 async function transformQuestionDataFromDataExtracted(productId) {
     let questionsData = FileUtil.readDataFile("dataextracted", "questions");
-    await transformQuestionData(productId, questionsData)
+    return transformQuestionData(productId, questionsData)
 }
 
 exports.transformQuestionData = transformQuestionData;
