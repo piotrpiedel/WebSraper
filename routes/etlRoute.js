@@ -2,22 +2,52 @@ const express = require("express");
 const Router = express.Router();
 const ETLController = require("../controllers/ETLController");
 
-Router.post("/", async function (request, response) {
+// http://localhost:3000/etl/etlwhole
+//[{"key":"Content-Type","name":"Content-Type","value":"application/json","description":"","type":"text"}]
+// {
+//     "productID": "3082984"
+// }
+
+Router.post("/etlwhole", async function (request, response) {
     console.log("request.params.productID", request.body.productID);
     await ETLController.createETLProcessAtOnce(request, response);
 
 });
 
-Router.post("/onlyextract", async function (request, response) {
+
+// http://localhost:3000/etl/onlyextractstep
+//[{"key":"Content-Type","name":"Content-Type","value":"application/json","description":"","type":"text"}]
+// {
+//     "productID": "3082984"
+// // }
+Router.post("/onlyextractstep", async function (request, response) {
     console.log("request.params.productID", request.body.productID);
     await ETLController.onlyExtractStep(request, response);
 
 });
 
-Router.post("/onlyTransformStep", async function (request, response) {
+
+// http://localhost:3000/etl/onlytransformstep
+//[{"key":"Content-Type","name":"Content-Type","value":"application/json","description":"","type":"text"}]
+// {
+//     "productID": "3082984"
+// // }
+Router.post("/onlytransformstep", async function (request, response) {
     console.log("request.params.productID", request.body.productID);
     await ETLController.onlyTransformStep(request, response);
 });
+
+
+// http://localhost:3000/etl/onlyloadstep
+//[{"key":"Content-Type","name":"Content-Type","value":"application/json","description":"","type":"text"}]
+// {
+//     "productID": "3082984"
+// // }
+Router.post("/onlyloadstep", async function (request, response) {
+    console.log("request.params.productID", request.body.productID);
+    await ETLController.onlyLoadStep(request, response);
+});
+
 // Router.get("/", async function (request, response) {
 //     await ProductController.getAllProducts(response);
 // });
@@ -28,10 +58,3 @@ Router.post("/onlyTransformStep", async function (request, response) {
 // });
 
 module.exports = Router;
-
-
-// 4 post;
-// 1 post na wszystko;
-// 2 post na e;
-// 3 post na t;
-// 4 post na l;

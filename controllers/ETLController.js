@@ -10,11 +10,7 @@ let ExtractService = require('../services/extractService.js');
 let ReviewsService = require('../services/reviewService.js');
 let QuestionsService = require('../services/questionService.js');
 
-// http://localhost:3000/etl/
-//[{"key":"Content-Type","name":"Content-Type","value":"application/json","description":"","type":"text"}]
-// {
-//     "productID": "123"
-// }
+
 exports.createETLProcessAtOnce = async function (request, response) {
     let productId = request.body.productID;
     console.log("createETLProcessAtOnce productId: ", productId);
@@ -45,11 +41,6 @@ exports.createETLProcessAtOnce = async function (request, response) {
 };
 
 
-// http://localhost:3000/etl/onlyextract
-//[{"key":"Content-Type","name":"Content-Type","value":"application/json","description":"","type":"text"}]
-// {
-//     "productID": "123"
-// // }
 exports.onlyExtractStep = async function (request, response) {
     let productId = request.body.productID;
     console.log("Only extract data productId: ", productId);
@@ -57,11 +48,7 @@ exports.onlyExtractStep = async function (request, response) {
     response.send(ExtractService.getWebScraperExtractionStatistics());
 };
 
-// http://localhost:3000/etl/onlyTransformStep
-//[{"key":"Content-Type","name":"Content-Type","value":"application/json","description":"","type":"text"}]
-// {
-//     "productID": "123"
-// // }
+
 exports.onlyTransformStep = async function (request, response) {
     let productId = request.body.productID;
     let resultsProduct = await TransformProductDataService.transformProductDataFromDataExtracted(productId);
@@ -71,6 +58,25 @@ exports.onlyTransformStep = async function (request, response) {
         resultsProduct: resultsProduct,
         resultsReviews: resultsReviews,
         resultsQuestions: resultsQuestions,
+    };
+    response.send(responseArray);
+};
+
+exports.onlyLoadStep = async function (request, response) {
+    let resultsProduct = await ProductService.createOrUpdateProduct();
+
+    let resultsReviews = await ReviewsService.createOrUpdateReviews();
+    let resultsReviewsComments = await ReviewsService.createOrUpdateReviewsComments();
+
+    let resultsQuestions = await QuestionsService.createOrUpdateQuestion();
+    let resultsQuestionsAnswers = await QuestionsService.createOrUpdateQuestionAnswer();
+
+    let responseArray = {
+        resultsProduct: resultsProduct,
+        resultsReviews: resultsReviews,
+        resultsReviewsComments: resultsReviewsComments,
+        resultsQuestions: resultsQuestions,
+        resultsQuestionsAnswers: resultsQuestionsAnswers
     };
     response.send(responseArray);
 };
