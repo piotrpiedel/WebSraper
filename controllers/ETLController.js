@@ -57,3 +57,20 @@ exports.onlyExtractStep = async function (request, response) {
     response.send(ExtractService.getWebScraperExtractionStatistics());
 };
 
+// http://localhost:3000/etl/onlyTransformStep
+//[{"key":"Content-Type","name":"Content-Type","value":"application/json","description":"","type":"text"}]
+// {
+//     "productID": "123"
+// // }
+exports.onlyTransformStep = async function (request, response) {
+    let productId = request.body.productID;
+    let resultsProduct = await TransformProductDataService.transformProductDataFromDataExtracted(productId);
+    let resultsReviews = await TransformReviewsDataService.transformReviewDataFromDataExtracted(productId);
+    let resultsQuestions = await TransformQuestionsDataService.transformQuestionDataFromDataExtracted(productId);
+    let responseArray = {
+        resultsProduct: resultsProduct,
+        resultsReviews: resultsReviews,
+        resultsQuestions: resultsQuestions,
+    };
+    response.send(responseArray);
+};

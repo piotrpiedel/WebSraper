@@ -40,11 +40,16 @@ async function transformReviewData(productId, reviews) {
     });
     FileUtil.saveDataToJsonFile("datatransfromed", "reviewsTransformed", arrayOfParsedReviewModels);
     FileUtil.saveDataToJsonFile("datatransfromed", "reviewCommentsTransformed", arrayOfParsedReviewCommentModels);
+    return {
+        transformedReviews: arrayOfParsedReviewModels.length,
+        transformedReviewsComments: arrayOfParsedReviewCommentModels.length
+    }
+
 }
 
-function transformReviewDataFromDataExtracted(productId) {
+async function transformReviewDataFromDataExtracted(productId) {
     let reviewsData = FileUtil.readDataFile("dataextracted", "reviews");
-    transformReviewData(productId, reviewsData)
+    return transformReviewData(productId, reviewsData)
 }
 
 exports.transformReviewData = transformReviewData;
