@@ -111,7 +111,7 @@ Question.checkIfExistsInDatabase = async function (id) {
 };
 
 
-Question.getQuestionById = async function (id) {
+Question.getById = async function (id) {
     return databaseConnection.promise().query("Select * from question where id = ? ", id)
         .then(([rows, fields, error]) => {
             if (error) {
@@ -122,7 +122,18 @@ Question.getQuestionById = async function (id) {
         });
 };
 
-Question.getAllQuestions = function () {
+Question.getAllByProductID = async function (productID) {
+    return databaseConnection.promise().query("Select * from question where product_id_fk = ? ", productID)
+        .then(([rows, fields, error]) => {
+            if (error) {
+                console.error(error);
+            } else {
+                return rows;
+            }
+        });
+};
+
+Question.getAll = function () {
     return databaseConnection.promise().query("Select * from question")
         .then(([rows, fields, error]) => {
             if (error) {
