@@ -8,45 +8,54 @@ let ReviewComment = require('../models/reviewComment.js');
 let Question = require('../models/question.js');
 let QuestionAnswer = require('../models/questionAnswer.js');
 
+function parseBooleanFromParamters(value) {
+    return value === "true" ? true : false
+}
 
-//http://localhost:3000/search/3082984?reviews=true&reviewscomment=true&questions=true&questionsanswers=true
+// http://localhost:3000/search?product=3082984&reviews=false&reviewscomment=true&questions=false&questionsanswers=true
 exports.serchForProductData = async function getAllProductInformation(request, response) {
-    let queryParsed = Url.parse(request.url, true).query;
-    let responseArray = {};
-    let product;
-    const params = request.params;
-    if (params.productID) {
-        responseArray.productInfromations = await Product.getProductById(params.productID);
-    } else throw "Product id must not be empty";
-    let reviews;
-    if (queryParsed.reviews) {
-        reviews = await Review.getAllReviewsByProductID(params.productID);
-        responseArray.reviews = reviews;
-    }
-    if (queryParsed.reviewscomment && reviews) {
-        let reviewsCommentsArray = [];
-        for (const review of reviews) {
-            let reviewComment = await ReviewComment.getAllByReviewID(review.id);
-            if (reviewComment && reviewComment.length) {
-                reviewsCommentsArray.push(reviewComment);
-            }
+    try {
+        let queryParsed = Url.parse(request.url, true).query;
+        console.log("quesryParsed", queryParsed);
+        let responseArray = {};
+        let productID = queryParsed.product;
+        if (productID) {
+            responseArray.productInfromations = await Product.getProductById(productID);
+        } else throw "Product id must not be empty";
+        let reviews;
+        if (parseBooleanFromParamters(queryParsed.reviews)) {
+            console.log("queryParsed.reviews", queryParsed.reviews);
+            reviews = await Review.getAllReviewsByProductID(productID);
+            responseArray.reviews = reviews;
         }
-        responseArray.reviewsComments = reviewsCommentsArray;
-    }
-    let questions;
-    if (queryParsed.questions) {
-        questions = await Question.getAllByProductID(params.productID);
-        responseArray.questions = questions;
-    }
-    if (queryParsed.questionsanswers && questions) {
-        let questionsAnswersArray = [];
-        for (const question of questions) {
-            let questionAnswer = await QuestionAnswer.getAllByQuestionID(params.productID);
-            if (questionAnswer && questionAnswer.length) {
-                questionsAnswersArray.push(questionAnswer);
+        if (parseBooleanFromParamters(queryParsed.reviewscomment) && reviews) {
+            let reviewsCommentsArray = [];
+            for (const review of reviews) {
+                let reviewComment = await ReviewComment.getAllByReviewID(review.id);
+                if (reviewComment && reviewComment.length) {
+                    reviewsCommentsArray.push(reviewComment);
+                }
             }
+            responseArray.reviewsComments = reviewsCommentsArray;
         }
-        responseArray.questionsAnswers = questionsAnswersArray;
+        let questions;
+        if (parseBooleanFromParamters(queryParsed.questions)) {
+            questions = await Question.getAllByProductID(productID);
+            responseArray.questions = questions;
+        }
+        if (parseBooleanFromParamters(queryParsed.questionsanswers) && questions) {
+            let questionsAnswersArray = [];
+            for (const question of questions) {
+                let questionAnswer = await QuestionAnswer.getAllByQuestionID(question.id);
+                if (questionAnswer && questionAnswer.length) {
+                    questionsAnswersArray.push(questionAnswer);
+                }
+            }
+            responseArray.questionsAnswers = questionsAnswersArray;
+        }
+        response.send(responseArray);
+    } catch (exception) {
+        console.error("Function serchForProductData", exception);
+        response.send(JSON.stringify({error: exception}));
     }
-    response.send(responseArray);
 };

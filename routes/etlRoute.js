@@ -11,7 +11,6 @@ const ETLController = require("../controllers/ETLController");
 Router.post("/etlwhole", async function (request, response) {
     console.log("request.params.productID", request.body.productID);
     await ETLController.createETLProcessAtOnce(request, response);
-
 });
 
 
