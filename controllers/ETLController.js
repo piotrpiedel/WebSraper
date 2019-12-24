@@ -39,47 +39,65 @@ exports.createETLProcessAtOnce = async function (request, response) {
         };
         response.send(responseArray);
     } catch (exception) {
-        response.send("Error occurred during ETL process - please provide correct product ID", exception);
+        console.error("Function createETLProcessAtOnce", exception);
+        response.send(JSON.stringify({error: exception}));
     }
 };
 
 
 exports.onlyExtractStep = async function (request, response) {
-    let productId = request.body.productID;
-    console.log("Only extract data productId: ", productId);
-    await WebScraper.scrapData(productId);
-    response.send(ExtractService.getWebScraperExtractionStatistics());
+    try {
+        let productId = request.body.productID;
+        console.log("Only extract data productId: ", productId);
+        await WebScraper.scrapData(productId);
+        response.send(ExtractService.getWebScraperExtractionStatistics());
+    } catch (exception) {
+        console.error("Function onlyExtractStep", exception);
+        response.send(JSON.stringify({error: exception}));
+    }
+
 };
 
 
 exports.onlyTransformStep = async function (request, response) {
-    let productId = request.body.productID;
-    let resultsProduct = await TransformProductDataService.transformProductDataFromDataExtracted(productId);
-    let resultsReviews = await TransformReviewsDataService.transformReviewDataFromDataExtracted(productId);
-    let resultsQuestions = await TransformQuestionsDataService.transformQuestionDataFromDataExtracted(productId);
-    let responseArray = {
-        resultsProduct: resultsProduct,
-        resultsReviews: resultsReviews,
-        resultsQuestions: resultsQuestions,
-    };
-    response.send(responseArray);
+    try {
+        let productId = request.body.productID;
+        let resultsProduct = await TransformProductDataService.transformProductDataFromDataExtracted(productId);
+        let resultsReviews = await TransformReviewsDataService.transformReviewDataFromDataExtracted(productId);
+        let resultsQuestions = await TransformQuestionsDataService.transformQuestionDataFromDataExtracted(productId);
+        let responseArray = {
+            resultsProduct: resultsProduct,
+            resultsReviews: resultsReviews,
+            resultsQuestions: resultsQuestions,
+        };
+        response.send(responseArray);
+    } catch (exception) {
+        console.error("Function onlyTransformStep", exception);
+        response.send(JSON.stringify({error: exception}));
+    }
 };
 
 exports.onlyLoadStep = async function (request, response) {
-    let resultsProduct = await ProductService.createOrUpdateProduct();
+    try {
+        let resultsProduct = await ProductService.createOrUpdateProduct();
 
-    let resultsReviews = await ReviewsService.createOrUpdateReviews();
-    let resultsReviewsComments = await ReviewsService.createOrUpdateReviewsComments();
+        let resultsReviews = await ReviewsService.createOrUpdateReviews();
+        let resultsReviewsComments = await ReviewsService.createOrUpdateReviewsComments();
 
-    let resultsQuestions = await QuestionsService.createOrUpdateQuestion();
-    let resultsQuestionsAnswers = await QuestionsService.createOrUpdateQuestionAnswer();
+        let resultsQuestions = await QuestionsService.createOrUpdateQuestion();
+        let resultsQuestionsAnswers = await QuestionsService.createOrUpdateQuestionAnswer();
 
-    let responseArray = {
-        resultsProduct: resultsProduct,
-        resultsReviews: resultsReviews,
-        resultsReviewsComments: resultsReviewsComments,
-        resultsQuestions: resultsQuestions,
-        resultsQuestionsAnswers: resultsQuestionsAnswers
-    };
-    response.send(responseArray);
+        let responseArray = {
+            resultsProduct: resultsProduct,
+            resultsReviews: resultsReviews,
+            resultsReviewsComments: resultsReviewsComments,
+            resultsQuestions: resultsQuestions,
+            resultsQuestionsAnswers: resultsQuestionsAnswers
+        };
+        response.send(responseArray);
+    } catch (exception) {
+        console.error("Function onlyLoadStep", exception);
+        response.send(JSON.stringify({error: exception}));
+    }
+
 };
