@@ -12,3 +12,11 @@ modules.xml
 vcs.xml
 .idea/jsLibraryMappings.xml
 .idea/sqldialects.xml
+dataextracted/productData.json
+dataextracted/questions.json
+dataextracted/reviews.json
+datatransfromed/productTransformed.json
+datatransfromed/questionAnswersTransformed.json
+datatransfromed/questionsTransformed.json
+datatransfromed/reviewCommentsTransformed.json
+datatransfromed/reviewsTransformed.json
