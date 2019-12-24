@@ -92,7 +92,7 @@ ReviewComment.checkIfExistsInDatabase = async function (id) {
 };
 
 
-ReviewComment.getReviewById = async function (id) {
+ReviewComment.getById = async function (id) {
     return databaseConnection.promise().query("Select * from review_comment where id = ? ", id)
         .then(([rows, fields, error]) => {
             if (error) {
@@ -103,7 +103,18 @@ ReviewComment.getReviewById = async function (id) {
         });
 };
 
-ReviewComment.getAllReviews = function () {
+ReviewComment.getAllByReviewID = async function (reviewID) {
+    return databaseConnection.promise().query("Select * from review_comment where review_id = ? ", reviewID)
+        .then(([rows, fields, error]) => {
+            if (error) {
+                console.error(error);
+            } else {
+                return rows;
+            }
+        });
+};
+
+ReviewComment.getAll = function () {
     return databaseConnection.promise().query("Select * from review_comment")
         .then(([rows, fields, error]) => {
             if (error) {

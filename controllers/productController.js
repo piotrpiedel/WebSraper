@@ -1,16 +1,37 @@
 'use strict';
-
-var Product = require('../models/product.js');
+let Product = require('../models/product.js');
 
 exports.getProductById = async function (request, response) {
-    var productArrays = await Product.getProductById(request.params.productID);
-    if (productArrays) {
-        console.log("productController res.send", productArrays);
-        response.send(productArrays);
-    } else {
-        console.log("productController res.send  cause error null");
-        response.send(null);
+    try {
+        let productArrays = await Product.getProductById(request.params.productID);
+        if (productArrays) {
+            console.log("productController res.send", productArrays);
+            response.send(productArrays);
+        } else {
+            console.log("productController res.send  cause error null");
+            response.send(null);
+        }
+    } catch (e) {
+        response.send(e);
     }
+};
+
+exports.getAllProductInformationsByProductID = async function getAllProductInformation(request, response) {
+    const id = request.query.id;
+    response.end("I have received the ID: " + id);
+    // try {
+    //     let productArrays = await Product.getProductById(request.params.productID);
+    //     if (productArrays) {
+    //         console.log("productController res.send", productArrays);
+    //         response.send(productArrays);
+    //     } else {
+    //         console.log("productController res.send  cause error null");
+    //         response.send(null);
+    //     }
+    // } catch (e) {
+    //     response.send(e);
+    // }
+
 };
 
 exports.getProductByIdPost = async function (request, response) {
@@ -27,13 +48,17 @@ exports.getProductByIdPost = async function (request, response) {
 };
 
 exports.getAllProducts = async function (response) {
-    var productArrays = await Product.getAllProducts();
-    if (productArrays) {
-        console.log("productController res.send", productArrays);
-        response.send(productArrays);
-    } else {
-        console.log("productController res.send  cause error null");
-        response.send(null);
+    try {
+        const productArrays = await Product.getAllProducts();
+        if (productArrays) {
+            console.log("productController res.send", productArrays);
+            response.send(productArrays);
+        } else {
+            console.log("productController res.send  cause error or there is no product");
+            response.send(null);
+        }
+    } catch (e) {
+        response.send(e);
     }
 };
 

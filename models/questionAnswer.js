@@ -116,6 +116,17 @@ QuestionAnswer.getQuestionAnswerById = async function (questionAnswerId) {
         });
 };
 
+QuestionAnswer.getAllByQuestionID = async function (questionId) {
+    return databaseConnection.promise().query("Select * from question_answer where question_id = ? ", questionId)
+        .then(([rows, fields, error]) => {
+            if (error) {
+                console.error(error);
+            } else {
+                return rows;
+            }
+        });
+};
+
 QuestionAnswer.getAllQuestionAnswers = function () {
     return databaseConnection.promise().query("Select * from question_answer")
         .then(([rows, fields, error]) => {

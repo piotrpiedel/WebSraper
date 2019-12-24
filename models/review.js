@@ -143,7 +143,7 @@ Review.checkIfExistsInDatabase = async function (id) {
 
 
 Review.getReviewById = async function (id) {
-    return databaseConnection.promise().query("Select * from review where id = ? ", id,)
+    return databaseConnection.promise().query("Select * from review where id = ? ", id)
         .then(([rows, fields, error]) => {
             if (error) {
                 console.error(error);
@@ -161,6 +161,17 @@ Review.getAllReviews = function () {
                 console.error(error);
             } else {
                 console.log("Review.getAllReviews - rows: ", rows);
+                return rows;
+            }
+        });
+};
+
+Review.getAllReviewsByProductID = function (productID) {
+    return databaseConnection.promise().query("Select * from review where product_id_fk= ? ", productID)
+        .then(([rows, fields, error]) => {
+            if (error) {
+                console.error(error);
+            } else {
                 return rows;
             }
         });

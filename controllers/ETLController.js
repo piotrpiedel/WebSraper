@@ -12,32 +12,35 @@ let QuestionsService = require('../services/questionService.js');
 
 
 exports.createETLProcessAtOnce = async function (request, response) {
-    let productId = request.body.productID;
-    console.log("createETLProcessAtOnce productId: ", productId);
+    try {
+        let productId = request.body.productID;
+        console.log("createETLProcessAtOnce productId: ", productId);
 
-    await WebScraper.scrapData(productId);
+        await WebScraper.scrapData(productId);
 
-    await TransformProductDataService.transformProductDataFromDataExtracted(productId);
-    await TransformReviewsDataService.transformReviewDataFromDataExtracted(productId);
-    await TransformQuestionsDataService.transformQuestionDataFromDataExtracted(productId);
+        await TransformProductDataService.transformProductDataFromDataExtracted(productId);
+        await TransformReviewsDataService.transformReviewDataFromDataExtracted(productId);
+        await TransformQuestionsDataService.transformQuestionDataFromDataExtracted(productId);
 
-    let resultsProduct = await ProductService.createOrUpdateProduct();
+        let resultsProduct = await ProductService.createOrUpdateProduct();
 
-    let resultsReviews = await ReviewsService.createOrUpdateReviews();
-    let resultsReviewsComments = await ReviewsService.createOrUpdateReviewsComments();
+        let resultsReviews = await ReviewsService.createOrUpdateReviews();
+        let resultsReviewsComments = await ReviewsService.createOrUpdateReviewsComments();
 
-    let resultsQuestions = await QuestionsService.createOrUpdateQuestion();
-    let resultsQuestionsAnswers = await QuestionsService.createOrUpdateQuestionAnswer();
+        let resultsQuestions = await QuestionsService.createOrUpdateQuestion();
+        let resultsQuestionsAnswers = await QuestionsService.createOrUpdateQuestionAnswer();
 
-    let responseArray = {
-        resultsProduct: resultsProduct,
-        resultsReviews: resultsReviews,
-        resultsReviewsComments: resultsReviewsComments,
-        resultsQuestions: resultsQuestions,
-        resultsQuestionsAnswers: resultsQuestionsAnswers
-    };
-    response.send(responseArray);
-
+        let responseArray = {
+            resultsProduct: resultsProduct,
+            resultsReviews: resultsReviews,
+            resultsReviewsComments: resultsReviewsComments,
+            resultsQuestions: resultsQuestions,
+            resultsQuestionsAnswers: resultsQuestionsAnswers
+        };
+        response.send(responseArray);
+    } catch (exception) {
+        response.send("Error occurred during ETL process - please provide correct product ID", exception);
+    }
 };
 
 
