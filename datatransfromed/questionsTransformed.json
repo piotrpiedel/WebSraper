@@ -1,0 +1,42 @@
+[
+    {
+        "id": "25aad001ad5f",
+        "question_content": "Jest może tutaj regulacja tonów?",
+        "question_title": "Regulacja tonów",
+        "date_creation": "2018-02-07 13:24:59",
+        "user_name": "Patrycja",
+        "upvotes": 0,
+        "downvotes": 0,
+        "product_id_fk": "3082984"
+    },
+    {
+        "id": "790942f3c106",
+        "question_content": "Witam czy do komputera można zastosować te głośniki?",
+        "question_title": "Głośniki do komputera",
+        "date_creation": "2018-02-07 13:24:35",
+        "user_name": "Wanda",
+        "upvotes": 0,
+        "downvotes": 0,
+        "product_id_fk": "3082984"
+    },
+    {
+        "id": "bab5c53b1862",
+        "question_content": "Waszym zdaniem warto kupić te głośniki?",
+        "question_title": "Czy warto kupić",
+        "date_creation": "2018-02-07 13:24:06",
+        "user_name": "Milena",
+        "upvotes": 0,
+        "downvotes": 0,
+        "product_id_fk": "3082984"
+    },
+    {
+        "id": "848f7957c04a",
+        "question_content": "Jak oceniacie jakość obudowy tych głośników?",
+        "question_title": "Jakość obudowy",
+        "date_creation": "2018-02-07 13:22:47",
+        "user_name": "Oskar",
+        "upvotes": 0,
+        "downvotes": 0,
+        "product_id_fk": "3082984"
+    }
+]
