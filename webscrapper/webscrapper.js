@@ -76,6 +76,7 @@ async function getNumberOfQuestionPages(productId) {
         },
         handleFailedRequestFunction: async ({request}) => {
             console.log(`Request ${request.url} failed twice.`);
+            throw "Could not scrap data for product - productID is not correct"
         }
     });
 
