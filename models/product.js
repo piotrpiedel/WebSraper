@@ -133,4 +133,18 @@ Product.delete = async function (id) {
         );
 };
 
+Product.deleteAll = async function () {
+    return databaseConnection.promise().query("DELETE FROM product")
+        .then(
+            ([rows, fields, error]) => {
+                if (error) {
+                    console.error(error);
+                } else {
+                    console.log("Product.delete: rows", rows);
+                    return rows;
+                }
+            }
+        );
+};
+
 module.exports = Product;

@@ -172,7 +172,7 @@ Question.delete = async function (id) {
         );
 };
 
-Question.clearTable = async function () {
+Question.deleteAll = async function () {
     return databaseConnection.promise().query("DELETE FROM question")
         .then(
             ([rows, fields, error]) => {

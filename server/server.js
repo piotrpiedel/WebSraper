@@ -3,8 +3,10 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const databaseConnection = require("../database/mysqlconnection");
 const ProductRoutes = require("../routes/productRoute");
+const ReviewRoutes = require("../routes/reviewRoute");
 const ETLRoutes = require("../routes/etlRoute");
 const SearchRoute = require("../routes/searchRoute");
+const ClearDatabase = require("../routes/clearDatabaseRoute");
 
 const swaggerUi = require('swagger-ui-express'),
     swaggerDocument = require('./swagger.json');
@@ -13,8 +15,10 @@ const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
-app.use("/product", ProductRoutes);
+app.use("/products", ProductRoutes);
+app.use("/reviews", ReviewRoutes);
 app.use("/etl", ETLRoutes);
 app.use("/search", SearchRoute);
+app.use("/clearDatabase", ClearDatabase);
 
 app.listen(3000);

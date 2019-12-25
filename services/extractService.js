@@ -1,20 +1,20 @@
 'use strict';
 const FileUtil = require("../utils/fileUtil");
+const fileAndFolderNames = require("../config/folderAndFilesNames");
 
-function getWebScraperExtractionStatistics() {
-    let resultReviewsStats = getHowManyReviewsExtracted(FileUtil
-        .readDataFile("dataextracted", "reviews"));
+exports.getWebScraperExtractionStatistics = function getWebScraperExtractionStatistics() {
+    let resultReviewsStats = getHowManyReviewsAndReviewsCommentsExtracted(FileUtil
+        .readDataFile(fileAndFolderNames.DATA_EXTRACTED_FOLDER, fileAndFolderNames.DATA_EXTRACTED_REVIEWS_FILE));
 
-    let resultQuestionStats = getHowManyQuestionsExtracted(FileUtil
-        .readDataFile("dataextracted", "questions"));
+    let resultQuestionStats = getHowManyQuestionsAndQuestionsAnswersExtracted(FileUtil
+        .readDataFile(fileAndFolderNames.DATA_EXTRACTED_FOLDER, fileAndFolderNames.DATA_EXTRACTED_QUESTIONS_FILE));
     return {
         resultReviewsStats: resultReviewsStats,
         resultQuestionStats: resultQuestionStats,
     };
-}
+};
 
-
-function getHowManyQuestionsExtracted(questions) {
+function getHowManyQuestionsAndQuestionsAnswersExtracted(questions) {
     let questionExtractedStats = 0;
     let questionsAnswerStats = 0;
     questions.forEach(question => {
@@ -26,7 +26,7 @@ function getHowManyQuestionsExtracted(questions) {
     return {questionExtractedStats, questionsAnswerStats}
 }
 
-function getHowManyReviewsExtracted(reviews) {
+function getHowManyReviewsAndReviewsCommentsExtracted(reviews) {
     let reviewExtractedStats = 0;
     let reviewCommentStats = 0;
     reviews.forEach(review => {
@@ -38,6 +38,5 @@ function getHowManyReviewsExtracted(reviews) {
     return {reviewExtractedStats, reviewCommentStats}
 }
 
-exports.getHowManyQuestionsExtracted = getHowManyQuestionsExtracted;
-exports.getHowManyReviewsExtracted = getHowManyReviewsExtracted;
-exports.getWebScraperExtractionStatistics = getWebScraperExtractionStatistics;
+exports.getHowManyQuestionsAndQuestionsAnswersExtracted = getHowManyQuestionsAndQuestionsAnswersExtracted;
+exports.getHowManyReviewsAndReviewsCommentsExtracted = getHowManyReviewsAndReviewsCommentsExtracted;

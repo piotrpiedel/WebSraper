@@ -2,10 +2,7 @@
 const Review = require("../models/review");
 const ReviewComment = require("../models/reviewComment");
 const FileUtil = require("../utils/fileUtil");
-
-// (async () => {
-//     await transformReviewData(149441211, FileUtil.readDataFile("dataextracted", "reviews"));
-// })();
+const fileAndFolderNames = require("../config/folderAndFilesNames");
 
 async function transformReviewData(productId, reviews) {
     const arrayOfParsedReviewModels = [];
@@ -38,8 +35,8 @@ async function transformReviewData(productId, reviews) {
         );
 
     });
-    FileUtil.saveDataToJsonFile("datatransfromed", "reviewsTransformed", arrayOfParsedReviewModels);
-    FileUtil.saveDataToJsonFile("datatransfromed", "reviewCommentsTransformed", arrayOfParsedReviewCommentModels);
+    FileUtil.saveDataToJsonFile(fileAndFolderNames.DATA_TRANSFORMED_FOLDER, fileAndFolderNames.DATA_TRANSFORMED_REVIEWS_FILE, arrayOfParsedReviewModels);
+    FileUtil.saveDataToJsonFile(fileAndFolderNames.DATA_TRANSFORMED_FOLDER, fileAndFolderNames.DATA_TRANSFORMED_REVIEWS_COMMENTS_FILE, arrayOfParsedReviewCommentModels);
     return {
         transformedReviews: arrayOfParsedReviewModels.length,
         transformedReviewsComments: arrayOfParsedReviewCommentModels.length
@@ -48,7 +45,7 @@ async function transformReviewData(productId, reviews) {
 }
 
 async function transformReviewDataFromDataExtracted(productId) {
-    let reviewsData = FileUtil.readDataFile("dataextracted", "reviews");
+    let reviewsData = FileUtil.readDataFile(fileAndFolderNames.DATA_EXTRACTED_FOLDER, fileAndFolderNames.DATA_EXTRACTED_REVIEWS_FILE);
     return transformReviewData(productId, reviewsData)
 }
 

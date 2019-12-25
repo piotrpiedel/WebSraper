@@ -3,11 +3,22 @@ const url = require("url");
 const fs = require("fs");
 
 function readDataFile(folderName, fileName) {
-    const file = fs.readFileSync(url.resolve(__dirname, `${folderName}\\${fileName}.json`));
-    if(file){
-        console.log(`file: ${fileName} in folder ${folderName} is read ok`);
+    try {
+        const file = fs.readFileSync(url.resolve(__dirname, `${folderName}\\${fileName}.json`));
+        if (file) {
+            console.log(`file: ${fileName} in folder ${folderName} is read ok`);
+        }
+        return JSON.parse(file);
+    } catch (e) {
+        if (e instanceof SyntaxError) {
+            console.error(`Error occurred during parsing file: ${fileName} in folder: ${folderName} to JSON`, e);
+            throw e;
+        } else {
+            console.error(`Error occurred during reading file: ${fileName} in folder: ${folderName}`, e);
+            throw e;
+        }
     }
-    return JSON.parse(file);
+
 }
 
 function saveDataToJsonFile(folderName, fileName, data) {
@@ -25,5 +36,11 @@ function saveDataToJsonFile(folderName, fileName, data) {
     );
 }
 
+function clearDataFile(folderName, fileName) {
+    console.log(__dirname);
+    fs.writeFileSync(url.resolve(__dirname, `${folderName}\\${fileName}.json`), "");
+}
+
 exports.readDataFile = readDataFile;
 exports.saveDataToJsonFile = saveDataToJsonFile;
+exports.clearDataFile = clearDataFile;
