@@ -47,7 +47,7 @@ CREATE TABLE `product_information` (
   `product_id_fk` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `product_id_fk` (`product_id_fk`),
-  CONSTRAINT `product_information_ibfk_1` FOREIGN KEY (`product_id_fk`) REFERENCES `product` (`id`)
+  CONSTRAINT `product_information_ibfk_1` FOREIGN KEY (`product_id_fk`) REFERENCES `product` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -66,8 +66,8 @@ CREATE TABLE `product_shop` (
   PRIMARY KEY (`id`),
   KEY `product_id_fk` (`product_id_fk`),
   KEY `shops_id_fk` (`shops_id_fk`),
-  CONSTRAINT `product_shop_ibfk_1` FOREIGN KEY (`product_id_fk`) REFERENCES `product` (`id`),
-  CONSTRAINT `product_shop_ibfk_2` FOREIGN KEY (`shops_id_fk`) REFERENCES `shop` (`id`)
+  CONSTRAINT `product_shop_ibfk_1` FOREIGN KEY (`product_id_fk`) REFERENCES `product` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `product_shop_ibfk_2` FOREIGN KEY (`shops_id_fk`) REFERENCES `shop` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -89,7 +89,7 @@ CREATE TABLE `question` (
   `question_title` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `question_ibfk_1` (`product_id_fk`),
-  CONSTRAINT `question_ibfk_1` FOREIGN KEY (`product_id_fk`) REFERENCES `product` (`id`)
+  CONSTRAINT `question_ibfk_1` FOREIGN KEY (`product_id_fk`) REFERENCES `product` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -109,7 +109,7 @@ CREATE TABLE `question_answer` (
   `question_id` varchar(15) NOT NULL,
   `question_answer_content` longtext,
   KEY `question_id_fk_idx` (`question_id`),
-  CONSTRAINT `question_id_fk` FOREIGN KEY (`question_id`) REFERENCES `question` (`id`)
+  CONSTRAINT `question_id_fk` FOREIGN KEY (`question_id`) REFERENCES `question` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -136,7 +136,7 @@ CREATE TABLE `review` (
   `disadvantages` longtext,
   PRIMARY KEY (`id`),
   KEY `product_id_fk` (`product_id_fk`),
-  CONSTRAINT `review_ibfk_1` FOREIGN KEY (`product_id_fk`) REFERENCES `product` (`id`)
+  CONSTRAINT `review_ibfk_1` FOREIGN KEY (`product_id_fk`) REFERENCES `product` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -155,7 +155,7 @@ CREATE TABLE `review_comment` (
   `review_id` int(20) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `review_id` (`review_id`),
-  CONSTRAINT `review_comment_ibfk_1` FOREIGN KEY (`review_id`) REFERENCES `review` (`id`)
+  CONSTRAINT `review_comment_ibfk_1` FOREIGN KEY (`review_id`) REFERENCES `review` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -190,4 +190,4 @@ CREATE TABLE `shop` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-12-23 17:36:24
+-- Dump completed on 2019-12-25  1:28:41

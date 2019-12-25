@@ -2,6 +2,7 @@
 const Question = require("../models/question");
 const QuestionAnswer = require("../models/questionAnswer");
 const FileUtil = require("../utils/fileUtil");
+const fileAndFolderNames = require("../config/folderAndFilesNames");
 
 async function transformQuestionData(productId, questions) {
     const arrayOfParsedQuestionModels = [];
@@ -31,8 +32,8 @@ async function transformQuestionData(productId, questions) {
             arrayOfParsedQuestionAnswerModels.push(questionAnswerModel);
         });
     });
-    FileUtil.saveDataToJsonFile("datatransfromed", "questionsTransformed", arrayOfParsedQuestionModels);
-    FileUtil.saveDataToJsonFile("datatransfromed", "questionAnswersTransformed", arrayOfParsedQuestionAnswerModels);
+    FileUtil.saveDataToJsonFile(fileAndFolderNames.DATA_TRANSFORMED_FOLDER, fileAndFolderNames.DATA_TRANSFORMED_QUESTIONS_FILE, arrayOfParsedQuestionModels);
+    FileUtil.saveDataToJsonFile(fileAndFolderNames.DATA_TRANSFORMED_FOLDER, fileAndFolderNames.DATA_TRANSFORMED_QUESTIONS_ANSWER_FILE, arrayOfParsedQuestionAnswerModels);
     return {
         transformedQuestions: arrayOfParsedQuestionModels.length,
         transformedQuestionsAnswers: arrayOfParsedQuestionAnswerModels.length
@@ -40,7 +41,7 @@ async function transformQuestionData(productId, questions) {
 }
 
 async function transformQuestionDataFromDataExtracted(productId) {
-    let questionsData = FileUtil.readDataFile("dataextracted", "questions");
+    let questionsData = FileUtil.readDataFile(fileAndFolderNames.DATA_EXTRACTED_FOLDER, fileAndFolderNames.DATA_EXTRACTED_QUESTIONS_FILE);
     return transformQuestionData(productId, questionsData)
 }
 

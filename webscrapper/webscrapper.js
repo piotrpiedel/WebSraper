@@ -1,6 +1,7 @@
 const Apify = require("apify");
 const url = require("url");
 const FileUtil = require("../utils/fileUtil");
+const fileAndFolderNames = require("../config/folderAndFilesNames");
 
 const {log} = Apify.utils;
 log.setLevel(log.LEVELS.WARNING);
@@ -9,9 +10,9 @@ log.setLevel(log.LEVELS.WARNING);
 // scrapData(productId);
 
 function saveDataToJsonFile(productData, reviews, questions) {
-    FileUtil.saveDataToJsonFile("dataextracted", "productData", productData);
-    FileUtil.saveDataToJsonFile("dataextracted", "reviews", reviews);
-    FileUtil.saveDataToJsonFile("dataextracted", "questions", questions);
+    FileUtil.saveDataToJsonFile(fileAndFolderNames.DATA_EXTRACTED_FOLDER, fileAndFolderNames.DATA_EXTRACTED_PRODUCT_FILE, productData);
+    FileUtil.saveDataToJsonFile(fileAndFolderNames.DATA_EXTRACTED_FOLDER, fileAndFolderNames.DATA_EXTRACTED_REVIEWS_FILE, reviews);
+    FileUtil.saveDataToJsonFile(fileAndFolderNames.DATA_EXTRACTED_FOLDER, fileAndFolderNames.DATA_EXTRACTED_QUESTIONS_FILE, questions);
 }
 
 async function scrapData(productId) {

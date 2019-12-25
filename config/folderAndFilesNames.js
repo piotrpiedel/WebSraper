@@ -4,7 +4,7 @@ const DATA_EXTRACTED_QUESTIONS_FILE = "questions";
 const DATA_EXTRACTED_REVIEWS_FILE = "reviews";
 
 
-const DATA_TRANSFORMED_FOLDER = "datatransfromed";
+const DATA_TRANSFORMED_FOLDER = "datatransformed";
 const DATA_TRANSFORMED_PRODUCT_FILE = "productTransformed";
 const DATA_TRANSFORMED_QUESTIONS_FILE = "questionsTransformed";
 const DATA_TRANSFORMED_QUESTIONS_ANSWER_FILE = "questionAnswersTransformed";

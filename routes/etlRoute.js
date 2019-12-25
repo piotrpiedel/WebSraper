@@ -8,10 +8,7 @@ const ETLController = require("../controllers/ETLController");
 //     "productID": "3082984"
 // }
 
-Router.post("/etlwhole", async function (request, response) {
-    console.log("request.params.productID", request.body.productID);
-    await ETLController.createETLProcessAtOnce(request, response);
-});
+Router.post("/etlwhole", ETLController.createETLProcessAtOnce);
 
 
 // http://localhost:3000/etl/onlyextractstep
@@ -19,11 +16,7 @@ Router.post("/etlwhole", async function (request, response) {
 // {
 //     "productID": "3082984"
 // // }
-Router.post("/onlyextractstep", async function (request, response) {
-    console.log("request.params.productID", request.body.productID);
-    await ETLController.onlyExtractStep(request, response);
-
-});
+Router.post("/onlyextractstep",ETLController.onlyExtractStep);
 
 
 // http://localhost:3000/etl/onlytransformstep
@@ -31,10 +24,7 @@ Router.post("/onlyextractstep", async function (request, response) {
 // {
 //     "productID": "3082984"
 // // }
-Router.post("/onlytransformstep", async function (request, response) {
-    console.log("request.params.productID", request.body.productID);
-    await ETLController.onlyTransformStep(request, response);
-});
+Router.post("/onlytransformstep", ETLController.onlyTransformStep);
 
 
 // http://localhost:3000/etl/onlyloadstep
@@ -42,10 +32,7 @@ Router.post("/onlytransformstep", async function (request, response) {
 // {
 //     "productID": "3082984"
 // // }
-Router.post("/onlyloadstep", async function (request, response) {
-    console.log("request.params.productID", request.body.productID);
-    await ETLController.onlyLoadStep(request, response);
-});
+Router.post("/onlyloadstep", ETLController.onlyLoadStep);
 
 // Router.get("/", async function (request, response) {
 //     await ProductController.getAllProducts(response);
