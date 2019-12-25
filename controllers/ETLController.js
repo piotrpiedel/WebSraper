@@ -1,4 +1,6 @@
 'use strict';
+const APICodes = require('../config/apiCodes');
+const BaseController = require('../controllers/baseController');
 let WebScraper = require('../webscrapper/webscrapper.js');
 
 let TransformProductDataService = require('../transformservice/transformProductData.js');
@@ -37,31 +39,32 @@ exports.createETLProcessAtOnce = async function (request, response) {
             resultsQuestions: resultsQuestions,
             resultsQuestionsAnswers: resultsQuestionsAnswers
         };
-        response.send(responseArray);
-    } catch (exception) {
-        console.error("Function createETLProcessAtOnce", exception);
-        response.send(JSON.stringify({error: exception}));
+        return BaseController.fillResponse(response, APICodes.SUCCESS, "ETL Process ended successfully", responseArray);
+    } catch (e) {
+        console.error("Function createETLProcessAtOnce", e);
+        return BaseController.fillResponse(response, APICodes.BAD_REQUEST, e.message);
+
     }
 };
-
 
 exports.onlyExtractStep = async function (request, response) {
     try {
         let productId = request.body.productID;
-        console.log("Only extract data productId: ", productId);
+        console.log("Only extract step data productId: ", productId);
         await WebScraper.scrapData(productId);
-        response.send(ExtractService.getWebScraperExtractionStatistics());
-    } catch (exception) {
-        console.error("Function onlyExtractStep", exception);
-        response.send(JSON.stringify({error: exception}));
+        let responseArray = ExtractService.getWebScraperExtractionStatistics();
+        return BaseController.fillResponse(response, APICodes.SUCCESS, "Extraction step ended successfully", responseArray);
+    } catch (e) {
+        console.error("Function onlyExtractStep", e);
+        return BaseController.fillResponse(response, APICodes.BAD_REQUEST, e.message);
     }
 
 };
 
-
 exports.onlyTransformStep = async function (request, response) {
     try {
         let productId = request.body.productID;
+        console.log("Only transform step data productId: ", productId);
         let resultsProduct = await TransformProductDataService.transformProductDataFromDataExtracted(productId);
         let resultsReviews = await TransformReviewsDataService.transformReviewDataFromDataExtracted(productId);
         let resultsQuestions = await TransformQuestionsDataService.transformQuestionDataFromDataExtracted(productId);
@@ -70,15 +73,17 @@ exports.onlyTransformStep = async function (request, response) {
             resultsReviews: resultsReviews,
             resultsQuestions: resultsQuestions,
         };
-        response.send(responseArray);
-    } catch (exception) {
-        console.error("Function onlyTransformStep", exception);
-        response.send(JSON.stringify({error: exception}));
+        return BaseController.fillResponse(response, APICodes.SUCCESS, "Transformation step ended successfully", responseArray);
+    } catch (e) {
+        console.error("Function onlyTransformStep", e);
+        return BaseController.fillResponse(response, APICodes.BAD_REQUEST, e.message);
     }
 };
 
 exports.onlyLoadStep = async function (request, response) {
     try {
+        console.log("Only load step data");
+
         let resultsProduct = await ProductService.createOrUpdateProduct();
 
         let resultsReviews = await ReviewsService.createOrUpdateReviews();
@@ -94,10 +99,10 @@ exports.onlyLoadStep = async function (request, response) {
             resultsQuestions: resultsQuestions,
             resultsQuestionsAnswers: resultsQuestionsAnswers
         };
-        response.send(responseArray);
-    } catch (exception) {
-        console.error("Function onlyLoadStep", exception);
-        response.send(JSON.stringify({error: exception}));
+        return BaseController.fillResponse(response, APICodes.SUCCESS, "Load to database step ended successfully", responseArray);
+    } catch (e) {
+        console.error("Function onlyLoadStep", e);
+        return BaseController.fillResponse(response, APICodes.BAD_REQUEST, e.message);
     }
 
 };

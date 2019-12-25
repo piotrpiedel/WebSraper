@@ -15,8 +15,8 @@ vcs.xml
 dataextracted/productData.json
 dataextracted/questions.json
 dataextracted/reviews.json
-datatransfromed/productTransformed.json
-datatransfromed/questionAnswersTransformed.json
-datatransfromed/questionsTransformed.json
-datatransfromed/reviewCommentsTransformed.json
-datatransfromed/reviewsTransformed.json
+datatransformed/productTransformed.json
+datatransformed/questionAnswersTransformed.json
+datatransformed/questionsTransformed.json
+datatransformed/reviewCommentsTransformed.json
+datatransformed/reviewsTransformed.json

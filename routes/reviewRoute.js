@@ -1,13 +1,10 @@
 const express = require("express");
 const Router = express.Router();
+const ReviewController = require("../controllers/reviewController");
+Router.get("/:id", ReviewController.getReviewById);
 
-// const ReviewDAO = require("../models/review");
-// // http://localhost:3000/product/123
-// Router.get("/:reviewId", (request, response) => {
-//     console.log(request.params.reviewId);
-//     var reviewtest = new ReviewDAO(request.params.reviewId, 'gfgff');
-//     // console.log(newporductionstest.name);
-//     response.send(ReviewDAO.createOrUpdateReview(newporductionstest));
-// });
+Router.get("/", ReviewController.getAllReviews);
+
+Router.get("/:id/comments", ReviewController.getReviewByIdWithAllComments);
 
 module.exports = Router;
