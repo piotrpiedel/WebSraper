@@ -43,7 +43,6 @@ exports.createETLProcessAtOnce = async function (request, response) {
     } catch (e) {
         console.error("Function createETLProcessAtOnce", e);
         return BaseController.fillResponse(response, APICodes.BAD_REQUEST, e.message);
-
     }
 };
 
