@@ -15,6 +15,7 @@
 		"grunt": "^1.0.4",
 		"grunt-contrib-watch": "^1.1.0",
 		"grunt-execute": "^0.2.2",
+		"jsdoc": "^3.6.3",
 		"nodemon": "^2.0.1"
 	},
 	"scripts": {
@@ -27,7 +28,8 @@
 		"startSaveProductService": "node services/productService.js",
 		"startSaveReviewService": "node services/reviewService.js",
 		"startParserproduct": "node transformservice/transformProductData.js",
-		"startFileUtil": "node utils/fileUtil.js"
+		"startFileUtil": "node utils/fileUtil.js",
+		"docs": "./node_modules/.bin/jsdoc -c jsdoc.json"
 	},
 	"author": "It's not you it's me",
 	"license": "ISC"

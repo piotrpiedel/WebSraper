@@ -12,7 +12,20 @@ let ExtractService = require('../services/extractService.js');
 let ReviewsService = require('../services/reviewService.js');
 let QuestionsService = require('../services/questionService.js');
 
+/**
+ * @module clearDatabaseController
+ */
 
+/**
+ * Create ETL process with one endpoint call; ETL process is proceeded step by step;
+ * ETL process is ended by loading scrapped data to database;
+ * @param  {Request} request the req object represents the HTTP request and has properties
+ * for the request query string, parameters, body, HTTP headers, and so on;
+ * For more see: https://expressjs.com/en/api.html#req
+ * @param  {Response} response the res object represents the HTTP response that an Express app sends when it gets an HTTP request.
+ * For more see: https://expressjs.com/en/api.html#res
+ * @return {Response} return response object filled with data, status and message;
+ */
 exports.createETLProcessAtOnce = async function (request, response) {
     try {
         let productId = request.body.productID;
@@ -46,6 +59,17 @@ exports.createETLProcessAtOnce = async function (request, response) {
     }
 };
 
+/**
+ * Create only extract step from ETL process;
+ * in this step web scraper extract data for given product ID;
+ * Function save extracted data to local file;
+ * @param  {Request} request the req object represents the HTTP request and has properties
+ * for the request query string, parameters, body, HTTP headers, and so on;
+ * For more see: https://expressjs.com/en/api.html#req
+ * @param  {Response} response the res object represents the HTTP response that an Express app sends when it gets an HTTP request.
+ * For more see: https://expressjs.com/en/api.html#res
+ * @return {Response} return response object filled with data, status and message;
+ */
 exports.onlyExtractStep = async function (request, response) {
     try {
         let productId = request.body.productID;
@@ -60,6 +84,18 @@ exports.onlyExtractStep = async function (request, response) {
 
 };
 
+/**
+ * Create only transform step from ETL process;
+ * in this step application is transforming extracted data and data is saved to separate local files;
+ * Function can be successfully called only when the extraction step has ended with success;
+ * After transformation step data from extraction step are removed from local files;
+ * @param  {Request} request the req object represents the HTTP request and has properties
+ * for the request query string, parameters, body, HTTP headers, and so on;
+ * For more see: https://expressjs.com/en/api.html#req
+ * @param  {Response} response the res object represents the HTTP response that an Express app sends when it gets an HTTP request.
+ * For more see: https://expressjs.com/en/api.html#res
+ * @return {Response} return response object filled with data, status and message;
+ */
 exports.onlyTransformStep = async function (request, response) {
     try {
         let productId = request.body.productID;
@@ -79,6 +115,18 @@ exports.onlyTransformStep = async function (request, response) {
     }
 };
 
+/**
+ * Create only load step from ETL process;
+ * in this step application is loading transformed data and save it to database;
+ * Function can be successfully called only when transformation step has ended with success;
+ * After loading data from transformation step are removed;
+ * @param  {Request} request the req object represents the HTTP request and has properties
+ * for the request query string, parameters, body, HTTP headers, and so on;
+ * For more see: https://expressjs.com/en/api.html#req
+ * @param  {Response} response the res object represents the HTTP response that an Express app sends when it gets an HTTP request.
+ * For more see: https://expressjs.com/en/api.html#res
+ * @return {Response} return response object filled with data, status and message;
+ */
 exports.onlyLoadStep = async function (request, response) {
     try {
         console.log("Only load step data");

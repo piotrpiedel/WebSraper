@@ -2,11 +2,27 @@
 const FileUtil = require("../utils/fileUtil");
 const databaseEnum = require("../config/database_enum");
 
+/**
+ * @module baseService
+ */
+/**
+ * Save or update to database generic function DAO
+ * @param  {Object} transformedModelReadyToDb single object to save in database
+ * @param  {Function} daoFunction DAO function to execute on passed object
+ * @return {OPERATION} return object with type of executed operation (inserted or updated rows)
+ */
 async function saveToDatabase(transformedModelReadyToDb, daoFunction) {
     return await daoFunction(transformedModelReadyToDb);
 }
 
-async function createOrUpdate(ModelClass, daoFunctionToCall, data) {
+/**
+ * Create or update generic function DAO -
+ * @param  {Object} ModelClass model (class) object which will be save or updated in database
+ * @param  {Function} daoFunctionToCall DAO function to execute on passed object
+ * @param  {JSON} data - can be array or single model to save in database
+ * @return {{Number,Number}} return object composed of two numbers (inserted and updated rows)
+ */
+exports.createOrUpdate = async function createOrUpdate(ModelClass, daoFunctionToCall, data) {
     let updatedStats = 0;
     let insertedStats = 0;
     if (Array.isArray(data)) {
@@ -32,6 +48,4 @@ async function createOrUpdate(ModelClass, daoFunctionToCall, data) {
         // return {[`${ModelClass.name}insertedStats`]: insertedStats, [`${ModelClass.name}updatedStats`]: updatedStats};
         return {insertedStats, updatedStats};
     }
-}
-
-exports.createOrUpdate = createOrUpdate;
+};

@@ -4,6 +4,14 @@ const FileUtil = require("../utils/fileUtil");
 const baseService = require("../services/baseService");
 const fileAndFolderNames = require("../config/folderAndFilesNames");
 
+/**
+ * @module productService
+ */
+
+/**
+ * Creates or update product, clear files with transformed product data after loading to database
+ * @return {{Number, Number}} return object composed of two numbers (inserted and updated rows)
+ */
 exports.createOrUpdateProduct = async function createOrUpdateProduct() {
     let data = await baseService.createOrUpdate(Product,
         Product.createOrUpdateProduct,
@@ -15,14 +23,27 @@ exports.createOrUpdateProduct = async function createOrUpdateProduct() {
     return data;
 };
 
+/**
+ * Get product from database with given id
+ * @param  {Number} id id of product to get from database
+ * @return {Product} return product entity from database
+ */
 exports.getProductById = async function getProductById(id) {
     return Product.getProductById(id);
 };
 
-exports.getAllProducts = async function getAllProducts(id) {
+/**
+ * Get all products from database
+ * @return {Product} return product entities from database
+ */
+exports.getAllProducts = async function getAllProducts() {
     return Product.getAllProducts();
 };
 
+/**
+ * Delete all products from database
+ * @return {Product} return deleted product entities from database
+ */
 exports.deleteAll = async function deleteAllProducts() {
     return Product.deleteAll();
 };
