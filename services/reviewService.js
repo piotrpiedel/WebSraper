@@ -5,7 +5,15 @@ const FileUtil = require("../utils/fileUtil");
 const baseService = require("../services/baseService");
 const fileAndFolderNames = require("../config/folderAndFilesNames");
 
-async function createOrUpdateReviews() {
+/**
+ * @module reviewService
+ */
+
+/**
+ * Creates or update reviews, clear files with transformed reviews data after loading to database
+ * @return {{Number,Number}} return object composed of two numbers (inserted and updated rows)
+ */
+exports.createOrUpdateReviews = async function createOrUpdateReviews() {
     let data = await baseService.createOrUpdate(Review,
         Review.createOrUpdateReview,
         FileUtil.readDataFile(fileAndFolderNames.DATA_TRANSFORMED_FOLDER, fileAndFolderNames.DATA_TRANSFORMED_REVIEWS_FILE));
@@ -15,9 +23,13 @@ async function createOrUpdateReviews() {
     FileUtil.clearDataFile(fileAndFolderNames.DATA_EXTRACTED_FOLDER, fileAndFolderNames.DATA_EXTRACTED_REVIEWS_FILE);
 
     return data;
-}
+};
 
-async function createOrUpdateReviewsComments() {
+/**
+ * Creates or update reviews comments, clear files with transformed answers to reviews comments data after loading to database
+ * @return {{Number,Number}} return object composed of two numbers (inserted and updated rows)
+ */
+exports.createOrUpdateReviewsComments = async function createOrUpdateReviewsComments() {
     let data = await baseService.createOrUpdate(ReviewComment,
         ReviewComment.createOrUpdateReviewComment,
         FileUtil.readDataFile(fileAndFolderNames.DATA_TRANSFORMED_FOLDER, fileAndFolderNames.DATA_TRANSFORMED_REVIEWS_COMMENTS_FILE));
@@ -27,27 +39,36 @@ async function createOrUpdateReviewsComments() {
     FileUtil.clearDataFile(fileAndFolderNames.DATA_EXTRACTED_FOLDER, fileAndFolderNames.DATA_EXTRACTED_REVIEWS_FILE);
 
     return data;
-}
+};
 
-async function getReviewById(id) {
-    return Review.getReviewById(id);
-}
+/**
+ * Get review from database
+ * @param  {String} id id of review to get
+ * @return {Review} return review entity from database
+ */
+exports.getReviewById = async function getReviewById(id) {
+    return Review.getByID(id);
+};
 
-async function getAllReviews() {
-    return Review.getAllReviews();
-}
+/**
+ * Get all reviews from database
+ * @return {Review[]} return review entities from database
+ */
+exports.getAllReviews = async function getAllReviews() {
+    return Review.getAll();
+};
 
-async function getReviewByIdWithAllComments(id) {
+/**
+ * Get review from database
+ * @param  {String} id id of review to get answers for
+ * @return {{Review, ReviewComment[]}} return object composed with review and array of comments to that review from database;
+ * if answers not found then return only review object
+ */
+exports.getReviewByIdWithAllComments = async function getReviewByIdWithAllComments(id) {
     let data = {};
     data.review = await getReviewById(id);
     if (data.review.length) {
         data.reviewComments = await ReviewComment.getAllByReviewID(id);
     } else return data;
     return data;
-}
-
-exports.createOrUpdateReviews = createOrUpdateReviews;
-exports.createOrUpdateReviewsComments = createOrUpdateReviewsComments;
-exports.getAllReviews = getAllReviews;
-exports.getReviewById = getReviewById;
-exports.getReviewByIdWithAllComments = getReviewByIdWithAllComments;
+};

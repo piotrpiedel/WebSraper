@@ -1,9 +1,23 @@
+/**
+ * @module productController
+ */
 'use strict';
 const APICodes = require('../config/apiCodes');
 const Product = require('../models/product');
 const ProductService = require('../services/productService');
 const BaseController = require('../controllers/baseController');
 
+
+
+/**
+ * Get product entity by id from database; Send result to an endpoint;
+ * @param  {Request} request the req object represents the HTTP request and has properties
+ * for the request query string, parameters, body, HTTP headers, and so on;
+ * For more see: https://expressjs.com/en/api.html#req
+ * @param  {Response} response the res object represents the HTTP response that an Express app sends when it gets an HTTP request.
+ * For more see: https://expressjs.com/en/api.html#res
+ * @return {Response} return response object filled with status and message, and optional data;
+ */
 exports.getProductById = async function (request, response) {
     try {
         let productArrays = await ProductService.getProductById(request.params.id);
@@ -19,6 +33,15 @@ exports.getProductById = async function (request, response) {
     }
 };
 
+/**
+ * Get all product entities from database; Send result to an endpoint;
+ * @param  {Request} request the req object represents the HTTP request and has properties
+ * for the request query string, parameters, body, HTTP headers, and so on;
+ * For more see: https://expressjs.com/en/api.html#req
+ * @param  {Response} response the res object represents the HTTP response that an Express app sends when it gets an HTTP request.
+ * For more see: https://expressjs.com/en/api.html#res
+ * @return {Response} return response object filled with data, status and message;
+ */
 exports.getAllProducts = async function (request, response) {
     try {
         const productArrays = await ProductService.getAllProducts();
@@ -33,7 +56,15 @@ exports.getAllProducts = async function (request, response) {
     }
 };
 
-
+/**
+ * Delete all product entities from database; Send operation result to an endpoint;
+ * @param  {Request} request the req object represents the HTTP request and has properties
+ * for the request query string, parameters, body, HTTP headers, and so on;
+ * For more see: https://expressjs.com/en/api.html#req
+ * @param  {Response} response the res object represents the HTTP response that an Express app sends when it gets an HTTP request.
+ * For more see: https://expressjs.com/en/api.html#res
+ * @return {Response} return response object filled with status and message;
+ */
 exports.deleteAll = async function (request, response) {
     try {
         await Product.deleteAll();
@@ -43,20 +74,3 @@ exports.deleteAll = async function (request, response) {
         return BaseController.fillResponse(response, APICodes.SERVER_ERROR, e.message);
     }
 };
-
-
-// exports.deleteProduct = async function (request, response) {
-//     try {
-//         let productArrays = await Product.delete(request.params.productID);
-//         if (productArrays && productArrays.length) {
-//             return fillResponse(response, APICodes.SUCCESS, "Product successfully deleted");
-//         } else {
-//             console.log("productController deleteProduct product not found");
-//             return fillResponse(response, APICodes.NOT_FOUND, "Product not found");
-//         }
-//
-//     } catch (e) {
-//         console.error("Function deleteAll products controller", e);
-//         return fillResponse(response, APICodes.SERVER_ERROR, e.message);
-//     }
-// };
