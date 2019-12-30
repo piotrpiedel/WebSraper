@@ -21,7 +21,16 @@ function readDataFile(folderName, fileName) {
 
 }
 
+function createFolderIfDoesNotExist(folderName) {
+    let dir = `./${folderName}`;
+    if (!fs.existsSync(dir)) {
+        fs.mkdirSync(dir);
+        console.log(`Folder ./${folderName} has been created!`);
+    }
+}
+
 function saveDataToJsonFile(folderName, fileName, data) {
+    createFolderIfDoesNotExist(folderName);
     console.log(__dirname);
     fs.writeFileSync(
         url.resolve(__dirname, `${folderName}\\${fileName}.json`),
