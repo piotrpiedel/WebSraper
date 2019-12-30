@@ -4,6 +4,16 @@ const ReviewComment = require("../models/reviewComment");
 const FileUtil = require("../utils/fileUtil");
 const fileAndFolderNames = require("../config/folderAndFilesNames");
 
+/**
+ * @module transformReviewData
+ */
+
+/**
+ * Transform extracted reviews data, save transformed data to separate files
+ * @param  {Number} productId product id for which will be transformed extracted reviews data
+ * @param  {JSON} reviews JSON format extracted data about reviews and questions answers
+ * @return  {{Number,Number}} return pair of numbers for transformed data reviews and reviews comments
+ */
 async function transformReviewData(productId, reviews) {
     const arrayOfParsedReviewModels = [];
     const arrayOfParsedReviewCommentModels = [];
@@ -44,6 +54,11 @@ async function transformReviewData(productId, reviews) {
 
 }
 
+/**
+ * Transform extracted reviews data, read extracted data from files and pass it to another function
+ * @param  {Number} productId product id for which will be transformed extracted reviews data
+ * @return {{Number,Number}} return pair of numbers for transformed data reviews and reviews comments
+ */
 async function transformReviewDataFromDataExtracted(productId) {
     let reviewsData = FileUtil.readDataFile(fileAndFolderNames.DATA_EXTRACTED_FOLDER, fileAndFolderNames.DATA_EXTRACTED_REVIEWS_FILE);
     return transformReviewData(productId, reviewsData)

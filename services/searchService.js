@@ -6,17 +6,36 @@ let ReviewComment = require('../models/reviewComment.js');
 let Question = require('../models/question.js');
 let QuestionAnswer = require('../models/questionAnswer.js');
 
+/**
+ * @module searchService
+ */
 
+/**
+ * Parse String to Boolean value object
+ * @param  {String} value String value to parse to boolean
+ * @return {Boolean} return true or false based on passed String object
+ */
 function parseBooleanFromParameters(value) {
     return value === "true" ? true : false
 }
 
+/**
+ * Search for product data
+ * @param  {Number} productID String value to parse to boolean
+ * @param  {Object} responseArray object which will be filled with product information
+ */
 exports.searchProductData = async function searchProductData(productID, responseArray) {
     if (productID) {
         responseArray.productInfromations = await Product.getProductById(productID);
     } else throw "Product id must not be empty";
 };
 
+/**
+ * Parse String to Boolean value object
+ * @param  {Object} queryParsed object of parsed query string
+ * @param  {Number} productID product id for which will be searched all data
+ * @param  {Object} responseArray object which will be filled with reviews and review comments based on given query parameters
+ */
 exports.searchReviewsAndReviewsComments = async function searchReviewsAndReviewsComments(queryParsed, productID, responseArray) {
     let reviews;
     if (parseBooleanFromParameters(queryParsed.reviews)) {
@@ -35,6 +54,12 @@ exports.searchReviewsAndReviewsComments = async function searchReviewsAndReviews
     }
 };
 
+/**
+ * Parse String to Boolean value object
+ * @param  {Object} queryParsed object of parsed query string
+ * @param  {Number} productID product id for which will be searched all data
+ * @param  {Object} responseArray object which will be filled with questions and questions answers based on given query parameters
+ */
 exports.searchQuestionsAndQuestionAnswers = async function searchQuestionsAndQuestionAnswers(queryParsed, productID, responseArray) {
     let questions;
     if (parseBooleanFromParameters(queryParsed.questions)) {

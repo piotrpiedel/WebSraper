@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Module: searchController</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Module: searchController</h1>
+
+    
+
+
+
+
+<section>
+
+<header>
+    
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+
+        
+    
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <h3 class="subsection-title">Methods</h3>
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id=".serchForProductData"><span class="type-signature">(static) </span>serchForProductData<span class="signature">(request, response)</span><span class="type-signature"> &rarr; {Response}</span></h4>
+    
+
+    
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>request</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Request</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Request has to contain productID in search query;
+the req object represents the HTTP request and has properties
+for the request query string, parameters, body, HTTP headers, and so on;
+For more see: https://expressjs.com/en/api.html#req</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>response</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Response</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>the res object represents the HTTP response that an Express app sends when it gets an HTTP request.
+For more see: https://expressjs.com/en/api.html#res</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="controllers_searchController.js.html">controllers/searchController.js</a>, <a href="controllers_searchController.js.html#line30">line 30</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>return response object filled with status and message and data;
+Will return review comments only when query search also for reviews
+Will return question answer only when query search also for questions</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Response</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>GEThttp://localhost:3000/search?product=3082984&amp;reviews=false&amp;reviewscomment=true&amp;questions=true&amp;questionsanswers=trueSearch for product data; Send operation result to an endpoint;</code></pre>
+
+
+
+        
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-baseController.html">baseController</a></li><li><a href="module-baseService.html">baseService</a></li><li><a href="module-clearDatabaseController.html">clearDatabaseController</a></li><li><a href="module-extractService.html">extractService</a></li><li><a href="module-fileUtil.html">fileUtil</a></li><li><a href="module-productController.html">productController</a></li><li><a href="module-productService.html">productService</a></li><li><a href="module-questionController.html">questionController</a></li><li><a href="module-questionService.html">questionService</a></li><li><a href="module-reviewController.html">reviewController</a></li><li><a href="module-reviewService.html">reviewService</a></li><li><a href="module-searchController.html">searchController</a></li><li><a href="module-searchService.html">searchService</a></li><li><a href="module-transformProductData.html">transformProductData</a></li><li><a href="module-transformQuestionData.html">transformQuestionData</a></li><li><a href="module-transformReviewData.html">transformReviewData</a></li></ul><h3>Classes</h3><ul><li><a href="Product.html">Product</a></li><li><a href="Question.html">Question</a></li><li><a href="QuestionAnswer.html">QuestionAnswer</a></li><li><a href="Review.html">Review</a></li><li><a href="ReviewComment.html">ReviewComment</a></li></ul><h3>Global</h3><ul><li><a href="global.html#HTTP_CODES">HTTP_CODES</a></li><li><a href="global.html#OPERATION">OPERATION</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Mon Dec 30 2019 20:51:18 GMT+0100 (GMT+01:00)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
