@@ -1,8 +1,31 @@
 'user strict';
 const databaseConnection = require("../database/mysqlconnection");
 const databaseEnum = require("../config/database_enum");
-
-//review object constructor
+/**
+ * ReviewComment model
+ * @example
+ * let QuestionAnswer = new QuestionAnswer({
+ *     id: 123,
+ *     comment_content : "Waszeć z wolna w dawnej surowości prawidłach wychował.
+ *     Tadeusz Telimenie, Asesor Krajczance a Praga już im pokazał wyprutą z Podkomorzyną obok srebrnych,
+ *     od kogoś, co gród zamkowy nowogródzki ochraniasz z łowów wracając trafia się, spójrzał,
+ *     lecz na sąd Pańskiej cioci. Choć o porządku, nikt nigdy sługom nie jedli.
+ *     , choć świadka nie dostrzegł, nazbyt rychło znikła ale szerzej niż się jak mógł schwytać.
+ *     Wojskiego Woźny ciągle Sędziemu tłumaczył dlaczego urządzenie pańskie jachał szlachcic młody panek i w charta.
+ *     Tak każe u panów rozmów trwała już jej oczyma ciekawymi po kryjomu kazał stoły
+ *     z Paryża a był zwierzem szlacheckim, a wzdycha.",
+ *     date_creation : "2018-02-22 13:24:59",
+ *     user_name : "Patrycja"
+ *     review_id : 2
+ *
+ * })
+ * @param  {ReviewComment} reviewComment
+ * @param  {Number} reviewComment.id  id
+ * @param  {String} reviewComment.user_name comment author
+ * @param  {Date} reviewComment.date_creation  comment creation date
+ * @param  {String} reviewComment.comment_content comment message
+ * @param  {Number} reviewComment.review_id  review foreign key
+ */
 class ReviewComment {
     constructor(reviewComment) {
         if (arguments.length === 1 && this.validate(reviewComment)) {
@@ -14,6 +37,11 @@ class ReviewComment {
         }
     }
 
+    /**
+     * Validate ReviewComment instance
+     * @param  {Review} reviewComment  comment model instance
+     * @return {Boolean} return true if comment instance is valid
+     */
     validate(reviewComment) {
         return !!reviewComment.id && !!reviewComment.review_id;
     }
@@ -55,6 +83,11 @@ class ReviewComment {
     }
 }
 
+/**
+ * Create new comment or update already existing entity
+ * @param  {ReviewComment} reviewCommentModelInstance instance of comment model
+ * @return {OPERATION} value of executed operation type UPDATE/INSERT
+ */
 ReviewComment.createOrUpdateReviewComment = async function (reviewCommentModelInstance) {
     if (reviewCommentModelInstance instanceof ReviewComment) {
         let isReviewCommentExisting = await ReviewComment.checkIfExistsInDatabase(reviewCommentModelInstance.id);
@@ -67,6 +100,12 @@ ReviewComment.createOrUpdateReviewComment = async function (reviewCommentModelIn
         }
     }
 };
+
+/**
+ * Create new comment in database
+ * @param  {ReviewComment} reviewCommentModelInstance  instance of comment model to insert in database
+ * @return {ReviewComment}  inserted review instance
+ */
 ReviewComment.insert = async function (reviewCommentModelInstance) {
     return databaseConnection.promise().query("INSERT INTO review_comment set ?", reviewCommentModelInstance)
         .then(
@@ -80,6 +119,11 @@ ReviewComment.insert = async function (reviewCommentModelInstance) {
         );
 };
 
+/**
+ * Check if comment with given ID already exists in database
+ * @param  {Number} id  id of comment
+ * @return {Boolean} true if comment already exists, false if does not
+ */
 ReviewComment.checkIfExistsInDatabase = async function (id) {
     return databaseConnection.promise().query("Select * from review_comment where id = ? ", id)
         .then(([rows, fields, error]) => {
@@ -91,7 +135,11 @@ ReviewComment.checkIfExistsInDatabase = async function (id) {
         });
 };
 
-
+/**
+ * Get comment with given ID from database
+ * @param  {Number} id  id of comment
+ * @return {ReviewComment} comment instance of the given id
+ */
 ReviewComment.getById = async function (id) {
     return databaseConnection.promise().query("Select * from review_comment where id = ? ", id)
         .then(([rows, fields, error]) => {
@@ -103,6 +151,11 @@ ReviewComment.getById = async function (id) {
         });
 };
 
+/**
+ * Get all comments connected to review with given id from database
+ * @param  {Number} reviewID  id of review
+ * @return {ReviewComment[]} array of comment entities connected to review with given id from database
+ */
 ReviewComment.getAllByReviewID = async function (reviewID) {
     return databaseConnection.promise().query("Select * from review_comment where review_id = ? ", reviewID)
         .then(([rows, fields, error]) => {
@@ -114,6 +167,10 @@ ReviewComment.getAllByReviewID = async function (reviewID) {
         });
 };
 
+/**
+ * Get all comments  from database
+ * @return {ReviewComment[]} array of existing comment from database
+ */
 ReviewComment.getAll = function () {
     return databaseConnection.promise().query("Select * from review_comment")
         .then(([rows, fields, error]) => {
@@ -125,6 +182,11 @@ ReviewComment.getAll = function () {
         });
 };
 
+/**
+ * Update comment with given ID
+ * @param  {ReviewComment} reviewComment instance of comment
+ * @return {ReviewComment} updated comment entity
+ */
 ReviewComment.updateById = async function (reviewComment) {
     return databaseConnection.promise().query("UPDATE review_comment SET ? WHERE id = ?", [reviewComment, reviewComment.id])
         .then(
@@ -138,6 +200,11 @@ ReviewComment.updateById = async function (reviewComment) {
         );
 };
 
+/**
+ * Delete comment with given ID
+ * @param  {Number} id  id of comment
+ * @return {ReviewComment} deleted comment entity
+ */
 ReviewComment.delete = async function (id) {
     return databaseConnection.promise().query("DELETE FROM review_comment WHERE reviewCommentId = ?", [id])
         .then(
@@ -152,6 +219,10 @@ ReviewComment.delete = async function (id) {
         );
 };
 
+/**
+ * Delete all comments
+ * @return {ReviewComment[]} array of deleted comments instances
+ */
 ReviewComment.clearTable = async function () {
     return databaseConnection.promise().query("DELETE FROM review_comment")
         .then(

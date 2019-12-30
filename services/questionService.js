@@ -5,7 +5,15 @@ const FileUtil = require("../utils/fileUtil");
 const baseService = require("../services/baseService");
 const fileAndFolderNames = require("../config/folderAndFilesNames");
 
-async function createOrUpdateQuestion() {
+/**
+ * @module questionService
+ */
+
+/**
+ * Creates or update questions, clear files with transformed questions data after loading to database
+ * @return {{Number,Number}} return object composed of two numbers (inserted and updated rows)
+ */
+exports.createOrUpdateQuestion = async function createOrUpdateQuestion() {
     let data = await baseService.createOrUpdate(Question,
         Question.createOrUpdateQuestion,
         FileUtil.readDataFile(fileAndFolderNames.DATA_TRANSFORMED_FOLDER, fileAndFolderNames.DATA_TRANSFORMED_QUESTIONS_FILE));
@@ -15,9 +23,13 @@ async function createOrUpdateQuestion() {
     FileUtil.clearDataFile(fileAndFolderNames.DATA_EXTRACTED_FOLDER, fileAndFolderNames.DATA_EXTRACTED_QUESTIONS_FILE);
 
     return data;
-}
+};
 
-async function createOrUpdateQuestionAnswer() {
+/**
+ * Creates or update question answers, clear files with transformed answers to questions data after loading to database
+ * @return {{Number,Number}} return object composed of two numbers (inserted and updated rows)
+ */
+exports.createOrUpdateQuestionAnswer = async function createOrUpdateQuestionAnswer() {
     let data = await baseService.createOrUpdate(QuestionAnswer,
         QuestionAnswer.createOrUpdateQuestionAnswer,
         FileUtil.readDataFile(fileAndFolderNames.DATA_TRANSFORMED_FOLDER, fileAndFolderNames.DATA_TRANSFORMED_QUESTIONS_ANSWER_FILE));
@@ -27,33 +39,43 @@ async function createOrUpdateQuestionAnswer() {
     FileUtil.clearDataFile(fileAndFolderNames.DATA_EXTRACTED_FOLDER, fileAndFolderNames.DATA_EXTRACTED_QUESTIONS_FILE);
 
     return data;
-}
+};
 
-async function getQuestionById(id) {
+/**
+ * Get question from database
+ * @param  {String} id id of question to get from database
+ * @return {Question} return question entity from database
+ */
+exports.getQuestionById = async function getQuestionById(id) {
     return Question.getById(id);
-}
+};
 
-async function getAll(id) {
+/**
+ * Get all questions from database
+ * @return {Question[]} return question entities from database
+ */
+exports.getAllQuestions = async function getAll() {
     return Question.getAll();
-}
+};
 
-async function deleteAll() {
+/**
+ * Delete all questions from database
+ * @return {Question} return deleted question entities from database
+ */
+exports.deleteAllQuestions = async function deleteAll() {
     return Question.deleteAll()
-}
+};
 
-async function getQuestionsByIdWithAllAnswers(id) {
+/**
+ * Get question from database
+ * @param  {String} id id of question to get answers for
+ * @return {{Question, QuestionAnswer[]}} return object composed with question and array of answers to that question from database; if answers not found then return only question object
+ */
+exports.getQuestionsByIdWithAllAnswers = async function getQuestionsByIdWithAllAnswers(id) {
     let data = {};
     data.question = await getQuestionById(id);
     if (data.question.length) {
         data.questionAnswers = await QuestionAnswer.getAllByQuestionID(id);
     } else return data;
     return data;
-}
-
-exports.createOrUpdateQuestion = createOrUpdateQuestion;
-exports.createOrUpdateQuestionAnswer = createOrUpdateQuestionAnswer;
-
-exports.deleteAllReviews = deleteAll;
-exports.getAllQuestions = getAll;
-exports.getQuestionById = getQuestionById;
-exports.getQuestionsByIdWithAllAnswers = getQuestionsByIdWithAllAnswers;
+};

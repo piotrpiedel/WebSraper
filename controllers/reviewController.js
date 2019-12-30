@@ -1,9 +1,21 @@
+/**
+ * @module reviewController
+ */
 'use strict';
 const APICodes = require('../config/apiCodes');
 const Review = require('../models/review');
 const ReviewService = require('../services/reviewService');
 const BaseController = require('../controllers/baseController');
 
+/**
+ * Get review entity by id from database; Send result to an endpoint;
+ * @param  {Request} request the req object represents the HTTP request and has properties
+ * for the request query string, parameters, body, HTTP headers, and so on;
+ * For more see: https://expressjs.com/en/api.html#req
+ * @param  {Response} response the res object represents the HTTP response that an Express app sends when it gets an HTTP request.
+ * For more see: https://expressjs.com/en/api.html#res
+ * @return {Response} return response object filled with status and message and data;
+ */
 exports.getReviewById = async function (request, response) {
     try {
         let data = await ReviewService.getReviewById(request.params.id);
@@ -20,6 +32,15 @@ exports.getReviewById = async function (request, response) {
     }
 };
 
+/**
+ * Get review entity by id with all comments connected to review from database; Send result to an endpoint;
+ * @param  {Request} request the req object represents the HTTP request and has properties
+ * for the request query string, parameters, body, HTTP headers, and so on;
+ * For more see: https://expressjs.com/en/api.html#req
+ * @param  {Response} response the res object represents the HTTP response that an Express app sends when it gets an HTTP request.
+ * For more see: https://expressjs.com/en/api.html#res
+ * @return {Response} return response object filled with status and message and data;
+ */
 exports.getReviewByIdWithAllComments = async function (request, response) {
     try {
         let data = await ReviewService.getReviewByIdWithAllComments(request.params.id);
@@ -36,6 +57,15 @@ exports.getReviewByIdWithAllComments = async function (request, response) {
     }
 };
 
+/**
+ * Get all review entities from database; Send result to an endpoint;
+ * @param  {Request} request the req object represents the HTTP request and has properties
+ * for the request query string, parameters, body, HTTP headers, and so on;
+ * For more see: https://expressjs.com/en/api.html#req
+ * @param  {Response} response the res object represents the HTTP response that an Express app sends when it gets an HTTP request.
+ * For more see: https://expressjs.com/en/api.html#res
+ * @return {Response} return response object filled with status and message and data;
+ */
 exports.getAllReviews = async function (request, response) {
     try {
         const data = await ReviewService.getAllReviews();
@@ -51,6 +81,15 @@ exports.getAllReviews = async function (request, response) {
     }
 };
 
+/**
+ * Delete all review entities from database; Send operation result to an endpoint;
+ * @param  {Request} request the req object represents the HTTP request and has properties
+ * for the request query string, parameters, body, HTTP headers, and so on;
+ * For more see: https://expressjs.com/en/api.html#req
+ * @param  {Response} response the res object represents the HTTP response that an Express app sends when it gets an HTTP request.
+ * For more see: https://expressjs.com/en/api.html#res
+ * @return {Response} return response object filled with status and message and data;
+ */
 exports.deleteAll = async function (request, response) {
     try {
         await Review.deleteAll();

@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: controllers/ETLController.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: controllers/ETLController.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>'use strict';
+const APICodes = require('../config/apiCodes');
+const BaseController = require('../controllers/baseController');
+let WebScraper = require('../webscrapper/webscrapper.js');
+
+let TransformProductDataService = require('../transformservice/transformProductData.js');
+let TransformReviewsDataService = require('../transformservice/transformReviewData.js');
+let TransformQuestionsDataService = require('../transformservice/transformQuestionData.js');
+
+let ProductService = require('../services/productService.js');
+let ExtractService = require('../services/extractService.js');
+let ReviewsService = require('../services/reviewService.js');
+let QuestionsService = require('../services/questionService.js');
+
+/**
+ * @module clearDatabaseController
+ */
+
+/**
+ * Create ETL process with one endpoint call; ETL process is proceeded step by step;
+ * ETL process is ended by loading scrapped data to database;
+ * @param  {Request} request the req object represents the HTTP request and has properties
+ * for the request query string, parameters, body, HTTP headers, and so on;
+ * For more see: https://expressjs.com/en/api.html#req
+ * @param  {Response} response the res object represents the HTTP response that an Express app sends when it gets an HTTP request.
+ * For more see: https://expressjs.com/en/api.html#res
+ * @return {Response} return response object filled with data, status and message;
+ */
+exports.createETLProcessAtOnce = async function (request, response) {
+    try {
+        let productId = request.body.productID;
+        console.log("createETLProcessAtOnce productId: ", productId);
+
+        await WebScraper.scrapData(productId);
+
+        await TransformProductDataService.transformProductDataFromDataExtracted(productId);
+        await TransformReviewsDataService.transformReviewDataFromDataExtracted(productId);
+        await TransformQuestionsDataService.transformQuestionDataFromDataExtracted(productId);
+
+        let resultsProduct = await ProductService.createOrUpdateProduct();
+
+        let resultsReviews = await ReviewsService.createOrUpdateReviews();
+        let resultsReviewsComments = await ReviewsService.createOrUpdateReviewsComments();
+
+        let resultsQuestions = await QuestionsService.createOrUpdateQuestion();
+        let resultsQuestionsAnswers = await QuestionsService.createOrUpdateQuestionAnswer();
+
+        let responseArray = {
+            resultsProduct: resultsProduct,
+            resultsReviews: resultsReviews,
+            resultsReviewsComments: resultsReviewsComments,
+            resultsQuestions: resultsQuestions,
+            resultsQuestionsAnswers: resultsQuestionsAnswers
+        };
+        return BaseController.fillResponse(response, APICodes.SUCCESS, "ETL Process ended successfully", responseArray);
+    } catch (e) {
+        console.error("Function createETLProcessAtOnce", e);
+        return BaseController.fillResponse(response, APICodes.BAD_REQUEST, e.message);
+    }
+};
+
+/**
+ * Create only extract step from ETL process;
+ * in this step web scraper extract data for given product ID;
+ * Function save extracted data to local file;
+ * @param  {Request} request the req object represents the HTTP request and has properties
+ * for the request query string, parameters, body, HTTP headers, and so on;
+ * For more see: https://expressjs.com/en/api.html#req
+ * @param  {Response} response the res object represents the HTTP response that an Express app sends when it gets an HTTP request.
+ * For more see: https://expressjs.com/en/api.html#res
+ * @return {Response} return response object filled with data, status and message;
+ */
+exports.onlyExtractStep = async function (request, response) {
+    try {
+        let productId = request.body.productID;
+        console.log("Only extract step data productId: ", productId);
+        await WebScraper.scrapData(productId);
+        let responseArray = ExtractService.getWebScraperExtractionStatistics();
+        return BaseController.fillResponse(response, APICodes.SUCCESS, "Extraction step ended successfully", responseArray);
+    } catch (e) {
+        console.error("Function onlyExtractStep", e);
+        return BaseController.fillResponse(response, APICodes.BAD_REQUEST, e.message);
+    }
+
+};
+
+/**
+ * Create only transform step from ETL process;
+ * in this step application is transforming extracted data and data is saved to separate local files;
+ * Function can be successfully called only when the extraction step has ended with success;
+ * After transformation step data from extraction step are removed from local files;
+ * @param  {Request} request the req object represents the HTTP request and has properties
+ * for the request query string, parameters, body, HTTP headers, and so on;
+ * For more see: https://expressjs.com/en/api.html#req
+ * @param  {Response} response the res object represents the HTTP response that an Express app sends when it gets an HTTP request.
+ * For more see: https://expressjs.com/en/api.html#res
+ * @return {Response} return response object filled with data, status and message;
+ */
+exports.onlyTransformStep = async function (request, response) {
+    try {
+        let productId = request.body.productID;
+        console.log("Only transform step data productId: ", productId);
+        let resultsProduct = await TransformProductDataService.transformProductDataFromDataExtracted(productId);
+        let resultsReviews = await TransformReviewsDataService.transformReviewDataFromDataExtracted(productId);
+        let resultsQuestions = await TransformQuestionsDataService.transformQuestionDataFromDataExtracted(productId);
+        let responseArray = {
+            resultsProduct: resultsProduct,
+            resultsReviews: resultsReviews,
+            resultsQuestions: resultsQuestions,
+        };
+        return BaseController.fillResponse(response, APICodes.SUCCESS, "Transformation step ended successfully", responseArray);
+    } catch (e) {
+        console.error("Function onlyTransformStep", e);
+        return BaseController.fillResponse(response, APICodes.BAD_REQUEST, e.message);
+    }
+};
+
+/**
+ * Create only load step from ETL process;
+ * in this step application is loading transformed data and save it to database;
+ * Function can be successfully called only when transformation step has ended with success;
+ * After loading data from transformation step are removed;
+ * @param  {Request} request the req object represents the HTTP request and has properties
+ * for the request query string, parameters, body, HTTP headers, and so on;
+ * For more see: https://expressjs.com/en/api.html#req
+ * @param  {Response} response the res object represents the HTTP response that an Express app sends when it gets an HTTP request.
+ * For more see: https://expressjs.com/en/api.html#res
+ * @return {Response} return response object filled with data, status and message;
+ */
+exports.onlyLoadStep = async function (request, response) {
+    try {
+        console.log("Only load step data");
+
+        let resultsProduct = await ProductService.createOrUpdateProduct();
+
+        let resultsReviews = await ReviewsService.createOrUpdateReviews();
+        let resultsReviewsComments = await ReviewsService.createOrUpdateReviewsComments();
+
+        let resultsQuestions = await QuestionsService.createOrUpdateQuestion();
+        let resultsQuestionsAnswers = await QuestionsService.createOrUpdateQuestionAnswer();
+
+        let responseArray = {
+            resultsProduct: resultsProduct,
+            resultsReviews: resultsReviews,
+            resultsReviewsComments: resultsReviewsComments,
+            resultsQuestions: resultsQuestions,
+            resultsQuestionsAnswers: resultsQuestionsAnswers
+        };
+        return BaseController.fillResponse(response, APICodes.SUCCESS, "Load to database step ended successfully", responseArray);
+    } catch (e) {
+        console.error("Function onlyLoadStep", e);
+        return BaseController.fillResponse(response, APICodes.BAD_REQUEST, e.message);
+    }
+
+};</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-baseController.html">baseController</a></li><li><a href="module-baseService.html">baseService</a></li><li><a href="module-clearDatabaseController.html">clearDatabaseController</a></li><li><a href="module-extractService.html">extractService</a></li><li><a href="module-fileUtil.html">fileUtil</a></li><li><a href="module-productController.html">productController</a></li><li><a href="module-productService.html">productService</a></li><li><a href="module-questionController.html">questionController</a></li><li><a href="module-questionService.html">questionService</a></li><li><a href="module-reviewController.html">reviewController</a></li><li><a href="module-reviewService.html">reviewService</a></li><li><a href="module-searchController.html">searchController</a></li><li><a href="module-searchService.html">searchService</a></li><li><a href="module-transformProductData.html">transformProductData</a></li><li><a href="module-transformQuestionData.html">transformQuestionData</a></li><li><a href="module-transformReviewData.html">transformReviewData</a></li></ul><h3>Classes</h3><ul><li><a href="Product.html">Product</a></li><li><a href="Question.html">Question</a></li><li><a href="QuestionAnswer.html">QuestionAnswer</a></li><li><a href="Review.html">Review</a></li><li><a href="ReviewComment.html">ReviewComment</a></li></ul><h3>Global</h3><ul><li><a href="global.html#HTTP_CODES">HTTP_CODES</a></li><li><a href="global.html#OPERATION">OPERATION</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Mon Dec 30 2019 20:51:18 GMT+0100 (GMT+01:00)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

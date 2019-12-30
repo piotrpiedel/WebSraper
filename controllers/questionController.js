@@ -1,9 +1,21 @@
+/**
+ * @module questionController
+ */
 'use strict';
 const APICodes = require('../config/apiCodes');
 const Question = require('../models/question');
 const QuestionService = require('../services/questionService');
 const BaseController = require('../controllers/baseController');
 
+/**
+ * Get question entity by id from database; Send result to an endpoint;
+ * @param  {Request} request the req object represents the HTTP request and has properties
+ * for the request query string, parameters, body, HTTP headers, and so on;
+ * For more see: https://expressjs.com/en/api.html#req
+ * @param  {Response} response the res object represents the HTTP response that an Express app sends when it gets an HTTP request.
+ * For more see: https://expressjs.com/en/api.html#res
+ * @return {Response} return response object filled with status and message and data;
+ */
 exports.getQuestionById = async function (request, response) {
     try {
         let data = await QuestionService.getQuestionById(request.params.id);
@@ -20,6 +32,15 @@ exports.getQuestionById = async function (request, response) {
     }
 };
 
+/**
+ * Get question entity by id with all answers connected to question from database; Send result to an endpoint;
+ * @param  {Request} request the req object represents the HTTP request and has properties
+ * for the request query string, parameters, body, HTTP headers, and so on;
+ * For more see: https://expressjs.com/en/api.html#req
+ * @param  {Response} response the res object represents the HTTP response that an Express app sends when it gets an HTTP request.
+ * For more see: https://expressjs.com/en/api.html#res
+ * @return {Response} return response object filled with status and message and data;
+ */
 exports.getQuestionsByIdWithAllAnswers = async function (request, response) {
     try {
         let data = await QuestionService.getQuestionsByIdWithAllAnswers(request.params.id);
@@ -36,6 +57,15 @@ exports.getQuestionsByIdWithAllAnswers = async function (request, response) {
     }
 };
 
+/**
+ * Get all question entities; Send result to an endpoint;
+ * @param  {Request} request the req object represents the HTTP request and has properties
+ * for the request query string, parameters, body, HTTP headers, and so on;
+ * For more see: https://expressjs.com/en/api.html#req
+ * @param  {Response} response the res object represents the HTTP response that an Express app sends when it gets an HTTP request.
+ * For more see: https://expressjs.com/en/api.html#res
+ * @return {Response} return response object filled with status and message and  data;
+ */
 exports.getAllQuestions = async function (request, response) {
     try {
         const data = await QuestionService.getAllQuestions();
@@ -51,6 +81,15 @@ exports.getAllQuestions = async function (request, response) {
     }
 };
 
+/**
+ * Delete all question entities; Send operation result to an endpoint;
+ * @param  {Request} request the req object represents the HTTP request and has properties
+ * for the request query string, parameters, body, HTTP headers, and so on;
+ * For more see: https://expressjs.com/en/api.html#req
+ * @param  {Response} response the res object represents the HTTP response that an Express app sends when it gets an HTTP request.
+ * For more see: https://expressjs.com/en/api.html#res
+ * @return {Response} return response object filled with status and message;
+ */
 exports.deleteAll = async function (request, response) {
     try {
         await Question.deleteAll();

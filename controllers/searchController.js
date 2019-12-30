@@ -1,9 +1,30 @@
+/**
+ * @module searchController
+ */
 'use strict';
 const querystring = require('querystring');
 const Url = require('url');
 const SearchService = require('../services/searchService');
 const APICodes = require('../config/apiCodes');
 const BaseController = require('../controllers/baseController');
+
+/**
+ * @example
+ * GET
+ * http://localhost:3000/search?product=3082984&reviews=false&reviewscomment=true&questions=true&questionsanswers=true
+ *
+ * Search for product data; Send operation result to an endpoint;
+ * @param  {Request} request Request has to contain productID in search query;
+ * the req object represents the HTTP request and has properties
+ * for the request query string, parameters, body, HTTP headers, and so on;
+ * For more see: https://expressjs.com/en/api.html#req
+ *
+ * @param  {Response} response the res object represents the HTTP response that an Express app sends when it gets an HTTP request.
+ * For more see: https://expressjs.com/en/api.html#res
+ * @return {Response} return response object filled with status and message and data;
+ * Will return review comments only when query search also for reviews
+ * Will return question answer only when query search also for questions
+ */
 
 // http://localhost:3000/search?product=3082984&reviews=false&reviewscomment=true&questions=true&questionsanswers=true
 exports.serchForProductData = async function getAllProductInformation(request, response) {
