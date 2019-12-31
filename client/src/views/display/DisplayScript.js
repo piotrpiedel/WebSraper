@@ -1,11 +1,14 @@
-import {
-    doPostEtlWhole,
-    doPostExtract,
-    doPostTransform,
-    doPostLoad
-} from "../../service/EtlService";
+import { doGetSearch } from "../../service/searchService";
+import { AgGridVue } from "ag-grid-vue";
+import "ag-grid-community/dist/styles/ag-grid.css";
+import "ag-grid-community/dist/styles/ag-theme-balham.css";
+import { getColumnDefs } from "./ColumnDefs.js";
 
 export default {
+    components: {
+        AgGridVue
+    },
+
     data() {
         return {
             productId: "43073126",
@@ -14,92 +17,29 @@ export default {
             isTransformBtnDisabled: true,
             isLoadBtnDisabled: true,
 
+            columnDefs: getColumnDefs(),
+            rowData: [],
+
             notification: ""
         };
     },
 
     methods: {
-        async onWholeEtlBtnClicked() {
+        onGridReady(gridOptions) {
+            this.gridOptions = gridOptions;
+            this.gridOptions.api.sizeColumnsToFit();
+        },
+        async onDisplayDataBtnClicked() {
             this.isLoading = true;
-            const response = await doPostEtlWhole(this.productId);
-
-            if (response.status === 200) {
-                let message = response.message + "\n\n";
-                Object.keys(response.data).forEach(item => {
-                    message += `${item}: inserted: ${response.data[item].insertedStats} record(s) and updated ${response.data[item].updatedStats} record(s)\n`;
-                });
-                this.showNotification(message);
-            } else {
-                this.showNotification(
-                    `Server returned error code ${response.status}`
-                );
-            }
-            console.log(response);
+            await this.loadData();
+            this.gridOptions.api.sizeColumnsToFit();
             this.isLoading = false;
         },
 
-        async onExtractBtnClicked() {
-            this.isLoading = true;
-            const response = await doPostExtract(this.productId);
-
-            if (response.status === 200) {
-                let message = response.message + "\n\n";
-                message += `extracted ${response.data.resultReviewsStats.reviewExtractedStats} review(s)\n`;
-                message += `extracted ${response.data.resultQuestionStats.questionExtractedStats} question(s)\n`;
-                this.showNotification(message);
-                this.isTransformBtnDisabled = false;
-            } else {
-                this.showNotification(
-                    `Server returned error code ${response.status}`
-                );
-            }
+        async loadData() {
+            const response = await doGetSearch(this.productId);
+            this.rowData = response.data.reviews;
             console.log(response);
-            this.isLoading = false;
-        },
-
-        async onTransformBtnClicked() {
-            this.isLoading = true;
-            const response = await doPostTransform(this.productId);
-
-            if (response.status === 200) {
-                let message = response.message + "\n\n";
-                message += `transformed ${response.data.resultsProduct.transformedProducts} product information(s)\n`;
-                message += `transformed ${response.data.resultsReviews.transformedReviews} question(s)\n`;
-                message += `transformed ${response.data.resultsQuestions.transformedQuestions} question(s)\n`;
-                this.showNotification(message);
-                this.isLoadBtnDisabled = false;
-            } else {
-                this.showNotification(
-                    `Server returned error code ${response.status}`
-                );
-            }
-
-            this.isTransformBtnDisabled = true;
-            console.log(response);
-            this.isLoading = false;
-        },
-
-        async onLoadBtnClicked() {
-            this.isLoading = true;
-            const response = await doPostLoad(this.productId);
-
-            if (response.status === 200) {
-                let message = response.message + "\n\n";
-                Object.keys(response.data).forEach(item => {
-                    message += `${item}: inserted: ${response.data[item].insertedStats} record(s) and updated ${response.data[item].updatedStats} record(s)\n`;
-                });
-                this.showNotification(message);
-            } else {
-                this.showNotification(
-                    `Server returned error code ${response.status}`
-                );
-            }
-
-            this.isTransformBtnDisabled = true;
-            this.isLoadBtnDisabled = true;
-
-            console.log(response);
-            this.isLoading = false;
         },
 
         showNotification(message) {
