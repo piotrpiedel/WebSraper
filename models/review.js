@@ -79,7 +79,7 @@ class Review {
             }
 
             withDateOfPurchase(dateOfPurchase) {
-                this.date_creation = dateOfPurchase;
+                this.date_of_purchase = dateOfPurchase;
                 return this;
             }
 
