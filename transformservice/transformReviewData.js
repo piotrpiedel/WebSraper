@@ -21,7 +21,7 @@ async function transformReviewData(productId, reviews) {
         let reviewModel = new Review.Builder(review.id.trim())
             .withUserName(review.author.trim())
             .withWasPurchased(!!review.dateOfPurchase)
-            .withDateOfPurchase(review.dateOfPurchase ? review.dateOfPurchase.trim() : "")
+            .withDateOfPurchase(review.dateOfPurchase ? review.dateOfPurchase.trim() : null)
             .withDateOfReview(review.dateOfReview.trim())
             .withReviewStars(Number(review.score.split("/")[0]))
             .withIsRecommended(review.isRecommended === "Polecam")
