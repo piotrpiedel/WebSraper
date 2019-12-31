@@ -19,4 +19,4 @@
     </div>
 </template>
 
-<script src="./OverviewScript.js" />
+<script src="./EtlRunnerScript.js" />
