@@ -1,12 +1,14 @@
-/**
- * @module searchController
- */
 'use strict';
 const querystring = require('querystring');
 const Url = require('url');
 const SearchService = require('../services/searchService');
 const APICodes = require('../config/apiCodes');
 const BaseController = require('../controllers/baseController');
+
+/**
+ * @category Controllers
+ * @module searchController
+ */
 
 /**
  * @example
