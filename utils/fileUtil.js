@@ -3,6 +3,7 @@ const url = require("url");
 const fs = require("fs");
 
 /**
+ * @category Utils
  * @module fileUtil
  */
 

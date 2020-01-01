@@ -6,6 +6,7 @@ const baseService = require("../services/baseService");
 const fileAndFolderNames = require("../config/folderAndFilesNames");
 
 /**
+ * @category Services
  * @module reviewService
  */
 

@@ -2,6 +2,7 @@
 const FileUtil = require("../utils/fileUtil");
 const fileAndFolderNames = require("../config/folderAndFilesNames");
 /**
+ * @category Services
  * @module extractService
  */
 

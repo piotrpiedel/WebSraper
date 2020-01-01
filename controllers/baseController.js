@@ -1,6 +1,7 @@
 'use strict';
 
 /**
+ * @category Controllers
  * @module baseController
  */
 
