@@ -1,4 +1,4 @@
-export function getColumnDefs() {
+export function getReviewGridColumnDefs() {
     return [
         {
             headerName: "Author",
@@ -39,5 +39,69 @@ export function getColumnDefs() {
                 return data.value.replace(/,/g, ", ");
             }
         }
+    ];
+}
+
+export function getAnswerGridColumnDefs() {
+    return [
+        {
+            headerName: "Author",
+            field: "user_name",
+            width: 100,
+            sortable: true
+        },
+        { headerName: "Creation date", field: "date_creation", width: 100 },
+        {
+            headerName: "Answer",
+            field: "question_answer_content",
+            width: 500,
+            autoHeight: true,
+            cellStyle: { "white-space": "normal" }
+            // cellClass: "cell-wrap-text",
+        },
+        { headerName: "Upvotes", field: "upvotes", width: 100 },
+        { headerName: "Downvotes", field: "downvotes", width: 100 }
+    ];
+}
+
+export function getCommentGridColumnDefs() {
+    return [
+        {
+            headerName: "Author",
+            field: "user_name",
+            width: 100,
+            sortable: true
+        },
+        { headerName: "Creation date", field: "date_creation", width: 100 },
+        {
+            headerName: "Comment",
+            field: "comment_content",
+            width: 500,
+            autoHeight: true,
+            cellStyle: { "white-space": "normal" }
+            // cellClass: "cell-wrap-text",
+        }
+    ];
+}
+
+export function getQuestionGridColumnDefs() {
+    return [
+        {
+            headerName: "Author",
+            field: "user_name",
+            width: 100,
+            sortable: true
+        },
+        { headerName: "Creation date", field: "date_creation", width: 100 },
+        {
+            headerName: "Question",
+            field: "question_content",
+            width: 500,
+            autoHeight: true,
+            cellStyle: { "white-space": "normal" }
+            // cellClass: "cell-wrap-text",
+        },
+        { headerName: "Upvotes", field: "upvotes", width: 100 },
+        { headerName: "Downvotes", field: "downvotes", width: 100 }
     ];
 }
