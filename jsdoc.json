@@ -1,15 +1,33 @@
 {
   "source": {
-    "include": ["./config","./controllers","./models","./routes","./server","./services","./transformservice","./utils","./webscrapper"],
-    "includePattern": ".js$",
+    "include": [
+      "./config",
+      "./controllers",
+      "./models",
+      "./routes",
+      "./server",
+      "./services",
+      "./transformservice",
+      "./utils",
+      "./webscrapper"
+    ],
+    "includePattern": "\\.(jsx|js|ts|tsx)$",
     "excludePattern": "(node_modules/|docs)"
   },
   "plugins": [
-    "plugins/markdown"
+    "plugins/markdown",
+    "node_modules/better-docs/typescript",
+    "node_modules/better-docs/category"
   ],
+  "tags": {
+    "allowUnknownTags": [
+      "category"
+    ]
+  },
   "opts": {
     "encoding": "utf8",
     "readme": "./readme.md",
+    "template": "node_modules/better-docs",
     "destination": "docs/",
     "recurse": true,
     "verbose": true

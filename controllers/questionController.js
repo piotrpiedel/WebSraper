@@ -1,11 +1,13 @@
-/**
- * @module questionController
- */
 'use strict';
 const APICodes = require('../config/apiCodes');
 const Question = require('../models/question');
 const QuestionService = require('../services/questionService');
 const BaseController = require('../controllers/baseController');
+
+/**
+ * @category Controllers
+ * @module questionController
+ */
 
 /**
  * Get question entity by id from database; Send result to an endpoint;

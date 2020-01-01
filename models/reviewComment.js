@@ -2,7 +2,7 @@
 const databaseConnection = require("../database/mysqlconnection");
 const databaseEnum = require("../config/database_enum");
 /**
- * ReviewComment model
+ * @category Models
  * @example
  * let QuestionAnswer = new QuestionAnswer({
  *     id: 123,

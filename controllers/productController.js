@@ -1,13 +1,13 @@
-/**
- * @module productController
- */
 'use strict';
 const APICodes = require('../config/apiCodes');
 const Product = require('../models/product');
 const ProductService = require('../services/productService');
 const BaseController = require('../controllers/baseController');
 
-
+/**
+ * @category Controllers
+ * @module productController
+ */
 
 /**
  * Get product entity by id from database; Send result to an endpoint;

@@ -4,6 +4,7 @@ const APICodes = require('../config/apiCodes');
 const BaseController = require('../controllers/baseController');
 
 /**
+ * @category Controllers
  * @module clearDatabaseController
  */
 

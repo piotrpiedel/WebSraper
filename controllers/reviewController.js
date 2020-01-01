@@ -1,11 +1,13 @@
-/**
- * @module reviewController
- */
 'use strict';
 const APICodes = require('../config/apiCodes');
 const Review = require('../models/review');
 const ReviewService = require('../services/reviewService');
 const BaseController = require('../controllers/baseController');
+
+/**
+ * @category Controllers
+ * @module reviewController
+ */
 
 /**
  * Get review entity by id from database; Send result to an endpoint;
