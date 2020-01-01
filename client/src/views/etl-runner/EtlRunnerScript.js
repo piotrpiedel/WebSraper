@@ -1,9 +1,9 @@
 import {
-    doPostEtlWhole,
-    doPostExtract,
-    doPostTransform,
-    doPostLoad
-} from "../../service/EtlService";
+    doEtlProcess,
+    extractData,
+    transformData,
+    saveDataToDatabase
+} from "../../service/service.js";
 
 export default {
     data() {
@@ -21,7 +21,7 @@ export default {
     methods: {
         async onWholeEtlBtnClicked() {
             this.isLoading = true;
-            const response = await doPostEtlWhole(this.productId);
+            const response = await doEtlProcess(this.productId);
 
             if (response.status === 200) {
                 let message = response.message + "\n\n";
@@ -40,7 +40,7 @@ export default {
 
         async onExtractBtnClicked() {
             this.isLoading = true;
-            const response = await doPostExtract(this.productId);
+            const response = await extractData(this.productId);
 
             if (response.status === 200) {
                 let message = response.message + "\n\n";
@@ -59,7 +59,7 @@ export default {
 
         async onTransformBtnClicked() {
             this.isLoading = true;
-            const response = await doPostTransform(this.productId);
+            const response = await transformData(this.productId);
 
             if (response.status === 200) {
                 let message = response.message + "\n\n";
@@ -81,7 +81,7 @@ export default {
 
         async onLoadBtnClicked() {
             this.isLoading = true;
-            const response = await doPostLoad(this.productId);
+            const response = await saveDataToDatabase(this.productId);
 
             if (response.status === 200) {
                 let message = response.message + "\n\n";

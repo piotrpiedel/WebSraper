@@ -1,6 +1,15 @@
 import { HttpMethods } from "../enums/HttpMethods";
 
-export async function doPostEtlWhole(productId) {
+export async function getData(productId) {
+    return (
+        await doHttpRequest(
+            HttpMethods.GET,
+            `http://localhost:3000/search?product=${productId}&reviews=true&reviewscomment=true&questions=true&questionsanswers=true`
+        )
+    ).json();
+}
+
+export async function doEtlProcess(productId) {
     return (
         await doHttpRequest(
             HttpMethods.POST,
@@ -10,7 +19,7 @@ export async function doPostEtlWhole(productId) {
     ).json();
 }
 
-export async function doPostExtract(productId) {
+export async function extractData(productId) {
     return (
         await doHttpRequest(
             HttpMethods.POST,
@@ -20,7 +29,7 @@ export async function doPostExtract(productId) {
     ).json();
 }
 
-export async function doPostTransform(productId) {
+export async function transformData(productId) {
     return (
         await doHttpRequest(
             HttpMethods.POST,
@@ -30,12 +39,21 @@ export async function doPostTransform(productId) {
     ).json();
 }
 
-export async function doPostLoad(productId) {
+export async function saveDataToDatabase(productId) {
     return (
         await doHttpRequest(
             HttpMethods.POST,
             "http://localhost:3000/etl/onlyloadstep",
             { productID: productId }
+        )
+    ).json();
+}
+
+export async function clearDatabase() {
+    return (
+        await doHttpRequest(
+            HttpMethods.DELETE,
+            "http://localhost:3000/clearDatabase"
         )
     ).json();
 }
