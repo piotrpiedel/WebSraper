@@ -4,7 +4,7 @@ const databaseEnum = require("../config/database_enum");
 
 
 /**
- * QuestionAnswer model
+ * @category Models
  * @example
  * let Question = new QuestionAnswer({
  *     id: 123as,

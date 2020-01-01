@@ -7,6 +7,7 @@ let Question = require('../models/question.js');
 let QuestionAnswer = require('../models/questionAnswer.js');
 
 /**
+ * @category Services
  * @module searchService
  */
 

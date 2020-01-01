@@ -3,7 +3,7 @@ const databaseConnection = require("../database/mysqlconnection");
 const databaseEnum = require("../config/database_enum");
 
 /**
- * Product model
+ * @category Models
  * @example
  * let Product = new Product({
  *     id: 123,

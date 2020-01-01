@@ -5,6 +5,7 @@ const FileUtil = require("../utils/fileUtil");
 const fileAndFolderNames = require("../config/folderAndFilesNames");
 
 /**
+ * @category Transform services
  * @module transformQuestionData
  */
 

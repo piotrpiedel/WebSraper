@@ -13,6 +13,7 @@ let ReviewsService = require('../services/reviewService.js');
 let QuestionsService = require('../services/questionService.js');
 
 /**
+ * @category Controllers
  * @module clearDatabaseController
  */
 

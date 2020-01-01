@@ -3,6 +3,7 @@ const FileUtil = require("../utils/fileUtil");
 const databaseEnum = require("../config/database_enum");
 
 /**
+ * @category Services
  * @module baseService
  */
 /**
