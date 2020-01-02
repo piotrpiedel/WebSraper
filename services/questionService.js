@@ -74,7 +74,7 @@ exports.deleteAllQuestions = async function deleteAll() {
  */
 exports.getQuestionsByIdWithAllAnswers = async function getQuestionsByIdWithAllAnswers(id) {
     let data = {};
-    data.question = await getQuestionById(id);
+    data.question = await Question.getById(id);
     if (data.question.length) {
         data.questionAnswers = await QuestionAnswer.getAllByQuestionID(id);
     } else return data;

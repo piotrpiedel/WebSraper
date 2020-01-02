@@ -67,7 +67,7 @@ exports.getAllReviews = async function getAllReviews() {
  */
 exports.getReviewByIdWithAllComments = async function getReviewByIdWithAllComments(id) {
     let data = {};
-    data.review = await getReviewById(id);
+    data.review = await Review.getByID(id);
     if (data.review.length) {
         data.reviewComments = await ReviewComment.getAllByReviewID(id);
     } else return data;
