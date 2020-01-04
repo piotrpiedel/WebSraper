@@ -2,6 +2,7 @@
 const querystring = require('querystring');
 const Url = require('url');
 const SearchService = require('../services/searchService');
+const ProductService = require('../services/productService');
 const APICodes = require('../config/apiCodes');
 const BaseController = require('../controllers/baseController');
 
@@ -73,6 +74,36 @@ exports.searchForAllDataFromDatabase = async function searchForAllDataFromDataba
             responseArray);
     } catch (e) {
         console.error("Function searchForAllDataFromDatabase", e);
+        return BaseController.fillResponse(response, APICodes.SUCCESS, e.message);
+    }
+};
+
+/**
+ * @example
+ * GET
+ * http://localhost:3000/search/productids
+ *
+ * Search for all product ids from from database; Send operation result to an endpoint;
+ * @param  {Request} request Request has to contain productID in search query;
+ * the req object represents the HTTP request and has properties
+ * for the request query string, parameters, body, HTTP headers, and so on;
+ * For more see: https://expressjs.com/en/api.html#req
+ *
+ * @param  {Response} response the res object represents the HTTP response that an Express app sends when it gets an HTTP request.
+ * For more see: https://expressjs.com/en/api.html#res
+ * @return {Response} return response object filled with status and message and data;
+ * Will return all product ids stored in database
+ */
+exports.searchForAllProductsOnlyID = async function searchForAllDataFromDatabase(request, response) {
+    try {
+        let responseArray = {};
+        responseArray.productids = await ProductService.getAllProductsIds();
+        return BaseController.fillResponse(response,
+            APICodes.SUCCESS,
+            "Search successfully retrieved all product ids",
+            responseArray);
+    } catch (e) {
+        console.error("Function searchForAllProductsOnlyID", e);
         return BaseController.fillResponse(response, APICodes.SUCCESS, e.message);
     }
 };

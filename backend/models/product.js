@@ -148,6 +148,23 @@ Product.getAllProducts = function () {
 };
 
 /**
+ * Get all products ids from database
+ * @return {Product[]} array of products ids existing in database
+ */
+Product.getAllProductsIds = function () {
+    return databaseConnection.promise().query("Select id from product")
+        .then(([rows, fields, error]) => {
+            if (error) {
+                console.error(error);
+                return error;
+            } else {
+                console.log("Product.getAllProductsIds - rows: ", rows);
+                return rows;
+            }
+        });
+};
+
+/**
  * Update product with given productModelInstance
  * @param  {Product} product productModelInstance instance of product
  * @return {Product} updated productModel

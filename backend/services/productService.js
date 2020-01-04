@@ -40,7 +40,13 @@ exports.getProductById = async function getProductById(id) {
 exports.getAllProducts = async function getAllProducts() {
     return Product.getAllProducts();
 };
-
+/**
+ * Get all products ids from database
+ * @return {Product} return product entities from database
+ */
+exports.getAllProductsIds = async function getAllProductsIds() {
+    return Product.getAllProductsIds();
+};
 /**
  * Delete all products from database
  * @return {Product} return deleted product entities from database

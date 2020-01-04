@@ -6,4 +6,7 @@ const SearchController = require("../controllers/searchController");
 Router.get("/", SearchController.serchForProductData);
 
 Router.get("/all", SearchController.searchForAllDataFromDatabase);
+
+Router.get("/productids", SearchController.searchForAllProductsOnlyID);
+
 module.exports = Router;
