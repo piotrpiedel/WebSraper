@@ -99,7 +99,6 @@ export default {
             const reviewId = row.data.id;
             this.data.reviewsComments.forEach(comments => {
                 if (comments[0].review_id === reviewId) {
-                    console.log(comments);
                     this.grids.commentGrid.rowData = comments;
                 }
             });
@@ -110,7 +109,6 @@ export default {
             const questionId = row.data.id;
             this.data.questionsAnswers.forEach(questions => {
                 if (questions[0].question_id === questionId) {
-                    console.log(questions);
                     this.grids.answerGrid.rowData = questions;
                 }
             });
