@@ -11,14 +11,11 @@ const ETLRoutes = require("../routes/etlRoute");
 const SearchRoute = require("../routes/searchRoute");
 const ClearDatabase = require("../routes/clearDatabaseRoute");
 
-const swaggerUi = require("swagger-ui-express"),
-    swaggerDocument = require("./swagger.json");
 
 const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
-app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.use("/products", ProductRoutes);
 app.use("/reviews", ReviewRoutes);
 app.use("/questions", QuestionsRoute);
