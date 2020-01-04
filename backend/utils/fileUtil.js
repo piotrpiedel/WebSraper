@@ -2,7 +2,18 @@
 const url = require("url");
 const fs = require("fs");
 
-function readDataFile(folderName, fileName) {
+/**
+ * @category Utils
+ * @module fileUtil
+ */
+
+/**
+ * Read file and return parsed content in JSON format
+ * @param  {String} folderName generic folder name
+ * @param  {String} fileName generic file name
+ * @return {JSON} return content from file in JSON format
+ */
+exports.readDataFile = function readDataFile(folderName, fileName) {
     try {
         const file = fs.readFileSync(url.resolve(__dirname, `${folderName}\\${fileName}.json`));
         if (file) {
@@ -19,9 +30,28 @@ function readDataFile(folderName, fileName) {
         }
     }
 
+};
+
+/**
+ * Create folder when does not exists;
+ * @param  {String} folderName generic folder name
+ */
+function createFolderIfDoesNotExist(folderName) {
+    let dir = `./${folderName}`;
+    if (!fs.existsSync(dir)) {
+        fs.mkdirSync(dir);
+        console.log(`Folder ./${folderName} has been created!`);
+    }
 }
 
-function saveDataToJsonFile(folderName, fileName, data) {
+/**
+ * Write data to file
+ * @param  {String} folderName generic folder name
+ * @param  {String} fileName generic file name
+ * @param  {Object} data generic data to save in file - should be in format that can be parsed to JSON
+ */
+exports.saveDataToJsonFile = function saveDataToJsonFile(folderName, fileName, data) {
+    createFolderIfDoesNotExist(folderName);
     console.log(__dirname);
     fs.writeFileSync(
         url.resolve(__dirname, `${folderName}\\${fileName}.json`),
@@ -34,13 +64,14 @@ function saveDataToJsonFile(folderName, fileName, data) {
             }
         }
     );
-}
+};
 
-function clearDataFile(folderName, fileName) {
+/**
+ * Clear file with writing empty data to file
+ * @param  {String} folderName generic folder name
+ * @param  {String} fileName generic file name
+ */
+exports.clearDataFile = function clearDataFile(folderName, fileName) {
     console.log(__dirname);
     fs.writeFileSync(url.resolve(__dirname, `${folderName}\\${fileName}.json`), "");
-}
-
-exports.readDataFile = readDataFile;
-exports.saveDataToJsonFile = saveDataToJsonFile;
-exports.clearDataFile = clearDataFile;
+};
