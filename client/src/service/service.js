@@ -1,9 +1,9 @@
-import { HttpMethods } from "../enums/HttpMethods";
+import { HttpMethod } from "../enums/HttpMethod";
 
 export async function getData(productId) {
     return (
         await doHttpRequest(
-            HttpMethods.GET,
+            HttpMethod.GET,
             `http://localhost:3000/search?product=${productId}&reviews=true&reviewscomment=true&questions=true&questionsanswers=true`
         )
     ).json();
@@ -12,7 +12,7 @@ export async function getData(productId) {
 export async function doEtlProcess(productId) {
     return (
         await doHttpRequest(
-            HttpMethods.POST,
+            HttpMethod.POST,
             "http://localhost:3000/etl/etlwhole",
             { productID: productId }
         )
@@ -22,7 +22,7 @@ export async function doEtlProcess(productId) {
 export async function extractData(productId) {
     return (
         await doHttpRequest(
-            HttpMethods.POST,
+            HttpMethod.POST,
             "http://localhost:3000/etl/onlyextractstep",
             { productID: productId }
         )
@@ -32,7 +32,7 @@ export async function extractData(productId) {
 export async function transformData(productId) {
     return (
         await doHttpRequest(
-            HttpMethods.POST,
+            HttpMethod.POST,
             "http://localhost:3000/etl/onlytransformstep",
             { productID: productId }
         )
@@ -42,7 +42,7 @@ export async function transformData(productId) {
 export async function saveDataToDatabase(productId) {
     return (
         await doHttpRequest(
-            HttpMethods.POST,
+            HttpMethod.POST,
             "http://localhost:3000/etl/onlyloadstep",
             { productID: productId }
         )
@@ -52,7 +52,7 @@ export async function saveDataToDatabase(productId) {
 export async function clearDatabase() {
     return (
         await doHttpRequest(
-            HttpMethods.DELETE,
+            HttpMethod.DELETE,
             "http://localhost:3000/clearDatabase"
         )
     ).json();

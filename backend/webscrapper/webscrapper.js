@@ -3,16 +3,28 @@ const url = require("url");
 const FileUtil = require("../utils/fileUtil");
 const fileAndFolderNames = require("../config/folderAndFilesNames");
 
-const {log} = Apify.utils;
+const { log } = Apify.utils;
 log.setLevel(log.LEVELS.WARNING);
 
 // const productId = 10201710;
 // scrapData(productId);
 
 function saveDataToJsonFile(productData, reviews, questions) {
-    FileUtil.saveDataToJsonFile(fileAndFolderNames.DATA_EXTRACTED_FOLDER, fileAndFolderNames.DATA_EXTRACTED_PRODUCT_FILE, productData);
-    FileUtil.saveDataToJsonFile(fileAndFolderNames.DATA_EXTRACTED_FOLDER, fileAndFolderNames.DATA_EXTRACTED_REVIEWS_FILE, reviews);
-    FileUtil.saveDataToJsonFile(fileAndFolderNames.DATA_EXTRACTED_FOLDER, fileAndFolderNames.DATA_EXTRACTED_QUESTIONS_FILE, questions);
+    FileUtil.saveDataToJsonFile(
+        fileAndFolderNames.DATA_EXTRACTED_FOLDER,
+        fileAndFolderNames.DATA_EXTRACTED_PRODUCT_FILE,
+        productData
+    );
+    FileUtil.saveDataToJsonFile(
+        fileAndFolderNames.DATA_EXTRACTED_FOLDER,
+        fileAndFolderNames.DATA_EXTRACTED_REVIEWS_FILE,
+        reviews
+    );
+    FileUtil.saveDataToJsonFile(
+        fileAndFolderNames.DATA_EXTRACTED_FOLDER,
+        fileAndFolderNames.DATA_EXTRACTED_QUESTIONS_FILE,
+        questions
+    );
 }
 
 async function scrapData(productId) {
@@ -29,7 +41,7 @@ async function scrapData(productId) {
 
 async function getNumberOfReviewPages(productId) {
     const requestList = new Apify.RequestList({
-        sources: [{url: `https://www.ceneo.pl/${productId}`}]
+        sources: [{ url: `https://www.ceneo.pl/${productId}` }]
     });
     await requestList.initialize();
 
@@ -41,12 +53,12 @@ async function getNumberOfReviewPages(productId) {
         maxConcurrency: 50,
         maxRequestRetries: 1,
         handlePageTimeoutSecs: 60,
-        handlePageFunction: async ({request, body, $}) => {
+        handlePageFunction: async ({ request, body, $ }) => {
             numberOfReviews = $(".reviews a")
                 .attr("title")
                 .replace(/\D/g, "");
         },
-        handleFailedRequestFunction: async ({request}) => {
+        handleFailedRequestFunction: async ({ request }) => {
             console.log(`Request ${request.url} failed twice.`);
         }
     });
@@ -58,7 +70,7 @@ async function getNumberOfReviewPages(productId) {
 
 async function getNumberOfQuestionPages(productId) {
     const requestList = new Apify.RequestList({
-        sources: [{url: `https://www.ceneo.pl/${productId}`}]
+        sources: [{ url: `https://www.ceneo.pl/${productId}` }]
     });
     await requestList.initialize();
 
@@ -70,14 +82,16 @@ async function getNumberOfQuestionPages(productId) {
         maxConcurrency: 50,
         maxRequestRetries: 1,
         handlePageTimeoutSecs: 60,
-        handlePageFunction: async ({request, body, $}) => {
+        handlePageFunction: async ({ request, body, $ }) => {
             numberOfQuestions = $(".questions a")
                 .attr("title")
                 .replace(/\D/g, "");
         },
-        handleFailedRequestFunction: async ({request}) => {
+        handleFailedRequestFunction: async ({ request }) => {
             console.log(`Request ${request.url} failed twice.`);
-            throw new Error("Could not scrap data for product - productID is not correct");
+            throw new Error(
+                "Could not scrap data for product - productID is not correct"
+            );
         }
     });
 
@@ -87,7 +101,7 @@ async function getNumberOfQuestionPages(productId) {
 }
 
 async function extractProductData(productId) {
-    const urls = [{url: `https://www.ceneo.pl/${productId}`}];
+    const urls = [{ url: `https://www.ceneo.pl/${productId}` }];
     const requestList = new Apify.RequestList({
         sources: urls
     });
@@ -101,10 +115,10 @@ async function extractProductData(productId) {
         maxConcurrency: 50,
         maxRequestRetries: 1,
         handlePageTimeoutSecs: 60,
-        handlePageFunction: async ({request, body, $}) => {
+        handlePageFunction: async ({ request, body, $ }) => {
             handleProductInformationPage($, productData);
         },
-        handleFailedRequestFunction: async ({request}) => {
+        handleFailedRequestFunction: async ({ request }) => {
             console.log(`Request ${request.url} failed twice.`);
         }
     });
@@ -121,19 +135,19 @@ async function handleProductInformationPage($, resultObject) {
         .first()
         .first()
         .find(".attr-value")
-        .html();
-    // .substring(0, )
-    // .replace(/\r|\n|\t/g, "");
-    const n = producer.indexOf("&gt");
-    producer = producer.substring(0, n ? n : producer.length).trim();
+        .text()
+        .trim()
+        .replace(/\r|\n|\t/g, "");
+    const n = producer.indexOf(" ");
+    producer = producer.substring(0, n ? n : producer.length);
     resultObject.productName = productName;
-    resultObject.producer = producer;
+    resultObject.producer = producer.split(" ")[0];
 }
 
 async function extractReviewData(productId, numberOfPages) {
     const urls = [];
     for (let i = 1; i <= numberOfPages; i++) {
-        urls.push({url: `https://www.ceneo.pl/${productId}/opinie-${i}`});
+        urls.push({ url: `https://www.ceneo.pl/${productId}/opinie-${i}` });
     }
     const requestList = new Apify.RequestList({
         sources: urls
@@ -148,10 +162,10 @@ async function extractReviewData(productId, numberOfPages) {
         maxConcurrency: 50,
         maxRequestRetries: 1,
         handlePageTimeoutSecs: 60,
-        handlePageFunction: async ({request, body, $}) => {
+        handlePageFunction: async ({ request, body, $ }) => {
             handleReviewPage($, reviews);
         },
-        handleFailedRequestFunction: async ({request}) => {
+        handleFailedRequestFunction: async ({ request }) => {
             console.log(`Request ${request.url} failed twice.`);
         }
     });
@@ -227,9 +241,9 @@ async function handleReviewPage($, resultArray) {
 
 async function extractQuestionData(productId, numberOfPages) {
     const urls = [];
-    urls.push({url: `https://www.ceneo.pl/${productId}#tab=questions`});
+    urls.push({ url: `https://www.ceneo.pl/${productId}#tab=questions` });
     for (let i = 2; i <= numberOfPages; i++) {
-        urls.push({url: `https://www.ceneo.pl/${productId}/pytania-${i}`});
+        urls.push({ url: `https://www.ceneo.pl/${productId}/pytania-${i}` });
     }
     const requestList = new Apify.RequestList({
         sources: urls
@@ -244,10 +258,10 @@ async function extractQuestionData(productId, numberOfPages) {
         maxConcurrency: 50,
         maxRequestRetries: 1,
         handlePageTimeoutSecs: 300,
-        handlePageFunction: async ({request, body, $}) => {
+        handlePageFunction: async ({ request, body, $ }) => {
             handleQuestionPage($, questions);
         },
-        handleFailedRequestFunction: async ({request}) => {
+        handleFailedRequestFunction: async ({ request }) => {
             console.log(`Request ${request.url} failed twice.`);
         }
     });

@@ -1,35 +1,23 @@
 {
-	"name": "apify-app",
-	"version": "0.0.1",
-	"description": "This is a boilerplate of an Apify actor.",
-	"dependencies": {
-		"apify": "^0.16.0",
-		"body-parser": "^1.19.0",
-		"cors": "^2.8.5",
-		"express": "^4.17.1",
-		"express-handlebars": "^3.1.0",
-		"mysql2": "^2.0.1",
-		"swagger-ui-express": "^4.1.2"
-	},
-	"devDependencies": {
-		"alasql": "latest",
-		"grunt": "^1.0.4",
-		"grunt-contrib-watch": "^1.1.0",
-		"grunt-execute": "^0.2.2",
-		"nodemon": "^2.0.1"
-	},
-	"scripts": {
-		"startWebScrapper": "node webscrapper/webscrapper.js",
-		"startETLController": "node controllers/ETLController.js",
-		"startServerNode": "node server/server.js",
-		"startServerNodemon": "nodemon server/server.js",
-		"startParserReview": "node transformservice/transformReviewData.js",
-		"startParserQuestion": "node transformservice/transformQuestionData.js",
-		"startSaveProductService": "node services/productService.js",
-		"startSaveReviewService": "node services/reviewService.js",
-		"startParserproduct": "node transformservice/transformProductData.js",
-		"startFileUtil": "node utils/fileUtil.js"
-	},
-	"author": "It's not you it's me",
-	"license": "ISC"
+    "name": "hurtowanie.danych.grupa.10",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "start": "concurrently \"cd backend && node server/server.js\" \"cd client && npm start\"",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/alangrant90210/hurtowanie.danych.grupa.10.git"
+    },
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/alangrant90210/hurtowanie.danych.grupa.10/issues"
+    },
+    "homepage": "https://github.com/alangrant90210/hurtowanie.danych.grupa.10#readme",
+    "dependencies": {
+        "concurrently": "^5.0.2"
+    }
 }

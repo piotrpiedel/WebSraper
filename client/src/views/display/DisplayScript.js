@@ -2,6 +2,7 @@ import { getData } from "../../service/service.js";
 import { AgGridVue } from "ag-grid-vue";
 import "ag-grid-community/dist/styles/ag-grid.css";
 import "ag-grid-community/dist/styles/ag-theme-balham.css";
+import Navbar from "../../components/Navbar.vue";
 import {
     getReviewGridColumnDefs,
     getCommentGridColumnDefs,
@@ -11,12 +12,13 @@ import {
 
 export default {
     components: {
-        AgGridVue
+        AgGridVue,
+        Navbar
     },
 
     data() {
         return {
-            productId: "43073126",
+            productId: "",
             isLoading: false,
 
             isTransformBtnDisabled: true,
@@ -35,22 +37,42 @@ export default {
                 },
                 commentGrid: {
                     gridOptions: null,
-                    isHidden: true,
+                    isHidden: false,
                     columnDefs: getCommentGridColumnDefs(),
                     rowData: []
                 },
                 answerGrid: {
                     gridOptions: null,
-                    isHidden: true,
+                    isHidden: false,
                     columnDefs: getAnswerGridColumnDefs(),
                     rowData: []
                 }
+            },
+            defaultColDef: {
+                sortable: true,
+                resizable: true
             },
 
             data: [],
 
             notification: ""
         };
+    },
+
+    computed: {
+        productInformation() {
+            if (
+                !this.data.productInfromations ||
+                !this.data.productInfromations[0]
+            ) {
+                return "";
+            }
+            return (
+                this.data.productInfromations[0].name +
+                "\n" +
+                this.data.productInfromations[0].producer
+            );
+        }
     },
 
     methods: {
@@ -102,9 +124,7 @@ export default {
         async loadData() {
             this.data = (await getData(this.productId)).data;
             this.grids.reviewGrid.rowData = this.data.reviews;
-            // this.grids.commentGrid.rowData = this.data.reviewsComments[0];
             this.grids.questionGrid.rowData = this.data.questions;
-            // this.grids.answerGrid.rowData = this.data.questionsAnswers[0];
             console.log(this.data);
         },
 
