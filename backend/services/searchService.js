@@ -56,9 +56,9 @@ exports.searchReviewsAndReviewsComments = async function searchReviewsAndReviews
 };
 
 /**
- * Parse String to Boolean value object
+ * Search for questions and question answers
  * @param  {Object} queryParsed object of parsed query string
- * @param  {Number} productID product id for which will be searched all data
+ * @param  {Number} productID product id for which will be searched all questions and question answers
  * @param  {Object} responseArray object which will be filled with questions and questions answers based on given query parameters
  */
 exports.searchQuestionsAndQuestionAnswers = async function searchQuestionsAndQuestionAnswers(queryParsed, productID, responseArray) {
@@ -79,4 +79,14 @@ exports.searchQuestionsAndQuestionAnswers = async function searchQuestionsAndQue
     }
 };
 
-
+/**
+ * Search for all data from database
+ * @param  {Object} responseArray object which will be filled with all data selected from database
+ */
+exports.searchForAllData = async function searchQuestionsAndQuestionAnswers(responseArray) {
+    responseArray.products = await Product.getAllProducts();
+    responseArray.questions = await Question.getAll();
+    responseArray.questionsAnswers = await QuestionAnswer.getAllQuestionAnswers();
+    responseArray.review = await Review.getAll();
+    responseArray.reviewsComments = await ReviewComment.getAll();
+};
