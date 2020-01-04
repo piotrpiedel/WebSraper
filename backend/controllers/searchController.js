@@ -46,3 +46,33 @@ exports.serchForProductData = async function getAllProductInformation(request, r
         return BaseController.fillResponse(response, APICodes.SUCCESS, e.message);
     }
 };
+
+/**
+ * @example
+ * GET
+ * http://localhost:3000/search/all
+ *
+ * Search for all database from database; Send operation result to an endpoint;
+ * @param  {Request} request Request has to contain productID in search query;
+ * the req object represents the HTTP request and has properties
+ * for the request query string, parameters, body, HTTP headers, and so on;
+ * For more see: https://expressjs.com/en/api.html#req
+ *
+ * @param  {Response} response the res object represents the HTTP response that an Express app sends when it gets an HTTP request.
+ * For more see: https://expressjs.com/en/api.html#res
+ * @return {Response} return response object filled with status and message and data;
+ * Will return all data stored in database
+ */
+exports.searchForAllDataFromDatabase = async function searchForAllDataFromDatabase(request, response) {
+    try {
+        let responseArray = {};
+        await SearchService.searchForAllData(responseArray);
+        return BaseController.fillResponse(response,
+            APICodes.SUCCESS,
+            "Search successfully retrieved all data",
+            responseArray);
+    } catch (e) {
+        console.error("Function searchForAllDataFromDatabase", e);
+        return BaseController.fillResponse(response, APICodes.SUCCESS, e.message);
+    }
+};

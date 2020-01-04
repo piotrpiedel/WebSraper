@@ -34,13 +34,4 @@ Router.post("/onlytransformstep", ETLController.onlyTransformStep);
 // // }
 Router.post("/onlyloadstep", ETLController.onlyLoadStep);
 
-// Router.get("/", async function (request, response) {
-//     await ProductController.getAllProducts(response);
-// });
-//
-// //should start webscrapper and whole process;
-// Router.post("/", async function (request, response) {
-//     await ProductController.getProductByIdPost(request, response);
-// });
-
 module.exports = Router;
