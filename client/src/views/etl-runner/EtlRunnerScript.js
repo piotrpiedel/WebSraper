@@ -2,13 +2,18 @@ import {
     doEtlProcess,
     extractData,
     transformData,
-    saveDataToDatabase
+    saveDataToDatabase,
+    clearDatabase
 } from "../../service/service.js";
+import Navbar from "../../components/Navbar.vue";
 
 export default {
+    components: {
+        Navbar
+    },
     data() {
         return {
-            productId: "43073126",
+            productId: "",
             isLoading: false,
 
             isTransformBtnDisabled: true,
@@ -100,6 +105,11 @@ export default {
 
             console.log(response);
             this.isLoading = false;
+        },
+
+        async onClearDatabaseBtnClicked() {
+            const response = await clearDatabase();
+            this.showNotification(response.message);
         },
 
         showNotification(message) {
