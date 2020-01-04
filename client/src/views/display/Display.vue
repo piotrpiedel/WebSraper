@@ -39,7 +39,7 @@
 
             <div class="comments">
                 <div :hidden="grids.commentGrid.isHidden">
-                    <h2>Comments</h2>
+                    <h2>Comments (select a single review to display)</h2>
                     <ag-grid-vue
                         class="ag-theme-balham"
                         :columnDefs="grids.commentGrid.columnDefs"
@@ -52,7 +52,7 @@
 
             <div class="answers">
                 <div :hidden="grids.answerGrid.isHidden">
-                    <h2>Answers</h2>
+                    <h2>Answers (select a single question to display)</h2>
                     <ag-grid-vue
                         class="ag-theme-balham"
                         :columnDefs="grids.answerGrid.columnDefs"

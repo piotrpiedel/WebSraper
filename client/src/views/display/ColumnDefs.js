@@ -21,7 +21,10 @@ export function getReviewGridColumnDefs() {
         {
             headerName: "Purchase date",
             field: "date_of_purchase",
-            width: 200
+            width: 200,
+            valueFormatter: data => {
+                return data.value ? data.value.substring(0, data.value.indexOf("T")) : "";
+            }
         },
         {
             headerName: "Recommendation",
@@ -136,9 +139,16 @@ export function getQuestionGridColumnDefs() {
             }
         },
         {
+            headerName: "Title",
+            field: "question_title",
+            width: 300,
+            autoHeight: true,
+            cellStyle: { "white-space": "normal" }
+        },
+        {
             headerName: "Question",
             field: "question_content",
-            width: 500,
+            width: 300,
             autoHeight: true,
             cellStyle: { "white-space": "normal" }
         },
