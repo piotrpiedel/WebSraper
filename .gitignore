@@ -1,1 +1,16 @@
 node_modules
+WebScrapper.iml
+.idea/.gitignore
+.idea/jsLibraryMappings.xml
+.idea/misc.xml
+.idea/modules.xml
+.idea/sqldialects.xml
+.idea/vcs.xml
+dataextracted/productData.json
+dataextracted/questions.json
+dataextracted/reviews.json
+datatransformed/productTransformed.json
+datatransformed/questionAnswersTransformed.json
+datatransformed/questionsTransformed.json
+datatransformed/reviewCommentsTransformed.json
+datatransformed/reviewsTransformed.json
