@@ -1,4 +1,6 @@
-import { getData } from "../../service/service.js";
+import { getData, getAllData, getAllProductsIds } from "../../service/service.js";
+import { exportReviewsToCsv, exportCommentsToCsv, exportAnswersToCsv, exportQuestionsToCsv } from "../../service/csvService.js";
+
 import { AgGridVue } from "ag-grid-vue";
 import "ag-grid-community/dist/styles/ag-grid.css";
 import "ag-grid-community/dist/styles/ag-theme-balham.css";
@@ -20,9 +22,6 @@ export default {
         return {
             productId: "",
             isLoading: false,
-
-            isTransformBtnDisabled: true,
-            isLoadBtnDisabled: true,
 
             grids: {
                 reviewGrid: {
@@ -52,7 +51,7 @@ export default {
                 sortable: true,
                 resizable: true
             },
-
+            allProductIds: [],
             data: [],
 
             notification: ""
@@ -73,6 +72,11 @@ export default {
                 this.data.productInfromations[0].producer
             );
         }
+    },
+
+    created() {
+        // getAllData().then(result => this.allProductIds = result))
+        getAllProductsIds().then(result => this.allProductIds = result.data.productids);
     },
 
     methods: {
@@ -116,8 +120,18 @@ export default {
         async onDisplayDataBtnClicked() {
             this.isLoading = true;
             await this.loadData();
+
             this.isLoading = false;
         },
+
+        async onExportToCsvBtnClicked() {
+            await this.loadData();
+            exportReviewsToCsv(this.data.reviews);
+            exportQuestionsToCsv(this.data.questions);
+            exportCommentsToCsv(this.data.reviewsComments.flat());
+            exportAnswersToCsv(this.data.questionsAnswers.flat());
+        },
+
 
         async loadData() {
             this.data = (await getData(this.productId)).data;

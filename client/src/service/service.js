@@ -9,6 +9,24 @@ export async function getData(productId) {
     ).json();
 }
 
+export async function getAllData() {
+    return (
+        await doHttpRequest(
+            HttpMethod.GET,
+            `http://localhost:3000/search/all`
+        )
+    ).json();
+}
+
+export async function getAllProductsIds() {
+    return (
+        await doHttpRequest(
+            HttpMethod.GET,
+            `http://localhost:3000/search/productids`
+        )
+    ).json();
+}
+
 export async function doEtlProcess(productId) {
     return (
         await doHttpRequest(
@@ -56,6 +74,15 @@ export async function clearDatabase() {
             "http://localhost:3000/clearDatabase"
         )
     ).json();
+}
+
+export async function createCsvFile(data) {
+    // const items = json3.items
+    // const replacer = (key, value) => value === null ? '' : value // specify how you want to handle null values here
+    // const header = Object.keys(items[0])
+    // let csv = items.map(row => header.map(fieldName => JSON.stringify(row[fieldName], replacer)).join(','))
+    // csv.unshift(header.join(','))
+    // csv = csv.join('\r\n')
 }
 
 async function doHttpRequest(method, url, body) {

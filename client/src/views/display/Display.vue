@@ -3,9 +3,21 @@
         <Navbar />
         <el-form @submit.prevent.native="onDisplayDataBtnClicked">
             <el-form-item class="search">
-                <el-input v-model="productId" placeholder="Product Id" />
+                <el-select
+                    v-model="productId"
+                    no-data-text="Database is empty"
+                    placeholder="Select Product ID"
+                >
+                    <el-option
+                        v-for="productId in allProductIds"
+                        :key="productId.id"
+                        :label="`${productId.id}`"
+                        :value="productId.id"
+                    ></el-option>
+                </el-select>
             </el-form-item>
-            <el-button @click="onDisplayDataBtnClicked">Display Data</el-button>
+            <el-button :disabled="!productId" @click="onDisplayDataBtnClicked">Display Data</el-button>
+            <el-button :disabled="!productId" @click="onExportToCsvBtnClicked">Export to csv</el-button>
         </el-form>
 
         <div class="product">{{this.productInformation}}</div>
@@ -83,11 +95,15 @@
 }
 
 .search {
-    width: 40%;
+    width: 30%;
     display: inline-block;
     margin-left: auto;
     margin-right: auto;
     margin-top: 10px;
+}
+
+.el-select {
+    width: 100%;
 }
 
 .button {
