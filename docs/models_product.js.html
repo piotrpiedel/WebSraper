@@ -1,0 +1,315 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <meta charset="utf-8">
+    <title>JSDoc: models/product.js</title>
+
+    <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="./build/entry.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link href="https://fonts.googleapis.com/css?family=Muli:100,400,700|Oswald:300|Inconsolata,700" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+    <link type="text/css" rel="stylesheet" href="https://jmblog.github.io/color-themes-for-google-code-prettify/themes/tomorrow-night.min.css">
+    <link type="text/css" rel="stylesheet" href="styles/app.min.css">
+    <link type="text/css" rel="stylesheet" href="styles/iframe.css">
+</head>
+
+<body>
+    <div id="stickyNavbarOverlay"></div>
+    <div class="top-navbar">
+        <div class="container">
+            <nav class="navbar" role="navigation" aria-label="main navigation">
+                <div class="navbar-brand">
+                    
+                    
+                        <h1 class="navbar-item">Documentation</h1>
+                    
+                    <a id="hamburger" role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+                        <span aria-hidden="true"></span>
+                        <span aria-hidden="true"></span>
+                        <span aria-hidden="true"></span>
+                    </a>
+                </div>
+                
+            </nav>
+        </div>
+    </div>
+    <div class="container">
+        <div class="columns">
+            <div class="column is-3" id="sidebarNav">
+                <div class="sidebar">
+                    <nav>
+                        <h2><a href="index.html">Home</a></h2><div class="category"><h3>Global</h3><ul><li><a href="global.html#HTTP_CODES">HTTP_CODES</a></li><li><a href="global.html#OPERATION">OPERATION</a></li></ul></div><div class="category"><h2>Controllers</h2><h3>Modules</h3><ul><li><a href="module-baseController.html">baseController</a></li><li><a href="module-clearDatabaseController.html">clearDatabaseController</a></li><li><a href="module-productController.html">productController</a></li><li><a href="module-questionController.html">questionController</a></li><li><a href="module-reviewController.html">reviewController</a></li><li><a href="module-searchController.html">searchController</a></li></ul></div><div class="category"><h2>Models</h2><h3>Classes</h3><ul><li><a href="Product.html">Product</a></li><li><a href="Question.html">Question</a></li><li><a href="QuestionAnswer.html">QuestionAnswer</a></li><li><a href="Review.html">Review</a></li><li><a href="ReviewComment.html">ReviewComment</a></li></ul></div><div class="category"><h2>Services</h2><h3>Modules</h3><ul><li><a href="module-baseService.html">baseService</a></li><li><a href="module-extractService.html">extractService</a></li><li><a href="module-productService.html">productService</a></li><li><a href="module-questionService.html">questionService</a></li><li><a href="module-reviewService.html">reviewService</a></li><li><a href="module-searchService.html">searchService</a></li></ul></div><div class="category"><h2>Transform services</h2><h3>Modules</h3><ul><li><a href="module-transformProductData.html">transformProductData</a></li><li><a href="module-transformQuestionData.html">transformQuestionData</a></li><li><a href="module-transformReviewData.html">transformReviewData</a></li></ul></div><div class="category"><h2>Utils</h2><h3>Modules</h3><ul><li><a href="module-fileUtil.html">fileUtil</a></li></ul></div>
+                    </nav>
+                </div>
+            </div>
+            <div class="column is-9-desktop">
+                <div class="content" id="main-content-wrapper">
+                    <header class="page-title">
+                        <p>Source</p>
+                        <h1>models/product.js</h1>
+                    </header>
+                    
+                    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>'user strict';
+const databaseConnection = require("../database/mysqlconnection");
+const databaseEnum = require("../config/database_enum");
+
+/**
+ * @category Models
+ * @example
+ * let Product = new Product({
+ *     id: 123,
+ *     name : "ProductName",
+ *     producer: "ProducerName",
+ * })
+ * @param  {Product} product
+ * @param  {Number} product.id    product id
+ * @param  {String} product.name    product name
+ * @param  {String} product.producer   Product producer
+ */
+class Product {
+    constructor(product) {
+        if (arguments.length === 1 &amp;&amp; this.validate(product)) {
+            this.id = product.id;
+            this.name = product.name;
+            this.producer = product.producer;
+        }
+    }
+
+    /**
+     * Validate product model
+     * @param  {Product} product  entity of product model
+     * @return {Boolean} return true if product is valid
+     */
+    validate(product) {
+        return !!product.id;
+    }
+
+    static get Builder() {
+        class Builder {
+            constructor(id) {
+                this.id = id;
+            }
+
+            withName(name) {
+                this.name = name;
+                return this;
+            }
+
+            withProducer(producer) {
+                this.producer = producer;
+                return this;
+            }
+
+            build() {
+                if (this.id) {
+                    return new Product(this)
+                } else throw "Product id must not be empty";
+            }
+        }
+
+        return Builder;
+    }
+}
+
+/**
+ * Create new product or update already existing one
+ * @param  {Product} productModelInstance  entity of product model
+ * @return {OPERATION} value of executed operation type
+ */
+Product.createOrUpdateProduct = async function (productModelInstance) {
+    if (productModelInstance instanceof Product) {
+        let isProductExisting = await Product.checkIfExistsInDatabase(productModelInstance.id);
+        if (isProductExisting) {
+            let productUpdated = await Product.updateById(productModelInstance);
+            return databaseEnum.UPDATE;
+        } else {
+            let productInserted = await Product.insert(productModelInstance);
+            return databaseEnum.INSERT;
+        }
+    } else throw "Model must be instance of Product"
+
+};
+
+/**
+ * Create new product in database
+ * @param  {Product} productModelInstance instance of product ready to insert in database
+ * @return {Product}  inserted product instance
+ */
+Product.insert = async function (productModelInstance) {
+    return databaseConnection.promise().query("INSERT INTO product set ?", productModelInstance)
+        .then(
+            ([rows, fields, error]) => {
+                if (error) {
+                    console.error(error);
+                } else {
+                    return rows;
+                }
+            }
+        );
+};
+
+/**
+ * Check if product with given ID already exists in database
+ * @param  {Number} id  id of product
+ * @return {Boolean}  true if product already exists, false if does not
+ */
+Product.checkIfExistsInDatabase = async function (id) {
+    return databaseConnection.promise().query("Select * from product where id = ? ", id)
+        .then(([rows, fields, error]) => {
+            if (error) {
+                console.error(error);
+            } else {
+                return !!(rows &amp;&amp; rows.length);
+            }
+        });
+};
+
+/**
+ * Get product with given ID from database
+ * @param  {Number} id  id of product
+ * @return {Product} product instance of the given id
+ */
+Product.getProductById = async function (id) {
+    return databaseConnection.promise().query("Select * from product where id = ? ", id)
+        .then(([rows, fields, error]) => {
+            if (error) {
+                console.error(error);
+            } else {
+                console.log("Product.getProductById - rows: ", rows);
+                return rows;
+            }
+        });
+};
+
+/**
+ * Get all products  from database
+ * @return {Product[]} array of products existing in database
+ */
+Product.getAllProducts = function () {
+    return databaseConnection.promise().query("Select * from product")
+        .then(([rows, fields, error]) => {
+            if (error) {
+                console.error(error);
+                return error;
+            } else {
+                console.log("Product.getAllProducts - rows: ", rows);
+                return rows;
+            }
+        });
+};
+
+/**
+ * Get all products ids from database
+ * @return {Product[]} array of products ids existing in database
+ */
+Product.getAllProductsIds = function () {
+    return databaseConnection.promise().query("Select id from product")
+        .then(([rows, fields, error]) => {
+            if (error) {
+                console.error(error);
+                return error;
+            } else {
+                console.log("Product.getAllProductsIds - rows: ", rows);
+                return rows;
+            }
+        });
+};
+
+/**
+ * Update product with given productModelInstance
+ * @param  {Product} product productModelInstance instance of product
+ * @return {Product} updated productModel
+ */
+Product.updateById = async function (product) {
+    return databaseConnection.promise().query("UPDATE product SET ? WHERE id = ?", [product, product.id])
+        .then(
+            ([rows, fields, error]) => {
+                if (error) {
+                    console.error(error);
+                } else {
+                    return rows;
+                }
+            }
+        );
+};
+
+/**
+ * Delete product with given ID
+ * @param  {Number} id  id of product
+ * @return {Product} deleted productModel
+ */
+Product.delete = async function (id) {
+    return databaseConnection.promise().query("DELETE FROM product WHERE id = ?", [id])
+        .then(
+            ([rows, fields, error]) => {
+                if (error) {
+                    console.error(error);
+                } else {
+                    console.log("Product.delete: rows", rows);
+                    return rows;
+                }
+            }
+        );
+};
+
+/**
+ * Delete all products
+ * @return {Product[]} array of deleted productModel
+ */
+Product.deleteAll = async function () {
+    return databaseConnection.promise().query("DELETE FROM product")
+        .then(
+            ([rows, fields, error]) => {
+                if (error) {
+                    console.error(error);
+                } else {
+                    console.log("Product.delete: rows", rows);
+                    return rows;
+                }
+            }
+        );
+};
+
+module.exports = Product;</code></pre>
+        </article>
+    </section>
+
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+<footer class="footer">
+    <div class="content has-text-centered">
+        <p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.3</a> on Sun Jan 05 2020 18:33:18 GMT+0100 (GMT+01:00)</p>
+        <p class="sidebar-created-by">
+            <a href="https://github.com/SoftwareBrothers/better-docs" target="_blank">BetterDocs theme</a> provided with <i class="fas fa-heart"></i> by 
+            <a href="http://softwarebrothers.co" target="_blank">SoftwareBrothers - JavaScript Development Agency</a>
+        </p>
+    </div>
+</footer>
+
+
+<script src="scripts/app.min.js"></script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

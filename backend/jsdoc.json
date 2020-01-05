@@ -28,7 +28,7 @@
     "encoding": "utf8",
     "readme": "./readme.md",
     "template": "node_modules/better-docs",
-    "destination": "docs/",
+    "destination": "../docs/",
     "recurse": true,
     "verbose": true
   }
