@@ -1,0 +1,397 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <meta charset="utf-8">
+    <title>JSDoc: models/review.js</title>
+
+    <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="./build/entry.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link href="https://fonts.googleapis.com/css?family=Muli:100,400,700|Oswald:300|Inconsolata,700" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+    <link type="text/css" rel="stylesheet" href="https://jmblog.github.io/color-themes-for-google-code-prettify/themes/tomorrow-night.min.css">
+    <link type="text/css" rel="stylesheet" href="styles/app.min.css">
+    <link type="text/css" rel="stylesheet" href="styles/iframe.css">
+</head>
+
+<body>
+    <div id="stickyNavbarOverlay"></div>
+    <div class="top-navbar">
+        <div class="container">
+            <nav class="navbar" role="navigation" aria-label="main navigation">
+                <div class="navbar-brand">
+                    
+                    
+                        <h1 class="navbar-item">Documentation</h1>
+                    
+                    <a id="hamburger" role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+                        <span aria-hidden="true"></span>
+                        <span aria-hidden="true"></span>
+                        <span aria-hidden="true"></span>
+                    </a>
+                </div>
+                
+            </nav>
+        </div>
+    </div>
+    <div class="container">
+        <div class="columns">
+            <div class="column is-3" id="sidebarNav">
+                <div class="sidebar">
+                    <nav>
+                        <h2><a href="index.html">Home</a></h2><div class="category"><h3>Global</h3><ul><li><a href="global.html#HTTP_CODES">HTTP_CODES</a></li><li><a href="global.html#OPERATION">OPERATION</a></li></ul></div><div class="category"><h2>Controllers</h2><h3>Modules</h3><ul><li><a href="module-baseController.html">baseController</a></li><li><a href="module-clearDatabaseController.html">clearDatabaseController</a></li><li><a href="module-productController.html">productController</a></li><li><a href="module-questionController.html">questionController</a></li><li><a href="module-reviewController.html">reviewController</a></li><li><a href="module-searchController.html">searchController</a></li></ul></div><div class="category"><h2>Models</h2><h3>Classes</h3><ul><li><a href="Product.html">Product</a></li><li><a href="Question.html">Question</a></li><li><a href="QuestionAnswer.html">QuestionAnswer</a></li><li><a href="Review.html">Review</a></li><li><a href="ReviewComment.html">ReviewComment</a></li></ul></div><div class="category"><h2>Services</h2><h3>Modules</h3><ul><li><a href="module-baseService.html">baseService</a></li><li><a href="module-extractService.html">extractService</a></li><li><a href="module-productService.html">productService</a></li><li><a href="module-questionService.html">questionService</a></li><li><a href="module-reviewService.html">reviewService</a></li><li><a href="module-searchService.html">searchService</a></li></ul></div><div class="category"><h2>Transform services</h2><h3>Modules</h3><ul><li><a href="module-transformProductData.html">transformProductData</a></li><li><a href="module-transformQuestionData.html">transformQuestionData</a></li><li><a href="module-transformReviewData.html">transformReviewData</a></li></ul></div><div class="category"><h2>Utils</h2><h3>Modules</h3><ul><li><a href="module-fileUtil.html">fileUtil</a></li></ul></div>
+                    </nav>
+                </div>
+            </div>
+            <div class="column is-9-desktop">
+                <div class="content" id="main-content-wrapper">
+                    <header class="page-title">
+                        <p>Source</p>
+                        <h1>models/review.js</h1>
+                    </header>
+                    
+                    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>'user strict';
+const databaseConnection = require("../database/mysqlconnection");
+const databaseEnum = require("../config/database_enum");
+
+/**
+ * @category Models
+ * @example
+ * let Review = new Review({
+ *     id: 123,
+ *     user_name : "Patrycja",
+ *     was_purchased : 1,
+ *     date_of_purchase : "2018-02-07 13:24:59",
+ *     date_creation : "2018-02-08 13:24:59",
+ *     review_stars : 5,
+ *     is_recommended : 1,
+ *     review_content :
+ *     date_creation : "2018-02-07 13:24:59",
+ *     review_content: "Dunaj tam pogląda, gdzie mieszkał, dzieckiem będąc, przed nim fajt w guberskim rządzie.
+ *     Wreszcie po kryjomu kazał stoły do stolicy dajem i każdemu powinną uczciwość wyrządzić. I starzy i wzgląd."
+ *     advantages: "dobry dźwięk,niewielkie wymiary"
+ *     disadvantages: "nie najlepsze kable"
+ *     upvotes : 4
+ *     downvotes : 1
+ *     product_id_fk : 1
+ *
+ * })
+ * @param  {Review} review
+ * @param  {Number} review.id     id
+ * @param  {String} review.user_name     author
+ * @param  {Boolean} review.was_purchased  indicator if product was purchased
+ * @param  {Date} review.date_of_purchase     date of purchase
+ * @param  {Date} review.date_creation     review creation date
+ * @param  {Number} review.review_stars     review score/stars
+ * @param  {Boolean} review.is_recommended     indicator if product is recommended
+ * @param  {String} review.review_content     review message
+ * @param  {String} review.advantages     listed advantages of product
+ * @param  {String} review.disadvantages     listed disadvantages of product
+ * @param  {Number} review.upvotes     number of upvotes
+ * @param  {Number} review.downvotes     number of downvotes
+ * @param  {Number} review.product_id_fk    product foreign key
+ */
+class Review {
+    constructor(review) {
+        if (arguments.length === 1 &amp;&amp; this.validate(review)) {
+            this.id = review.id;
+            this.user_name = review.user_name;
+            this.was_purchased = review.was_purchased;
+            this.date_of_purchase = review.date_of_purchase;
+            this.date_creation = review.date_creation;
+            this.review_stars = review.review_stars;
+            this.is_recommended = review.is_recommended;
+            this.review_content = review.review_content;
+            this.advantages = review.advantages;
+            this.disadvantages = review.disadvantages;
+            this.upvotes = review.upvotes;
+            this.downvotes = review.downvotes;
+            this.product_id_fk = review.product_id_fk;
+        }
+    }
+
+    /**
+     * Validate review instance
+     * @param  {Review} review model instance
+     * @return {Boolean} return true if review is valid
+     */
+    validate(review) {
+        return !!review.id &amp;&amp; !!review.product_id_fk;
+    }
+
+    static get Builder() {
+        class Builder {
+            constructor(id) {
+                this.id = id;
+            }
+
+            withWasPurchased(wasPurchased) {
+                this.was_purchased = wasPurchased;
+                return this;
+            }
+
+            withDateOfPurchase(dateOfPurchase) {
+                this.date_of_purchase = dateOfPurchase;
+                return this;
+            }
+
+            withDateOfReview(reviewDate) {
+                this.date_creation = reviewDate;
+                return this;
+            }
+
+            withReviewStars(reviewStars) {
+                this.review_stars = reviewStars;
+                return this;
+            }
+
+            withIsRecommended(isRecommended) {
+                this.is_recommended = isRecommended;
+                return this;
+            }
+
+            withContent(reviewContent) {
+                this.review_content = reviewContent;
+                return this;
+            }
+
+            withAdvantages(advantages) {
+                this.advantages = advantages;
+                return this;
+            }
+
+            withDisadvantages(disadvantages) {
+                this.disadvantages = disadvantages;
+                return this;
+            }
+
+            withUserName(userName) {
+                this.user_name = userName;
+                return this;
+            }
+
+            withUpVotes(upVotes) {
+                this.upvotes = upVotes;
+                return this;
+            }
+
+            withDownVotes(downVotes) {
+                this.downvotes = downVotes;
+                return this;
+            }
+
+            withProductId(productId) {
+                this.product_id_fk = productId;
+                return this;
+            }
+
+            build() {
+                if (this.id &amp;&amp; this.product_id_fk) {
+                    return new Review(this)
+                } else throw "Review id &amp;&amp; productFK must not be empty";
+            }
+        }
+
+        return Builder;
+    }
+
+}
+
+/**
+ * Create new review or update already existing entity
+ * @param  {Review} reviewModelInstance instance of review model
+ * @return {OPERATION} value of executed operation type UPDATE/INSERT
+ */
+Review.createOrUpdateReview = async function (reviewModelInstance) {
+    if (reviewModelInstance instanceof Review) {
+        let isReviewExisting = await Review.checkIfExistsInDatabase(reviewModelInstance.id);
+        if (isReviewExisting) {
+            let reviewUpdated = await Review.updateById(reviewModelInstance);
+            return databaseEnum.UPDATE;
+        } else {
+            let reviewInserted = await Review.insert(reviewModelInstance);
+            return databaseEnum.INSERT;
+        }
+    }
+};
+
+/**
+ * Create new review in database
+ * @param  {Review} reviewModelInstance  instance of review model ready to insert in database
+ * @return {Review}  inserted review instance
+ */
+Review.insert = async function (reviewModelInstance) {
+    return databaseConnection.promise().query("INSERT INTO review set ?", reviewModelInstance)
+        .then(
+            ([rows, fields, error]) => {
+                if (error) {
+                    console.error(error);
+                } else {
+                    return rows;
+                }
+            }
+        );
+};
+
+/**
+ * Check if review with given ID already exists in database
+ * @param  {Number} id  id of review
+ * @return {Boolean}  true if review already exists, false if does not
+ */
+Review.checkIfExistsInDatabase = async function (id) {
+    return databaseConnection.promise().query("Select * from review where id = ? ", id)
+        .then(([rows, fields, error]) => {
+            if (error) {
+                console.error(error);
+            } else {
+                return !!(rows &amp;&amp; rows.length);
+            }
+        });
+};
+
+/**
+ * Get review with given ID from database
+ * @param  {Number} id  id of review
+ * @return {Review} review instance of the given id
+ */
+Review.getByID = async function (id) {
+    return databaseConnection.promise().query("Select * from review where id = ? ", id)
+        .then(([rows, fields, error]) => {
+            if (error) {
+                console.error(error);
+            } else {
+                console.log("Review.getReviewById - rows: ", rows);
+                return rows;
+            }
+        });
+};
+
+/**
+ * Get all reviews connected to product with given id from database
+ * @param  {Number} productID  id of product
+ * @return {Review[]} array of review entities connected to product with given id from database
+ */
+Review.getAllReviewsByProductID = function (productID) {
+    return databaseConnection.promise().query("Select * from review where product_id_fk= ? ", productID)
+        .then(([rows, fields, error]) => {
+            if (error) {
+                console.error(error);
+            } else {
+                return rows;
+            }
+        });
+};
+
+/**
+ * Get all reviews  from database
+ * @return {Review[]} array of existing reviews from database
+ */
+Review.getAll = function () {
+    return databaseConnection.promise().query("Select * from review")
+        .then(([rows, fields, error]) => {
+            if (error) {
+                console.error(error);
+            } else {
+                console.log("Review.getAllReviews - rows: ", rows);
+                return rows;
+            }
+        });
+};
+
+/**
+ * Update review with given ID
+ * @param  {Review} review instance of review
+ * @return {Review} updated review entity
+ */
+Review.updateById = async function (review) {
+    return databaseConnection.promise().query("UPDATE review SET ? WHERE id = ?", [review, review.id])
+        .then(
+            ([rows, fields, error]) => {
+                if (error) {
+                    console.error(error);
+                } else {
+                    return rows;
+                }
+            }
+        );
+};
+
+/**
+ * Delete review with given ID
+ * @param  {Number} id  id of review
+ * @return {Review} deleted review entity
+ */
+Review.delete = async function (id) {
+    return databaseConnection.promise().query("DELETE FROM review WHERE id = ?", [id])
+        .then(
+            ([rows, fields, error]) => {
+                if (error) {
+                    console.error(error);
+                } else {
+                    console.log("Review.delete: rows", rows);
+                    return rows;
+                }
+            }
+        );
+};
+
+/**
+ * Delete all reviews
+ * @return {Review[]} array of deleted review instances
+ */
+Review.deleteAll = async function () {
+    return databaseConnection.promise().query("DELETE FROM review")
+        .then(
+            ([rows, fields, error]) => {
+                if (error) {
+                    console.error(error);
+                } else {
+                    console.log("Review.clearTable: rows", rows);
+                    return rows;
+                }
+            }
+        );
+};
+
+module.exports = Review;</code></pre>
+        </article>
+    </section>
+
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+<footer class="footer">
+    <div class="content has-text-centered">
+        <p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.3</a> on Sun Jan 05 2020 18:33:18 GMT+0100 (GMT+01:00)</p>
+        <p class="sidebar-created-by">
+            <a href="https://github.com/SoftwareBrothers/better-docs" target="_blank">BetterDocs theme</a> provided with <i class="fas fa-heart"></i> by 
+            <a href="http://softwarebrothers.co" target="_blank">SoftwareBrothers - JavaScript Development Agency</a>
+        </p>
+    </div>
+</footer>
+
+
+<script src="scripts/app.min.js"></script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

@@ -1,0 +1,2244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <meta charset="utf-8">
+    <title>JSDoc: clearDatabaseController</title>
+
+    <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="./build/entry.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link href="https://fonts.googleapis.com/css?family=Muli:100,400,700|Oswald:300|Inconsolata,700" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+    <link type="text/css" rel="stylesheet" href="https://jmblog.github.io/color-themes-for-google-code-prettify/themes/tomorrow-night.min.css">
+    <link type="text/css" rel="stylesheet" href="styles/app.min.css">
+    <link type="text/css" rel="stylesheet" href="styles/iframe.css">
+</head>
+
+<body>
+    <div id="stickyNavbarOverlay"></div>
+    <div class="top-navbar">
+        <div class="container">
+            <nav class="navbar" role="navigation" aria-label="main navigation">
+                <div class="navbar-brand">
+                    
+                    
+                        <h1 class="navbar-item">Documentation</h1>
+                    
+                    <a id="hamburger" role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+                        <span aria-hidden="true"></span>
+                        <span aria-hidden="true"></span>
+                        <span aria-hidden="true"></span>
+                    </a>
+                </div>
+                
+            </nav>
+        </div>
+    </div>
+    <div class="container">
+        <div class="columns">
+            <div class="column is-3" id="sidebarNav">
+                <div class="sidebar">
+                    <nav>
+                        <h2><a href="index.html">Home</a></h2><div class="category"><h3>Global</h3><ul><li><a href="global.html#HTTP_CODES">HTTP_CODES</a></li><li><a href="global.html#OPERATION">OPERATION</a></li></ul></div><div class="category"><h2>Controllers</h2><h3>Modules</h3><ul><li><a href="module-baseController.html">baseController</a></li><li><a href="module-clearDatabaseController.html">clearDatabaseController</a></li><li><a href="module-productController.html">productController</a></li><li><a href="module-questionController.html">questionController</a></li><li><a href="module-reviewController.html">reviewController</a></li><li><a href="module-searchController.html">searchController</a></li></ul></div><div class="category"><h2>Models</h2><h3>Classes</h3><ul><li><a href="Product.html">Product</a></li><li><a href="Question.html">Question</a></li><li><a href="QuestionAnswer.html">QuestionAnswer</a></li><li><a href="Review.html">Review</a></li><li><a href="ReviewComment.html">ReviewComment</a></li></ul></div><div class="category"><h2>Services</h2><h3>Modules</h3><ul><li><a href="module-baseService.html">baseService</a></li><li><a href="module-extractService.html">extractService</a></li><li><a href="module-productService.html">productService</a></li><li><a href="module-questionService.html">questionService</a></li><li><a href="module-reviewService.html">reviewService</a></li><li><a href="module-searchService.html">searchService</a></li></ul></div><div class="category"><h2>Transform services</h2><h3>Modules</h3><ul><li><a href="module-transformProductData.html">transformProductData</a></li><li><a href="module-transformQuestionData.html">transformQuestionData</a></li><li><a href="module-transformReviewData.html">transformReviewData</a></li></ul></div><div class="category"><h2>Utils</h2><h3>Modules</h3><ul><li><a href="module-fileUtil.html">fileUtil</a></li></ul></div>
+                    </nav>
+                </div>
+            </div>
+            <div class="column is-9-desktop">
+                <div class="content" id="main-content-wrapper">
+                    <header class="page-title">
+                        <p>Module</p>
+                        <h1>clearDatabaseController</h1>
+                    </header>
+                    
+                    
+
+
+
+
+<section>
+
+<header>
+    
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+
+        
+    
+    </div>
+    
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <div class='vertical-section'>
+            <h3 class="title"><span>Methods</span></h3>
+            <div class="members">
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id=".clearDatabase">
+        <a class="href-link" href="#.clearDatabase">#</a>
+        
+            
+                <span class='tag'>static</span>
+            
+        
+        <span class="code-name">
+            
+                clearDatabase<span class="signature">(request, response)</span><span class="type-signature"> &rarr; {Response}</span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        <p>Clear database by deleting all products with cascade on delete foreign keys</p>
+    </div>
+    
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        
+<tr class="deep-level-0">
+  
+      <td class="name"><code>request</code></td>
+  
+
+  <td class="type">
+  
+      
+<span class="param-type">Request</span>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>the req object represents the HTTP request and has properties
+for the request query string, parameters, body, HTTP headers, and so on;
+For more see: https://expressjs.com/en/api.html#req</p></td>
+</tr>
+
+
+    
+
+        
+<tr class="deep-level-0">
+  
+      <td class="name"><code>response</code></td>
+  
+
+  <td class="type">
+  
+      
+<span class="param-type">Response</span>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>the res object represents the HTTP response that an Express app sends when it gets an HTTP request.
+For more see: https://expressjs.com/en/api.html#res</p></td>
+</tr>
+
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="controllers_clearDatabaseController.js.html" class="button">View Source</a>
+            <span>
+                <a href="controllers_clearDatabaseController.js.html">controllers/clearDatabaseController.js</a>, <a href="controllers_clearDatabaseController.js.html#line20">line 20</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class='columns method-parameter'>
+        <div class="column is-2"><label>Returns:</label></div>
+        <div class="column is-10">
+            
+                    
+
+<div class="columns">
+    
+    <div class='param-desc column is-7'><p>return response object;</p></div>
+    
+    
+    <div class='column is-5 has-text-left'>
+        <label>Type: </label>
+        
+<span class="param-type">Response</span>
+
+
+    </div>
+    
+</div>
+
+                
+        </div>
+    </div>
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id=".createETLProcessAtOnce">
+        <a class="href-link" href="#.createETLProcessAtOnce">#</a>
+        
+            
+                <span class='tag'>static</span>
+            
+        
+        <span class="code-name">
+            
+                createETLProcessAtOnce<span class="signature">(request, response)</span><span class="type-signature"> &rarr; {Response}</span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        <p>Create ETL process with one endpoint call; ETL process is proceeded step by step;
+ETL process is ended by loading scrapped data to database;</p>
+    </div>
+    
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        
+<tr class="deep-level-0">
+  
+      <td class="name"><code>request</code></td>
+  
+
+  <td class="type">
+  
+      
+<span class="param-type">Request</span>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>the req object represents the HTTP request and has properties
+for the request query string, parameters, body, HTTP headers, and so on;
+For more see: https://expressjs.com/en/api.html#req</p></td>
+</tr>
+
+
+    
+
+        
+<tr class="deep-level-0">
+  
+      <td class="name"><code>response</code></td>
+  
+
+  <td class="type">
+  
+      
+<span class="param-type">Response</span>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>the res object represents the HTTP response that an Express app sends when it gets an HTTP request.
+For more see: https://expressjs.com/en/api.html#res</p></td>
+</tr>
+
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="controllers_ETLController.js.html" class="button">View Source</a>
+            <span>
+                <a href="controllers_ETLController.js.html">controllers/ETLController.js</a>, <a href="controllers_ETLController.js.html#line30">line 30</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class='columns method-parameter'>
+        <div class="column is-2"><label>Returns:</label></div>
+        <div class="column is-10">
+            
+                    
+
+<div class="columns">
+    
+    <div class='param-desc column is-7'><p>return response object filled with data, status and message;</p></div>
+    
+    
+    <div class='column is-5 has-text-left'>
+        <label>Type: </label>
+        
+<span class="param-type">Response</span>
+
+
+    </div>
+    
+</div>
+
+                
+        </div>
+    </div>
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id=".onlyExtractStep">
+        <a class="href-link" href="#.onlyExtractStep">#</a>
+        
+            
+                <span class='tag'>static</span>
+            
+        
+        <span class="code-name">
+            
+                onlyExtractStep<span class="signature">(request, response)</span><span class="type-signature"> &rarr; {Response}</span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        <p>Create only extract step from ETL process;
+in this step web scraper extract data for given product ID;
+Function save extracted data to local file;</p>
+    </div>
+    
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        
+<tr class="deep-level-0">
+  
+      <td class="name"><code>request</code></td>
+  
+
+  <td class="type">
+  
+      
+<span class="param-type">Request</span>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>the req object represents the HTTP request and has properties
+for the request query string, parameters, body, HTTP headers, and so on;
+For more see: https://expressjs.com/en/api.html#req</p></td>
+</tr>
+
+
+    
+
+        
+<tr class="deep-level-0">
+  
+      <td class="name"><code>response</code></td>
+  
+
+  <td class="type">
+  
+      
+<span class="param-type">Response</span>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>the res object represents the HTTP response that an Express app sends when it gets an HTTP request.
+For more see: https://expressjs.com/en/api.html#res</p></td>
+</tr>
+
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="controllers_ETLController.js.html" class="button">View Source</a>
+            <span>
+                <a href="controllers_ETLController.js.html">controllers/ETLController.js</a>, <a href="controllers_ETLController.js.html#line74">line 74</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class='columns method-parameter'>
+        <div class="column is-2"><label>Returns:</label></div>
+        <div class="column is-10">
+            
+                    
+
+<div class="columns">
+    
+    <div class='param-desc column is-7'><p>return response object filled with data, status and message;</p></div>
+    
+    
+    <div class='column is-5 has-text-left'>
+        <label>Type: </label>
+        
+<span class="param-type">Response</span>
+
+
+    </div>
+    
+</div>
+
+                
+        </div>
+    </div>
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id=".onlyLoadStep">
+        <a class="href-link" href="#.onlyLoadStep">#</a>
+        
+            
+                <span class='tag'>static</span>
+            
+        
+        <span class="code-name">
+            
+                onlyLoadStep<span class="signature">(request, response)</span><span class="type-signature"> &rarr; {Response}</span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        <p>Create only load step from ETL process;
+in this step application is loading transformed data and save it to database;
+Function can be successfully called only when transformation step has ended with success;
+After loading data from transformation step are removed;</p>
+    </div>
+    
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        
+<tr class="deep-level-0">
+  
+      <td class="name"><code>request</code></td>
+  
+
+  <td class="type">
+  
+      
+<span class="param-type">Request</span>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>the req object represents the HTTP request and has properties
+for the request query string, parameters, body, HTTP headers, and so on;
+For more see: https://expressjs.com/en/api.html#req</p></td>
+</tr>
+
+
+    
+
+        
+<tr class="deep-level-0">
+  
+      <td class="name"><code>response</code></td>
+  
+
+  <td class="type">
+  
+      
+<span class="param-type">Response</span>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>the res object represents the HTTP response that an Express app sends when it gets an HTTP request.
+For more see: https://expressjs.com/en/api.html#res</p></td>
+</tr>
+
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="controllers_ETLController.js.html" class="button">View Source</a>
+            <span>
+                <a href="controllers_ETLController.js.html">controllers/ETLController.js</a>, <a href="controllers_ETLController.js.html#line131">line 131</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class='columns method-parameter'>
+        <div class="column is-2"><label>Returns:</label></div>
+        <div class="column is-10">
+            
+                    
+
+<div class="columns">
+    
+    <div class='param-desc column is-7'><p>return response object filled with data, status and message;</p></div>
+    
+    
+    <div class='column is-5 has-text-left'>
+        <label>Type: </label>
+        
+<span class="param-type">Response</span>
+
+
+    </div>
+    
+</div>
+
+                
+        </div>
+    </div>
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id=".onlyTransformStep">
+        <a class="href-link" href="#.onlyTransformStep">#</a>
+        
+            
+                <span class='tag'>static</span>
+            
+        
+        <span class="code-name">
+            
+                onlyTransformStep<span class="signature">(request, response)</span><span class="type-signature"> &rarr; {Response}</span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        <p>Create only transform step from ETL process;
+in this step application is transforming extracted data and data is saved to separate local files;
+Function can be successfully called only when the extraction step has ended with success;
+After transformation step data from extraction step are removed from local files;</p>
+    </div>
+    
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        
+<tr class="deep-level-0">
+  
+      <td class="name"><code>request</code></td>
+  
+
+  <td class="type">
+  
+      
+<span class="param-type">Request</span>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>the req object represents the HTTP request and has properties
+for the request query string, parameters, body, HTTP headers, and so on;
+For more see: https://expressjs.com/en/api.html#req</p></td>
+</tr>
+
+
+    
+
+        
+<tr class="deep-level-0">
+  
+      <td class="name"><code>response</code></td>
+  
+
+  <td class="type">
+  
+      
+<span class="param-type">Response</span>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>the res object represents the HTTP response that an Express app sends when it gets an HTTP request.
+For more see: https://expressjs.com/en/api.html#res</p></td>
+</tr>
+
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="controllers_ETLController.js.html" class="button">View Source</a>
+            <span>
+                <a href="controllers_ETLController.js.html">controllers/ETLController.js</a>, <a href="controllers_ETLController.js.html#line100">line 100</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class='columns method-parameter'>
+        <div class="column is-2"><label>Returns:</label></div>
+        <div class="column is-10">
+            
+                    
+
+<div class="columns">
+    
+    <div class='param-desc column is-7'><p>return response object filled with data, status and message;</p></div>
+    
+    
+    <div class='column is-5 has-text-left'>
+        <label>Type: </label>
+        
+<span class="param-type">Response</span>
+
+
+    </div>
+    
+</div>
+
+                
+        </div>
+    </div>
+
+
+
+
+</div>
+            
+            </div>
+        </div>
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+
+
+
+<section>
+
+<header>
+    
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+
+        
+    
+    </div>
+    
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <div class='vertical-section'>
+            <h3 class="title"><span>Methods</span></h3>
+            <div class="members">
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id=".clearDatabase">
+        <a class="href-link" href="#.clearDatabase">#</a>
+        
+            
+                <span class='tag'>static</span>
+            
+        
+        <span class="code-name">
+            
+                clearDatabase<span class="signature">(request, response)</span><span class="type-signature"> &rarr; {Response}</span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        <p>Clear database by deleting all products with cascade on delete foreign keys</p>
+    </div>
+    
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        
+<tr class="deep-level-0">
+  
+      <td class="name"><code>request</code></td>
+  
+
+  <td class="type">
+  
+      
+<span class="param-type">Request</span>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>the req object represents the HTTP request and has properties
+for the request query string, parameters, body, HTTP headers, and so on;
+For more see: https://expressjs.com/en/api.html#req</p></td>
+</tr>
+
+
+    
+
+        
+<tr class="deep-level-0">
+  
+      <td class="name"><code>response</code></td>
+  
+
+  <td class="type">
+  
+      
+<span class="param-type">Response</span>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>the res object represents the HTTP response that an Express app sends when it gets an HTTP request.
+For more see: https://expressjs.com/en/api.html#res</p></td>
+</tr>
+
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="controllers_clearDatabaseController.js.html" class="button">View Source</a>
+            <span>
+                <a href="controllers_clearDatabaseController.js.html">controllers/clearDatabaseController.js</a>, <a href="controllers_clearDatabaseController.js.html#line20">line 20</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class='columns method-parameter'>
+        <div class="column is-2"><label>Returns:</label></div>
+        <div class="column is-10">
+            
+                    
+
+<div class="columns">
+    
+    <div class='param-desc column is-7'><p>return response object;</p></div>
+    
+    
+    <div class='column is-5 has-text-left'>
+        <label>Type: </label>
+        
+<span class="param-type">Response</span>
+
+
+    </div>
+    
+</div>
+
+                
+        </div>
+    </div>
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id=".createETLProcessAtOnce">
+        <a class="href-link" href="#.createETLProcessAtOnce">#</a>
+        
+            
+                <span class='tag'>static</span>
+            
+        
+        <span class="code-name">
+            
+                createETLProcessAtOnce<span class="signature">(request, response)</span><span class="type-signature"> &rarr; {Response}</span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        <p>Create ETL process with one endpoint call; ETL process is proceeded step by step;
+ETL process is ended by loading scrapped data to database;</p>
+    </div>
+    
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        
+<tr class="deep-level-0">
+  
+      <td class="name"><code>request</code></td>
+  
+
+  <td class="type">
+  
+      
+<span class="param-type">Request</span>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>the req object represents the HTTP request and has properties
+for the request query string, parameters, body, HTTP headers, and so on;
+For more see: https://expressjs.com/en/api.html#req</p></td>
+</tr>
+
+
+    
+
+        
+<tr class="deep-level-0">
+  
+      <td class="name"><code>response</code></td>
+  
+
+  <td class="type">
+  
+      
+<span class="param-type">Response</span>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>the res object represents the HTTP response that an Express app sends when it gets an HTTP request.
+For more see: https://expressjs.com/en/api.html#res</p></td>
+</tr>
+
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="controllers_ETLController.js.html" class="button">View Source</a>
+            <span>
+                <a href="controllers_ETLController.js.html">controllers/ETLController.js</a>, <a href="controllers_ETLController.js.html#line30">line 30</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class='columns method-parameter'>
+        <div class="column is-2"><label>Returns:</label></div>
+        <div class="column is-10">
+            
+                    
+
+<div class="columns">
+    
+    <div class='param-desc column is-7'><p>return response object filled with data, status and message;</p></div>
+    
+    
+    <div class='column is-5 has-text-left'>
+        <label>Type: </label>
+        
+<span class="param-type">Response</span>
+
+
+    </div>
+    
+</div>
+
+                
+        </div>
+    </div>
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id=".onlyExtractStep">
+        <a class="href-link" href="#.onlyExtractStep">#</a>
+        
+            
+                <span class='tag'>static</span>
+            
+        
+        <span class="code-name">
+            
+                onlyExtractStep<span class="signature">(request, response)</span><span class="type-signature"> &rarr; {Response}</span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        <p>Create only extract step from ETL process;
+in this step web scraper extract data for given product ID;
+Function save extracted data to local file;</p>
+    </div>
+    
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        
+<tr class="deep-level-0">
+  
+      <td class="name"><code>request</code></td>
+  
+
+  <td class="type">
+  
+      
+<span class="param-type">Request</span>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>the req object represents the HTTP request and has properties
+for the request query string, parameters, body, HTTP headers, and so on;
+For more see: https://expressjs.com/en/api.html#req</p></td>
+</tr>
+
+
+    
+
+        
+<tr class="deep-level-0">
+  
+      <td class="name"><code>response</code></td>
+  
+
+  <td class="type">
+  
+      
+<span class="param-type">Response</span>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>the res object represents the HTTP response that an Express app sends when it gets an HTTP request.
+For more see: https://expressjs.com/en/api.html#res</p></td>
+</tr>
+
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="controllers_ETLController.js.html" class="button">View Source</a>
+            <span>
+                <a href="controllers_ETLController.js.html">controllers/ETLController.js</a>, <a href="controllers_ETLController.js.html#line74">line 74</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class='columns method-parameter'>
+        <div class="column is-2"><label>Returns:</label></div>
+        <div class="column is-10">
+            
+                    
+
+<div class="columns">
+    
+    <div class='param-desc column is-7'><p>return response object filled with data, status and message;</p></div>
+    
+    
+    <div class='column is-5 has-text-left'>
+        <label>Type: </label>
+        
+<span class="param-type">Response</span>
+
+
+    </div>
+    
+</div>
+
+                
+        </div>
+    </div>
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id=".onlyLoadStep">
+        <a class="href-link" href="#.onlyLoadStep">#</a>
+        
+            
+                <span class='tag'>static</span>
+            
+        
+        <span class="code-name">
+            
+                onlyLoadStep<span class="signature">(request, response)</span><span class="type-signature"> &rarr; {Response}</span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        <p>Create only load step from ETL process;
+in this step application is loading transformed data and save it to database;
+Function can be successfully called only when transformation step has ended with success;
+After loading data from transformation step are removed;</p>
+    </div>
+    
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        
+<tr class="deep-level-0">
+  
+      <td class="name"><code>request</code></td>
+  
+
+  <td class="type">
+  
+      
+<span class="param-type">Request</span>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>the req object represents the HTTP request and has properties
+for the request query string, parameters, body, HTTP headers, and so on;
+For more see: https://expressjs.com/en/api.html#req</p></td>
+</tr>
+
+
+    
+
+        
+<tr class="deep-level-0">
+  
+      <td class="name"><code>response</code></td>
+  
+
+  <td class="type">
+  
+      
+<span class="param-type">Response</span>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>the res object represents the HTTP response that an Express app sends when it gets an HTTP request.
+For more see: https://expressjs.com/en/api.html#res</p></td>
+</tr>
+
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="controllers_ETLController.js.html" class="button">View Source</a>
+            <span>
+                <a href="controllers_ETLController.js.html">controllers/ETLController.js</a>, <a href="controllers_ETLController.js.html#line131">line 131</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class='columns method-parameter'>
+        <div class="column is-2"><label>Returns:</label></div>
+        <div class="column is-10">
+            
+                    
+
+<div class="columns">
+    
+    <div class='param-desc column is-7'><p>return response object filled with data, status and message;</p></div>
+    
+    
+    <div class='column is-5 has-text-left'>
+        <label>Type: </label>
+        
+<span class="param-type">Response</span>
+
+
+    </div>
+    
+</div>
+
+                
+        </div>
+    </div>
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id=".onlyTransformStep">
+        <a class="href-link" href="#.onlyTransformStep">#</a>
+        
+            
+                <span class='tag'>static</span>
+            
+        
+        <span class="code-name">
+            
+                onlyTransformStep<span class="signature">(request, response)</span><span class="type-signature"> &rarr; {Response}</span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        <p>Create only transform step from ETL process;
+in this step application is transforming extracted data and data is saved to separate local files;
+Function can be successfully called only when the extraction step has ended with success;
+After transformation step data from extraction step are removed from local files;</p>
+    </div>
+    
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        
+<tr class="deep-level-0">
+  
+      <td class="name"><code>request</code></td>
+  
+
+  <td class="type">
+  
+      
+<span class="param-type">Request</span>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>the req object represents the HTTP request and has properties
+for the request query string, parameters, body, HTTP headers, and so on;
+For more see: https://expressjs.com/en/api.html#req</p></td>
+</tr>
+
+
+    
+
+        
+<tr class="deep-level-0">
+  
+      <td class="name"><code>response</code></td>
+  
+
+  <td class="type">
+  
+      
+<span class="param-type">Response</span>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>the res object represents the HTTP response that an Express app sends when it gets an HTTP request.
+For more see: https://expressjs.com/en/api.html#res</p></td>
+</tr>
+
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="controllers_ETLController.js.html" class="button">View Source</a>
+            <span>
+                <a href="controllers_ETLController.js.html">controllers/ETLController.js</a>, <a href="controllers_ETLController.js.html#line100">line 100</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class='columns method-parameter'>
+        <div class="column is-2"><label>Returns:</label></div>
+        <div class="column is-10">
+            
+                    
+
+<div class="columns">
+    
+    <div class='param-desc column is-7'><p>return response object filled with data, status and message;</p></div>
+    
+    
+    <div class='column is-5 has-text-left'>
+        <label>Type: </label>
+        
+<span class="param-type">Response</span>
+
+
+    </div>
+    
+</div>
+
+                
+        </div>
+    </div>
+
+
+
+
+</div>
+            
+            </div>
+        </div>
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+<footer class="footer">
+    <div class="content has-text-centered">
+        <p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.3</a> on Sun Jan 05 2020 18:33:18 GMT+0100 (GMT+01:00)</p>
+        <p class="sidebar-created-by">
+            <a href="https://github.com/SoftwareBrothers/better-docs" target="_blank">BetterDocs theme</a> provided with <i class="fas fa-heart"></i> by 
+            <a href="http://softwarebrothers.co" target="_blank">SoftwareBrothers - JavaScript Development Agency</a>
+        </p>
+    </div>
+</footer>
+
+
+<script src="scripts/app.min.js"></script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
