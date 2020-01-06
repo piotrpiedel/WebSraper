@@ -40,6 +40,8 @@ export default {
                 );
             }
             console.log(response);
+            this.isTransformBtnDisabled = true;
+            this.isLoadBtnDisabled = true;
             this.isLoading = false;
         },
 
